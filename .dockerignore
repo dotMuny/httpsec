@@ -1,0 +1,15 @@
+# Keep the build context small and free of local state. Without this, `docker
+# build` copies bin/, the git history and the coverage profile into the image
+# layer cache.
+.git
+bin
+dist
+coverage.out
+coverage.html
+*.test
+
+# The build stage compiles from source and runs no tests, so the recorded
+# fixtures and generated documentation are not needed in the context. They stay
+# in the repository; they just do not need to be shipped to the daemon.
+docs/examples
+docs/images

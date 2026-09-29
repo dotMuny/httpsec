@@ -1,0 +1,241 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2925" height="940" viewBox="0 0 2925 940" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">
+<defs><clipPath id="r"><rect width="2925" height="940" rx="9"/></clipPath></defs>
+<g clip-path="url(#r)">
+<rect width="2925" height="940" fill="#12141a"/>
+<rect width="2925" height="34" fill="#1b1e26"/>
+<circle cx="18" cy="17" r="5.5" fill="#ff5f57"/>
+<circle cx="36" cy="17" r="5.5" fill="#febc2e"/>
+<circle cx="54" cy="17" r="5.5" fill="#28c840"/>
+<text x="1462.5" y="22" fill="#8b93a1" font-size="12" text-anchor="middle">httpsec scan example.com</text>
+</g>
+<text x="18" y="62" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+<text x="18" y="81" fill="#dfe3ea" xml:space="preserve">
+<tspan font-weight="600">httpsec 0.1.0-dev (commit none, built 2026-09-28T11:07:17Z)</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="100" fill="#dfe3ea" xml:space="preserve">
+<tspan opacity="0.62">evidence gathered by</tspan>
+<tspan > </tspan>
+<tspan opacity="0.62">httpsec 0.1.0-dev (commit none, built unknown)</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="119" fill="#dfe3ea" xml:space="preserve">
+<tspan font-weight="600">target</tspan>
+<tspan > example.com  </tspan>
+<tspan opacity="0.62">https://example.com/</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="138" fill="#dfe3ea" xml:space="preserve">
+<tspan font-weight="600">grade </tspan>
+<tspan > </tspan>
+<tspan fill="#ff6b6b" font-weight="600">F</tspan>
+<tspan >  </tspan>
+<tspan opacity="0.62">score 50/100 (71.2 of 142.0 weighted points)</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="157" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+<text x="18" y="176" fill="#dfe3ea" xml:space="preserve">
+<tspan fill="#ff6b6b" font-weight="600">Critical findings that cap the grade (the score is already at or below the cap):</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="195" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff6b6b">!</tspan>
+<tspan > max D  Content served over plain HTTP can be read and rewritten in transit.</tspan>
+</text>
+<text x="18" y="214" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff6b6b">!</tspan>
+<tspan > max C  TLS 1.0 is deprecated by RFC 8996.</tspan>
+</text>
+<text x="18" y="233" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff6b6b">!</tspan>
+<tspan > max B  TLS 1.1 is deprecated by RFC 8996.</tspan>
+</text>
+<text x="18" y="252" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+<text x="18" y="271" fill="#dfe3ea" xml:space="preserve">
+<tspan font-weight="600">findings</tspan>
+<tspan >  </tspan>
+<tspan fill="#ff6b6b" font-weight="600">CRITICAL</tspan>
+<tspan > 2   </tspan>
+<tspan fill="#ff9f5a">HIGH</tspan>
+<tspan > 5   </tspan>
+<tspan fill="#e8c34a">MEDIUM</tspan>
+<tspan > 6   </tspan>
+<tspan fill="#7aa7ff">LOW</tspan>
+<tspan > 7   </tspan>
+<tspan fill="#7c8494">INFO</tspan>
+<tspan > 4   </tspan>
+<tspan fill="#5dd39e">PASS</tspan>
+<tspan > 9</tspan>
+</text>
+<text x="18" y="290" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+<text x="18" y="309" fill="#dfe3ea" xml:space="preserve">
+<tspan font-weight="600">TLS AND CERTIFICATES</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="328" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff6b6b" font-weight="600">CRITICAL</tspan>
+<tspan >  TLS 1.0 is accepted</tspan>
+</text>
+<text x="18" y="347" fill="#dfe3ea" xml:space="preserve">
+<tspan >      The server completed a TLS 1.0 handshake.</tspan>
+</text>
+<text x="18" y="366" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">why:</tspan>
+<tspan > </tspan>
+<tspan opacity="0.62">TLS 1.0 has been deprecated by RFC 8996 and is disabled in every current browser. It is vulnerable to BEAST and to downgrade attacks, and it fails PCI DSS.</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="385" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">id: tls.version.tls10</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="404" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff9f5a">HIGH</tspan>
+<tspan >          Server accepts cipher suites without forward secrecy</tspan>
+</text>
+<text x="18" y="423" fill="#dfe3ea" xml:space="preserve">
+<tspan >      5 accepted suites use static RSA key exchange: TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384.</tspan>
+</text>
+<text x="18" y="442" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">why:</tspan>
+<tspan > </tspan>
+<tspan opacity="0.62">Static-RSA key exchange means a single future compromise of the private key decrypts every session ever recorded. ECDHE removes that risk.</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="461" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">id: tls.cipher.no-forward-secrecy</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="480" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff9f5a">HIGH</tspan>
+<tspan >          TLS 1.1 is accepted</tspan>
+</text>
+<text x="18" y="499" fill="#dfe3ea" xml:space="preserve">
+<tspan >      The server completed a TLS 1.1 handshake.</tspan>
+</text>
+<text x="18" y="518" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">why:</tspan>
+<tspan > </tspan>
+<tspan opacity="0.62">TLS 1.1 is deprecated by RFC 8996 and relies on MD5/SHA-1 in its handshake signatures. No current client needs it.</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="537" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">id: tls.version.tls11</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="556" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#e8c34a">MEDIUM</tspan>
+<tspan >        Certificate expires in less than 30 days</tspan>
+</text>
+<text x="18" y="575" fill="#dfe3ea" xml:space="preserve">
+<tspan >      The certificate expires on 2026-10-27T22:17:21Z, in 29 days.</tspan>
+</text>
+<text x="18" y="594" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">why:</tspan>
+<tspan > </tspan>
+<tspan opacity="0.62">Renewal automation fails quietly more often than it fails loudly. Thirty days is the last point at which a failure is still comfortable to fix.</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="613" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">id: tls.cert.expiring-soon</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="632" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#7aa7ff">LOW</tspan>
+<tspan >           Server accepts CBC-mode cipher suites</tspan>
+</text>
+<text x="18" y="651" fill="#dfe3ea" xml:space="preserve">
+<tspan >      9 accepted suites use CBC mode: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA.</tspan>
+</text>
+<text x="18" y="670" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">why:</tspan>
+<tspan > </tspan>
+<tspan opacity="0.62">CBC with MAC-then-encrypt has produced a decade of padding-oracle and timing attacks (Lucky13 and successors). AEAD suites have no equivalent history.</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="689" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">id: tls.cipher.cbc</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="708" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+<text x="18" y="727" fill="#dfe3ea" xml:space="preserve">
+<tspan font-weight="600">SECURITY HEADERS</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="746" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff9f5a">HIGH</tspan>
+<tspan >          No Strict-Transport-Security header</tspan>
+</text>
+<text x="18" y="765" fill="#dfe3ea" xml:space="preserve">
+<tspan >      No Strict-Transport-Security header on the HTTPS response.</tspan>
+</text>
+<text x="18" y="784" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">why:</tspan>
+<tspan > </tspan>
+<tspan opacity="0.62">Without HSTS the first request of every session can be downgraded to plain HTTP by an on-path attacker, and the redirect to HTTPS happens too late to protect the cookies already sent.</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="803" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">id: hsts.missing</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="822" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#e8c34a">MEDIUM</tspan>
+<tspan >        No X-Content-Type-Options: nosniff</tspan>
+</text>
+<text x="18" y="841" fill="#dfe3ea" xml:space="preserve">
+<tspan >      No X-Content-Type-Options header, so browsers may MIME-sniff responses whose declared type they distrust.</tspan>
+</text>
+<text x="18" y="860" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">why:</tspan>
+<tspan > </tspan>
+<tspan opacity="0.62">Without nosniff, browsers may MIME-sniff a user-uploaded file as HTML or JavaScript and execute it in your origin. It also enables cross-origin script inclusion of JSON endpoints.</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="879" fill="#dfe3ea" xml:space="preserve">
+<tspan >      </tspan>
+<tspan opacity="0.62">id: nosniff.missing</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="898" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#e8c34a">MEDIUM</tspan>
+<tspan >        No Referrer-Policy header</tspan>
+</text>
+<text x="18" y="917" fill="#dfe3ea" xml:space="preserve">
+<tspan >      No Referrer-Policy header, so the browser default applies and it is not the same in every browser.</tspan>
+</text>
+</svg>

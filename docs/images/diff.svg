@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="535" height="579" viewBox="0 0 535 579" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">
+<defs><clipPath id="r"><rect width="535" height="579" rx="9"/></clipPath></defs>
+<g clip-path="url(#r)">
+<rect width="535" height="579" fill="#12141a"/>
+<rect width="535" height="34" fill="#1b1e26"/>
+<circle cx="18" cy="17" r="5.5" fill="#ff5f57"/>
+<circle cx="36" cy="17" r="5.5" fill="#febc2e"/>
+<circle cx="54" cy="17" r="5.5" fill="#28c840"/>
+<text x="267.5" y="22" fill="#8b93a1" font-size="12" text-anchor="middle">httpsec diff before.json after.json</text>
+</g>
+<text x="18" y="62" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+<text x="18" y="81" fill="#dfe3ea" xml:space="preserve">
+<tspan font-weight="600">httpsec diff</tspan>
+<tspan > </tspan>
+<tspan opacity="0.62">example.com -&gt; github.com</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="100" fill="#dfe3ea" xml:space="preserve">
+<tspan fill="#e8c34a">warning:</tspan>
+<tspan > the two reports are for different hosts</tspan>
+</text>
+<text x="18" y="119" fill="#dfe3ea" xml:space="preserve">
+<tspan font-weight="600">grade </tspan>
+<tspan > </tspan>
+<tspan fill="#ff6b6b" font-weight="600">F</tspan>
+<tspan > (54) -&gt; </tspan>
+<tspan fill="#5dd39e" font-weight="600">A</tspan>
+<tspan > (90)   </tspan>
+<tspan fill="#5dd39e">+36 points</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="138" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+<text x="18" y="157" fill="#dfe3ea" xml:space="preserve">
+<tspan fill="#5dd39e" font-weight="600">FIXED</tspan>
+<tspan > (15)</tspan>
+</text>
+<text x="18" y="176" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff6b6b" font-weight="600">CRITICAL</tspan>
+<tspan >  Plain HTTP is served without redirecting to HTTPS</tspan>
+</text>
+<text x="18" y="195" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff6b6b" font-weight="600">CRITICAL</tspan>
+<tspan >  TLS 1.0 is accepted</tspan>
+</text>
+<text x="18" y="214" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff9f5a">HIGH</tspan>
+<tspan >          No Content-Security-Policy header</tspan>
+</text>
+<text x="18" y="233" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff9f5a">HIGH</tspan>
+<tspan >          CSP restricts nothing for scripts</tspan>
+</text>
+<text x="18" y="252" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff9f5a">HIGH</tspan>
+<tspan >          No Strict-Transport-Security header</tspan>
+</text>
+<text x="18" y="271" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff9f5a">HIGH</tspan>
+<tspan >          TLS 1.1 is accepted</tspan>
+</text>
+<text x="18" y="290" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#e8c34a">MEDIUM</tspan>
+<tspan >        CSP does not set base-uri</tspan>
+</text>
+<text x="18" y="309" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#e8c34a">MEDIUM</tspan>
+<tspan >        CSP has no default-src fallback</tspan>
+</text>
+<text x="18" y="328" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#e8c34a">MEDIUM</tspan>
+<tspan >        CSP does not set frame-ancestors</tspan>
+</text>
+<text x="18" y="347" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#e8c34a">MEDIUM</tspan>
+<tspan >        No X-Content-Type-Options: nosniff</tspan>
+</text>
+<text x="18" y="366" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#e8c34a">MEDIUM</tspan>
+<tspan >        No Referrer-Policy header</tspan>
+</text>
+<text x="18" y="385" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#7aa7ff">LOW</tspan>
+<tspan >           CSP does not set object-src &#x27;none&#x27;</tspan>
+</text>
+<text x="18" y="404" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#7aa7ff">LOW</tspan>
+<tspan >           CSP restricts nothing for stylesheets</tspan>
+</text>
+<text x="18" y="423" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#7aa7ff">LOW</tspan>
+<tspan >           No /.well-known/security.txt</tspan>
+</text>
+<text x="18" y="442" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#7aa7ff">LOW</tspan>
+<tspan >           No X-Frame-Options header</tspan>
+</text>
+<text x="18" y="461" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+<text x="18" y="480" fill="#dfe3ea" xml:space="preserve">
+<tspan fill="#ff6b6b" font-weight="600">INTRODUCED</tspan>
+<tspan > (3)</tspan>
+</text>
+<text x="18" y="499" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#e8c34a">MEDIUM</tspan>
+<tspan >        Cookie is missing the HttpOnly flag [_octo]</tspan>
+</text>
+<text x="18" y="518" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#7aa7ff">LOW</tspan>
+<tspan >           style-src allows &#x27;unsafe-inline&#x27;</tspan>
+</text>
+<text x="18" y="537" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#7aa7ff">LOW</tspan>
+<tspan >           OCSP stapling is not enabled</tspan>
+</text>
+<text x="18" y="556" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+</svg>

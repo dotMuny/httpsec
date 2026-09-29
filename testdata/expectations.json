@@ -1,0 +1,337 @@
+{
+  "cloudflare.com.json": {
+    "host": "cloudflare.com",
+    "grade": "C",
+    "score": 75,
+    "problems": [
+      "coop.weak",
+      "csp.script-src.bypassable-host|platform.twitter.com",
+      "csp.script-src.unsafe-eval",
+      "csp.script-src.unsafe-inline",
+      "csp.style-src.unsafe-inline",
+      "legacy.x-xss-protection|X-XSS-Protection",
+      "permissions-policy.open-features",
+      "redirect.cross-host",
+      "security-txt.invalid",
+      "tls.cipher.cbc",
+      "tls.cipher.no-forward-secrecy",
+      "tls.ocsp.no-stapling",
+      "tls.version.tls10",
+      "tls.version.tls11"
+    ],
+    "caps": [
+      "tls.version.tls10",
+      "tls.version.tls11"
+    ]
+  },
+  "example.com.json": {
+    "host": "example.com",
+    "grade": "F",
+    "score": 54,
+    "problems": [
+      "coop.missing",
+      "csp.base-uri.missing",
+      "csp.default-src.missing",
+      "csp.frame-ancestors.missing",
+      "csp.missing",
+      "csp.object-src.missing",
+      "csp.script-src.missing",
+      "csp.style-src.missing",
+      "hsts.missing",
+      "nosniff.missing",
+      "permissions-policy.missing",
+      "redirect.no-https",
+      "referrer-policy.missing",
+      "security-txt.missing",
+      "tls.cipher.cbc",
+      "tls.cipher.no-forward-secrecy",
+      "tls.version.tls10",
+      "tls.version.tls11",
+      "xfo.missing"
+    ],
+    "caps": [
+      "redirect.no-https",
+      "tls.version.tls10",
+      "tls.version.tls11"
+    ]
+  },
+  "expired.badssl.com.json": {
+    "host": "expired.badssl.com",
+    "grade": "F",
+    "score": 51,
+    "problems": [
+      "coop.missing",
+      "csp.base-uri.missing",
+      "csp.default-src.missing",
+      "csp.frame-ancestors.missing",
+      "csp.missing",
+      "csp.object-src.missing",
+      "csp.script-src.missing",
+      "csp.style-src.missing",
+      "hsts.missing",
+      "info.server-version|Server",
+      "nosniff.missing",
+      "permissions-policy.missing",
+      "referrer-policy.missing",
+      "security-txt.missing",
+      "tls.cert.expired",
+      "tls.cert.no-sct",
+      "tls.cipher.cbc",
+      "tls.cipher.insecure|TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
+      "tls.cipher.insecure|TLS_RSA_WITH_3DES_EDE_CBC_SHA",
+      "tls.cipher.no-forward-secrecy",
+      "tls.ocsp.no-stapling",
+      "tls.version.no-tls13",
+      "tls.version.tls10",
+      "tls.version.tls11",
+      "xfo.missing"
+    ],
+    "caps": [
+      "tls.cert.expired",
+      "tls.cipher.insecure",
+      "tls.version.tls10",
+      "tls.version.tls11"
+    ]
+  },
+  "github.com.json": {
+    "host": "github.com",
+    "grade": "A",
+    "score": 90,
+    "problems": [
+      "cookie.no-httponly|_octo",
+      "coop.missing",
+      "csp.style-src.unsafe-inline",
+      "permissions-policy.missing",
+      "tls.cipher.cbc",
+      "tls.cipher.no-forward-secrecy",
+      "tls.ocsp.no-stapling"
+    ]
+  },
+  "hstspreload.org.json": {
+    "host": "hstspreload.org",
+    "grade": "D+",
+    "score": 65,
+    "problems": [
+      "coop.missing",
+      "csp.base-uri.missing",
+      "csp.default-src.missing",
+      "csp.frame-ancestors.missing",
+      "csp.missing",
+      "csp.object-src.missing",
+      "csp.script-src.missing",
+      "csp.style-src.missing",
+      "nosniff.missing",
+      "permissions-policy.missing",
+      "referrer-policy.missing",
+      "security-txt.missing",
+      "tls.cipher.cbc",
+      "tls.cipher.insecure|TLS_RSA_WITH_3DES_EDE_CBC_SHA",
+      "tls.cipher.no-forward-secrecy",
+      "tls.ocsp.no-stapling",
+      "tls.version.tls10",
+      "tls.version.tls11",
+      "xfo.missing"
+    ],
+    "caps": [
+      "tls.cipher.insecure",
+      "tls.version.tls10",
+      "tls.version.tls11"
+    ]
+  },
+  "mozilla.org.json": {
+    "host": "mozilla.org",
+    "grade": "B+",
+    "score": 89,
+    "problems": [
+      "csp.script-src.bypassable-host|www.youtube.com",
+      "csp.script-src.unsafe-eval",
+      "csp.script-src.unsafe-inline",
+      "csp.style-src.unsafe-inline",
+      "hsts.no-subdomains",
+      "permissions-policy.missing",
+      "redirect.not-permanent",
+      "tls.ocsp.no-stapling"
+    ]
+  },
+  "no-sct.badssl.com.json": {
+    "host": "no-sct.badssl.com",
+    "grade": "F",
+    "score": 51,
+    "problems": [
+      "coop.missing",
+      "csp.base-uri.missing",
+      "csp.default-src.missing",
+      "csp.frame-ancestors.missing",
+      "csp.missing",
+      "csp.object-src.missing",
+      "csp.script-src.missing",
+      "csp.style-src.missing",
+      "hsts.missing",
+      "info.server-version|Server",
+      "nosniff.missing",
+      "permissions-policy.missing",
+      "referrer-policy.missing",
+      "security-txt.missing",
+      "tls.cert.expired",
+      "tls.cert.no-sct",
+      "tls.cipher.cbc",
+      "tls.cipher.insecure|TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
+      "tls.cipher.insecure|TLS_RSA_WITH_3DES_EDE_CBC_SHA",
+      "tls.cipher.no-forward-secrecy",
+      "tls.ocsp.no-stapling",
+      "tls.version.no-tls13",
+      "tls.version.tls10",
+      "tls.version.tls11",
+      "xfo.missing"
+    ],
+    "caps": [
+      "tls.cert.expired",
+      "tls.cipher.insecure",
+      "tls.version.tls10",
+      "tls.version.tls11"
+    ]
+  },
+  "self-signed.badssl.com.json": {
+    "host": "self-signed.badssl.com",
+    "grade": "F",
+    "score": 51,
+    "problems": [
+      "coop.missing",
+      "csp.base-uri.missing",
+      "csp.default-src.missing",
+      "csp.frame-ancestors.missing",
+      "csp.missing",
+      "csp.object-src.missing",
+      "csp.script-src.missing",
+      "csp.style-src.missing",
+      "hsts.missing",
+      "info.server-version|Server",
+      "nosniff.missing",
+      "permissions-policy.missing",
+      "referrer-policy.missing",
+      "security-txt.missing",
+      "tls.cert.long-validity",
+      "tls.cert.self-signed",
+      "tls.cipher.cbc",
+      "tls.cipher.insecure|TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
+      "tls.cipher.insecure|TLS_RSA_WITH_3DES_EDE_CBC_SHA",
+      "tls.cipher.no-forward-secrecy",
+      "tls.ocsp.no-stapling",
+      "tls.version.no-tls13",
+      "tls.version.tls10",
+      "tls.version.tls11",
+      "xfo.missing"
+    ],
+    "caps": [
+      "tls.cert.self-signed",
+      "tls.cipher.insecure",
+      "tls.version.tls10",
+      "tls.version.tls11"
+    ]
+  },
+  "stripe.com.json": {
+    "host": "stripe.com",
+    "grade": "A",
+    "score": 92,
+    "problems": [
+      "csp.style-src.unsafe-inline",
+      "permissions-policy.missing",
+      "referrer-policy.leaky",
+      "tls.cipher.cbc",
+      "tls.cipher.no-forward-secrecy",
+      "tls.ocsp.no-stapling"
+    ]
+  },
+  "tls-v1-0.badssl.com_1010.json": {
+    "host": "tls-v1-0.badssl.com",
+    "grade": "D",
+    "score": 63,
+    "problems": [
+      "coop.missing",
+      "csp.base-uri.missing",
+      "csp.default-src.missing",
+      "csp.frame-ancestors.missing",
+      "csp.missing",
+      "csp.object-src.missing",
+      "csp.script-src.missing",
+      "csp.style-src.missing",
+      "hsts.missing",
+      "info.server-version|Server",
+      "nosniff.missing",
+      "permissions-policy.missing",
+      "referrer-policy.missing",
+      "security-txt.missing",
+      "tls.ocsp.no-stapling",
+      "tls.version.no-tls12",
+      "tls.version.no-tls13",
+      "tls.version.tls10",
+      "xfo.missing"
+    ],
+    "caps": [
+      "tls.version.tls10"
+    ]
+  },
+  "wikipedia.org.json": {
+    "host": "wikipedia.org",
+    "grade": "C",
+    "score": 73,
+    "problems": [
+      "cookie.no-httponly|GeoIP",
+      "cookie.no-httponly|NetworkProbeLimit",
+      "cookie.no-samesite|GeoIP",
+      "cookie.no-samesite|WMF-Last-Access",
+      "cookie.no-samesite|WMF-Last-Access-Global",
+      "coop.missing",
+      "csp.base-uri.missing",
+      "csp.default-src.missing",
+      "csp.frame-ancestors.missing",
+      "csp.missing",
+      "csp.object-src.missing",
+      "csp.script-src.missing",
+      "csp.style-src.missing",
+      "info.server-version|Server",
+      "nosniff.missing",
+      "permissions-policy.missing",
+      "referrer-policy.missing",
+      "tls.ocsp.no-stapling",
+      "xfo.missing"
+    ]
+  },
+  "wrong.host.badssl.com.json": {
+    "host": "wrong.host.badssl.com",
+    "grade": "F",
+    "score": 51,
+    "problems": [
+      "coop.missing",
+      "csp.base-uri.missing",
+      "csp.default-src.missing",
+      "csp.frame-ancestors.missing",
+      "csp.missing",
+      "csp.object-src.missing",
+      "csp.script-src.missing",
+      "csp.style-src.missing",
+      "hsts.missing",
+      "info.server-version|Server",
+      "nosniff.missing",
+      "permissions-policy.missing",
+      "referrer-policy.missing",
+      "security-txt.missing",
+      "tls.cert.hostname-mismatch",
+      "tls.cipher.cbc",
+      "tls.cipher.insecure|TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
+      "tls.cipher.insecure|TLS_RSA_WITH_3DES_EDE_CBC_SHA",
+      "tls.cipher.no-forward-secrecy",
+      "tls.ocsp.no-stapling",
+      "tls.version.no-tls13",
+      "tls.version.tls10",
+      "tls.version.tls11",
+      "xfo.missing"
+    ],
+    "caps": [
+      "tls.cert.hostname-mismatch",
+      "tls.cipher.insecure",
+      "tls.version.tls10",
+      "tls.version.tls11"
+    ]
+  }
+}

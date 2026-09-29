@@ -1,0 +1,1031 @@
+{
+  "schema_version": 1,
+  "tool": "httpsec 0.1.0-dev (commit none, built unknown)",
+  "generated_at": "2026-09-29T18:04:37.500528979Z",
+  "target": {
+    "input": "github.com",
+    "host": "github.com",
+    "port": "443",
+    "final_url": "https://github.com/",
+    "status_code": 200,
+    "duration_ms": 0
+  },
+  "score": {
+    "rubric_name": "httpsec default rubric",
+    "rubric_version": "1.0.0",
+    "score": 90,
+    "grade": "A",
+    "uncapped_grade": "A",
+    "earned_weight": 127.5,
+    "total_weight": 142,
+    "controls": [
+      {
+        "id": "csp.present",
+        "title": "A Content-Security-Policy is enforced",
+        "category": "csp",
+        "weight": 10,
+        "applicable": true,
+        "earned": 10,
+        "lost": 0,
+        "findings": [
+          "csp.present"
+        ]
+      },
+      {
+        "id": "csp.script-src",
+        "title": "Script sources are restricted",
+        "category": "csp",
+        "weight": 10,
+        "applicable": true,
+        "earned": 10,
+        "lost": 0,
+        "findings": [
+          "csp.script-src.ok"
+        ]
+      },
+      {
+        "id": "csp.frame-ancestors",
+        "title": "Framing is restricted by CSP",
+        "category": "csp",
+        "weight": 4,
+        "applicable": true,
+        "earned": 4,
+        "lost": 0,
+        "findings": [
+          "csp.frame-ancestors.ok"
+        ]
+      },
+      {
+        "id": "csp.base-uri",
+        "title": "base-uri is restricted",
+        "category": "csp",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "csp.base-uri.ok"
+        ]
+      },
+      {
+        "id": "csp.object-src",
+        "title": "Plugin content is blocked",
+        "category": "csp",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "csp.object-src.ok"
+        ]
+      },
+      {
+        "id": "csp.default-src",
+        "title": "A restrictive default-src exists",
+        "category": "csp",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "csp.default-src.ok"
+        ]
+      },
+      {
+        "id": "csp.style-src",
+        "title": "Style sources are restricted",
+        "category": "csp",
+        "weight": 2,
+        "applicable": true,
+        "earned": 1.5,
+        "lost": 0.5,
+        "findings": [
+          "csp.style-src.unsafe-inline"
+        ],
+        "reasons": [
+          "style-src allows 'unsafe-inline' (low)"
+        ]
+      },
+      {
+        "id": "hsts",
+        "title": "HTTP Strict Transport Security",
+        "category": "headers",
+        "weight": 10,
+        "applicable": true,
+        "earned": 10,
+        "lost": 0,
+        "findings": [
+          "hsts.ok",
+          "hsts.preloaded"
+        ]
+      },
+      {
+        "id": "nosniff",
+        "title": "MIME sniffing is disabled",
+        "category": "headers",
+        "weight": 4,
+        "applicable": true,
+        "earned": 4,
+        "lost": 0,
+        "findings": [
+          "nosniff.ok"
+        ]
+      },
+      {
+        "id": "referrer-policy",
+        "title": "Referrer leakage is controlled",
+        "category": "headers",
+        "weight": 4,
+        "applicable": true,
+        "earned": 4,
+        "lost": 0,
+        "findings": [
+          "referrer-policy.ok"
+        ]
+      },
+      {
+        "id": "xfo",
+        "title": "Legacy framing protection",
+        "category": "headers",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "xfo.redundant"
+        ]
+      },
+      {
+        "id": "permissions-policy",
+        "title": "Powerful features are restricted",
+        "category": "headers",
+        "weight": 3,
+        "applicable": true,
+        "earned": 2.25,
+        "lost": 0.75,
+        "findings": [
+          "permissions-policy.missing"
+        ],
+        "reasons": [
+          "No Permissions-Policy header (low)"
+        ]
+      },
+      {
+        "id": "coop",
+        "title": "Cross-origin opener isolation",
+        "category": "headers",
+        "weight": 3,
+        "applicable": true,
+        "earned": 2.25,
+        "lost": 0.75,
+        "findings": [
+          "coop.missing"
+        ],
+        "reasons": [
+          "No Cross-Origin-Opener-Policy header (low)"
+        ]
+      },
+      {
+        "id": "coep",
+        "title": "Cross-origin embedder policy",
+        "category": "headers",
+        "weight": 2,
+        "applicable": true,
+        "earned": 2,
+        "lost": 0,
+        "findings": [
+          "coep.missing"
+        ]
+      },
+      {
+        "id": "corp",
+        "title": "Cross-origin resource policy",
+        "category": "headers",
+        "weight": 2,
+        "applicable": true,
+        "earned": 2,
+        "lost": 0,
+        "findings": [
+          "corp.missing"
+        ]
+      },
+      {
+        "id": "cors",
+        "title": "CORS configuration",
+        "category": "headers",
+        "weight": 8,
+        "applicable": true,
+        "earned": 8,
+        "lost": 0,
+        "findings": [
+          "cors.ok"
+        ]
+      },
+      {
+        "id": "legacy-headers",
+        "title": "No withdrawn security headers",
+        "category": "headers",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "legacy.none"
+        ]
+      },
+      {
+        "id": "info-headers",
+        "title": "No version disclosure",
+        "category": "info",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "info.server-present",
+          "info.none"
+        ]
+      },
+      {
+        "id": "cookies",
+        "title": "Cookie attributes",
+        "category": "cookies",
+        "weight": 8,
+        "applicable": true,
+        "earned": 4,
+        "lost": 4,
+        "findings": [
+          "cookie.no-httponly"
+        ],
+        "reasons": [
+          "Cookie is missing the HttpOnly flag (medium)"
+        ]
+      },
+      {
+        "id": "tls.versions",
+        "title": "TLS protocol versions",
+        "category": "tls",
+        "weight": 12,
+        "applicable": true,
+        "earned": 12,
+        "lost": 0,
+        "findings": [
+          "tls.version.ok"
+        ]
+      },
+      {
+        "id": "tls.certificate",
+        "title": "Certificate and chain",
+        "category": "tls",
+        "weight": 12,
+        "applicable": true,
+        "earned": 12,
+        "lost": 0,
+        "findings": [
+          "tls.cert.ok"
+        ]
+      },
+      {
+        "id": "tls.ciphers",
+        "title": "Cipher suite selection",
+        "category": "tls",
+        "weight": 8,
+        "applicable": true,
+        "earned": 0,
+        "lost": 8,
+        "findings": [
+          "tls.cipher.no-forward-secrecy",
+          "tls.cipher.cbc",
+          "tls.cipher.server-preference"
+        ],
+        "reasons": [
+          "Server accepts cipher suites without forward secrecy (high)",
+          "Server accepts CBC-mode cipher suites (low)"
+        ]
+      },
+      {
+        "id": "tls.extras",
+        "title": "TLS protocol hardening",
+        "category": "tls",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "tls.resumption.none",
+          "tls.alpn.ok"
+        ]
+      },
+      {
+        "id": "tls.ocsp",
+        "title": "OCSP stapling",
+        "category": "tls",
+        "weight": 2,
+        "applicable": true,
+        "earned": 1.5,
+        "lost": 0.5,
+        "findings": [
+          "tls.ocsp.no-stapling"
+        ],
+        "reasons": [
+          "OCSP stapling is not enabled (low)"
+        ]
+      },
+      {
+        "id": "redirect",
+        "title": "HTTP to HTTPS upgrade",
+        "category": "network",
+        "weight": 8,
+        "applicable": true,
+        "earned": 8,
+        "lost": 0,
+        "findings": [
+          "redirect.ok"
+        ]
+      },
+      {
+        "id": "mixed-content",
+        "title": "No mixed content",
+        "category": "network",
+        "weight": 5,
+        "applicable": true,
+        "earned": 5,
+        "lost": 0,
+        "findings": [
+          "mixed-content.none"
+        ]
+      },
+      {
+        "id": "http-methods",
+        "title": "HTTP methods",
+        "category": "network",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "methods.ok"
+        ]
+      },
+      {
+        "id": "security-txt",
+        "title": "Disclosure contact published",
+        "category": "network",
+        "weight": 1,
+        "applicable": true,
+        "earned": 1,
+        "lost": 0,
+        "findings": [
+          "security-txt.ok"
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "critical": 0,
+    "high": 1,
+    "medium": 1,
+    "low": 5,
+    "info": 5,
+    "pass": 21,
+    "problems": 7
+  },
+  "findings": [
+    {
+      "id": "tls.cipher.no-forward-secrecy",
+      "title": "Server accepts cipher suites without forward secrecy",
+      "severity": "high",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "why": "Static-RSA key exchange means a single future compromise of the private key decrypts every session ever recorded. ECDHE removes that risk.",
+      "detail": "3 accepted suites use static RSA key exchange: TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_GCM_SHA384.",
+      "evidence": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_RSA_WITH_AES_128_CBC_SHA256\nTLS_RSA_WITH_AES_128_GCM_SHA256\nTLS_RSA_WITH_AES_256_GCM_SHA384",
+      "remediation_key": "tls.ciphers"
+    },
+    {
+      "id": "cookie.no-httponly",
+      "title": "Cookie is missing the HttpOnly flag",
+      "severity": "medium",
+      "category": "cookies",
+      "control": "cookies",
+      "why": "Without HttpOnly the cookie is readable from JavaScript, so any XSS turns directly into credential theft.",
+      "detail": "Cookie _octo is readable from JavaScript.",
+      "evidence": "_octo=REDACTED; expires=Fri, 24 Sep 2027 10:18:42 GMT; domain=.github.com; path=/; secure; SameSite=Lax",
+      "subject": "_octo",
+      "remediation_key": "cookies"
+    },
+    {
+      "id": "tls.cipher.cbc",
+      "title": "Server accepts CBC-mode cipher suites",
+      "severity": "low",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "why": "CBC with MAC-then-encrypt has produced a decade of padding-oracle and timing attacks (Lucky13 and successors). AEAD suites have no equivalent history.",
+      "detail": "3 accepted suites use CBC mode: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA256.",
+      "evidence": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_RSA_WITH_AES_128_CBC_SHA256\nTLS_RSA_WITH_AES_128_GCM_SHA256\nTLS_RSA_WITH_AES_256_GCM_SHA384",
+      "remediation_key": "tls.ciphers"
+    },
+    {
+      "id": "tls.ocsp.no-stapling",
+      "title": "OCSP stapling is not enabled",
+      "severity": "low",
+      "category": "tls",
+      "control": "tls.ocsp",
+      "why": "Without stapling the client either skips revocation checking or leaks which site it is visiting to the CA, and pays a round trip for it.",
+      "detail": "No stapled OCSP response was returned in the handshake. A direct OCSP query returned status good.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc6066#section-8"
+      ],
+      "remediation_key": "tls.ocsp"
+    },
+    {
+      "id": "coop.missing",
+      "title": "No Cross-Origin-Opener-Policy header",
+      "severity": "low",
+      "category": "headers",
+      "control": "coop",
+      "why": "Without COOP a page you open, or that opens you, keeps a window reference across origins. That reference is the basis of tabnabbing and of several XS-Leaks.",
+      "detail": "No Cross-Origin-Opener-Policy header, so cross-origin documents can retain a window reference to this page.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy"
+      ],
+      "remediation_key": "coop"
+    },
+    {
+      "id": "permissions-policy.missing",
+      "title": "No Permissions-Policy header",
+      "severity": "low",
+      "category": "headers",
+      "control": "permissions-policy",
+      "why": "Powerful features stay available to the document and, in some cases, to embedded third-party frames. Denying what you do not use limits what injected or embedded code can reach.",
+      "detail": "No Permissions-Policy header, so camera, microphone, geolocation and payment keep their default availability.",
+      "references": [
+        "https://www.w3.org/TR/permissions-policy-1/"
+      ],
+      "remediation_key": "permissions-policy"
+    },
+    {
+      "id": "csp.style-src.unsafe-inline",
+      "title": "style-src allows 'unsafe-inline'",
+      "severity": "low",
+      "category": "csp",
+      "control": "csp.style-src",
+      "why": "Inline styles enable CSS-based data exfiltration and UI redressing. It is much less severe than inline script and is often impractical to remove, but it is not free.",
+      "detail": "'unsafe-inline' is allowed for stylesheets.",
+      "evidence": "style-src 'unsafe-inline' github.githubassets.com",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#directive-style-src"
+      ],
+      "remediation_key": "csp.unsafe-inline"
+    },
+    {
+      "id": "tls.resumption.none",
+      "title": "Session resumption is not offered",
+      "severity": "info",
+      "category": "tls",
+      "control": "tls.extras",
+      "why": "Resumption is a latency optimisation. Disabling it is a defensible trade-off in exchange for simpler forward-secrecy reasoning.",
+      "detail": "A second handshake with the same session cache did not resume.",
+      "remediation_key": "tls.extras"
+    },
+    {
+      "id": "coep.missing",
+      "title": "No Cross-Origin-Embedder-Policy header",
+      "severity": "info",
+      "category": "headers",
+      "control": "coep",
+      "why": "COEP is only needed if you want crossOriginIsolated (SharedArrayBuffer, precise timers). It breaks third-party embeds that do not opt in, so its absence is reported, not penalised.",
+      "detail": "No Cross-Origin-Embedder-Policy header, so the document is not cross-origin isolated.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy"
+      ],
+      "remediation_key": "coep"
+    },
+    {
+      "id": "corp.missing",
+      "title": "No Cross-Origin-Resource-Policy header",
+      "severity": "info",
+      "category": "headers",
+      "control": "corp",
+      "why": "CORP tells the browser who may embed this response. It is the cheapest mitigation for Spectre-style cross-origin leaks of resource contents.",
+      "detail": "No Cross-Origin-Resource-Policy header, so other origins may embed this response.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy"
+      ],
+      "remediation_key": "corp"
+    },
+    {
+      "id": "xfo.redundant",
+      "title": "X-Frame-Options is redundant given CSP frame-ancestors",
+      "severity": "info",
+      "category": "headers",
+      "control": "xfo",
+      "why": "Every browser that supports frame-ancestors ignores X-Frame-Options when both are present. Keeping it only helps very old clients; it is not a finding.",
+      "detail": "X-Frame-Options: DENY is set alongside CSP frame-ancestors, which supersedes it. Keeping it only helps pre-CSP2 browsers.",
+      "evidence": "deny",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#frame-ancestors-and-frame-options"
+      ],
+      "remediation_key": "xfo"
+    },
+    {
+      "id": "info.server-present",
+      "title": "Server header present without a version",
+      "severity": "info",
+      "category": "info",
+      "control": "info-headers",
+      "why": "The product name alone is low-value information. Suppressing it entirely is cheap but optional.",
+      "detail": "Server names the product but not a version.",
+      "evidence": "github.com",
+      "subject": "Server",
+      "remediation_key": "info-headers"
+    },
+    {
+      "id": "tls.alpn.ok",
+      "title": "Server advertises modern protocols over ALPN",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.extras",
+      "why": "ALPN negotiation offers HTTP/2.",
+      "detail": "ALPN negotiated: h2, http/1.1.",
+      "evidence": "h2, http/1.1",
+      "remediation_key": "tls.extras"
+    },
+    {
+      "id": "tls.cert.ok",
+      "title": "Certificate and chain are valid",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.certificate",
+      "why": "The chain verifies, the hostname matches and the certificate is well within its validity window.",
+      "detail": "Valid until 2026-11-29, chain of 3 verified against the system roots.",
+      "evidence": "subject: CN=github.com\nissuer: CN=Sectigo Public Server Authentication CA DV E36,O=Sectigo Limited,C=GB\nvalid: 2026-09-01T00:00:00Z .. 2026-11-29T23:59:59Z\nsans: github.com, www.github.com\nsignature: ECDSA-SHA256\nkey: ECDSA 256 bits\nsha256: 46b601ee08b418cf8a3a1ebfe670ba5ce43bb05a917fa8b2dd087a30471cfc63",
+      "remediation_key": "tls.certificate"
+    },
+    {
+      "id": "tls.cipher.server-preference",
+      "title": "Server enforces its own cipher suite order",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "why": "The server, not the client, decides which suite is used.",
+      "detail": "The server selected the same suite regardless of the order the client offered them.",
+      "evidence": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_RSA_WITH_AES_128_CBC_SHA256\nTLS_RSA_WITH_AES_128_GCM_SHA256\nTLS_RSA_WITH_AES_256_GCM_SHA384",
+      "remediation_key": "tls.ciphers"
+    },
+    {
+      "id": "tls.version.ok",
+      "title": "Only modern TLS versions are accepted",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.versions",
+      "why": "The server speaks TLS 1.2 and/or 1.3 and refuses the deprecated versions.",
+      "detail": "TLS 1.2 and 1.3 are accepted; 1.0 and 1.1 are refused.",
+      "evidence": "TLS 1.0: refused\nTLS 1.1: refused\nTLS 1.2: accepted (TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256)\nTLS 1.3: accepted (TLS_AES_128_GCM_SHA256)",
+      "remediation_key": "tls.versions"
+    },
+    {
+      "id": "cors.ok",
+      "title": "CORS configuration is sound",
+      "severity": "pass",
+      "category": "headers",
+      "control": "cors",
+      "why": "The server does not expose credentialed responses to arbitrary origins.",
+      "detail": "No Access-Control-Allow-Origin was returned for a foreign origin.",
+      "remediation_key": "cors"
+    },
+    {
+      "id": "hsts.ok",
+      "title": "Strict-Transport-Security is correctly configured",
+      "severity": "pass",
+      "category": "headers",
+      "control": "hsts",
+      "why": "A long max-age with includeSubDomains is enforced.",
+      "detail": "max-age=31536000 with includeSubDomains.",
+      "evidence": "max-age=31536000; includeSubdomains; preload",
+      "remediation_key": "hsts"
+    },
+    {
+      "id": "hsts.preloaded",
+      "title": "Domain is on the Chrome HSTS preload list",
+      "severity": "pass",
+      "category": "headers",
+      "control": "hsts",
+      "why": "Browsers refuse plain HTTP for this host before the first request is ever made.",
+      "detail": "Found in the embedded Chrome preload subset (updated 2026-09-01).",
+      "evidence": "max-age=31536000; includeSubdomains; preload",
+      "references": [
+        "https://hstspreload.org/"
+      ],
+      "remediation_key": "hsts"
+    },
+    {
+      "id": "legacy.none",
+      "title": "No deprecated security headers",
+      "severity": "pass",
+      "category": "headers",
+      "control": "legacy-headers",
+      "why": "The response carries no withdrawn or counterproductive headers.",
+      "detail": "No withdrawn security headers are sent.",
+      "remediation_key": "legacy-headers"
+    },
+    {
+      "id": "nosniff.ok",
+      "title": "X-Content-Type-Options: nosniff is set",
+      "severity": "pass",
+      "category": "headers",
+      "control": "nosniff",
+      "why": "MIME sniffing is disabled.",
+      "detail": "X-Content-Type-Options: nosniff",
+      "evidence": "nosniff",
+      "remediation_key": "nosniff"
+    },
+    {
+      "id": "referrer-policy.ok",
+      "title": "Referrer-Policy restricts cross-origin referrers",
+      "severity": "pass",
+      "category": "headers",
+      "control": "referrer-policy",
+      "why": "Third parties receive at most the origin, never the full URL.",
+      "detail": "The effective policy is strict-origin-when-cross-origin.",
+      "evidence": "origin-when-cross-origin, strict-origin-when-cross-origin",
+      "remediation_key": "referrer-policy"
+    },
+    {
+      "id": "csp.base-uri.ok",
+      "title": "CSP sets a restrictive base-uri",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.base-uri",
+      "why": "Injected \u003cbase\u003e tags cannot redirect relative script URLs.",
+      "detail": "base-uri 'self'",
+      "evidence": "base-uri 'self'",
+      "remediation_key": "csp.base-uri"
+    },
+    {
+      "id": "csp.default-src.ok",
+      "title": "CSP declares a restrictive default-src",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.default-src",
+      "why": "Directives that are not listed explicitly fall back to a restrictive default.",
+      "detail": "default-src 'none'",
+      "evidence": "default-src 'none'",
+      "remediation_key": "csp.default-src"
+    },
+    {
+      "id": "csp.frame-ancestors.ok",
+      "title": "CSP sets a restrictive frame-ancestors",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.frame-ancestors",
+      "why": "Framing is limited to an explicit set of origins.",
+      "detail": "frame-ancestors 'none'",
+      "evidence": "frame-ancestors 'none'",
+      "remediation_key": "csp.frame-ancestors"
+    },
+    {
+      "id": "csp.object-src.ok",
+      "title": "CSP sets object-src 'none'",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.object-src",
+      "why": "Plugin content is blocked.",
+      "detail": "default-src 'none'",
+      "evidence": "default-src 'none'",
+      "remediation_key": "csp.object-src"
+    },
+    {
+      "id": "csp.present",
+      "title": "Content-Security-Policy is set",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.present",
+      "why": "A Content-Security-Policy header is enforced by the browser.",
+      "detail": "An enforced policy with 15 directives is deployed.",
+      "evidence": "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com wss://production-copilot-host.webpubsub.azure.com api.github.com/cmc_internal/api/ edge.fullstory.com rs.fullstory.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com www.youtube-nocookie.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com repository-images.githubusercontent.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com *.googleusercontent.com objects-origin.githubusercontent.com *.githubusercontent.com images.ctfassets.net/8aevphvgewt8/; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com assets.ctfassets.net/8aevphvgewt8/ videos.ctfassets.net/8aevphvgewt8/; script-src github.githubassets.com 'sha256-tSjmyPUky1KbRZ0fw9VUil3wFEbeM82rtbJDygGJAXw='; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+      "remediation_key": "csp.policy"
+    },
+    {
+      "id": "csp.script-src.ok",
+      "title": "script-src is restrictive",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.script-src",
+      "why": "Script sources are limited to an explicit allowlist with no inline execution.",
+      "detail": "script-src restricts scripts to github.githubassets.com 'sha256-tSjmyPUky1KbRZ0fw9VUil3wFEbeM82rtbJDygGJAXw='",
+      "evidence": "script-src github.githubassets.com 'sha256-tSjmyPUky1KbRZ0fw9VUil3wFEbeM82rtbJDygGJAXw='",
+      "remediation_key": "csp.unsafe-inline"
+    },
+    {
+      "id": "methods.ok",
+      "title": "No unexpected HTTP methods advertised",
+      "severity": "pass",
+      "category": "network",
+      "control": "http-methods",
+      "why": "Only safe methods are advertised and TRACE is refused.",
+      "detail": "TRACE is refused.",
+      "remediation_key": "http-methods"
+    },
+    {
+      "id": "mixed-content.none",
+      "title": "No plain-HTTP subresource references found",
+      "severity": "pass",
+      "category": "network",
+      "control": "mixed-content",
+      "why": "The retrieved HTML references no http:// subresources.",
+      "detail": "No http:// subresource references were found in the retrieved HTML. Note that the body was truncated, so this only covers the part httpsec read.",
+      "remediation_key": "mixed-content"
+    },
+    {
+      "id": "redirect.ok",
+      "title": "HTTP redirects to HTTPS on the same host",
+      "severity": "pass",
+      "category": "network",
+      "control": "redirect",
+      "why": "Plain HTTP is upgraded immediately and permanently.",
+      "detail": "http://github.com redirects to https://github.com/",
+      "evidence": "301 http://github.com/ -\u003e https://github.com/\n200 https://github.com/",
+      "remediation_key": "redirect"
+    },
+    {
+      "id": "security-txt.ok",
+      "title": "Valid security.txt is published",
+      "severity": "pass",
+      "category": "network",
+      "control": "security-txt",
+      "why": "A reachable, unexpired disclosure contact is published.",
+      "detail": "Contact: https://hackerone.com/github (expires 2026-10-24T10:18:45z).",
+      "evidence": "Contact: https://hackerone.com/github\nAcknowledgments: https://hackerone.com/github/hacktivity\nPreferred-Languages: en\nCanonical: https://github.com/.well-known/security.txt\nPolicy: https://bounty.github.com\nHiring: https://github.careers\nExpires: 2026-10-24T10:18:45z\n",
+      "remediation_key": "security-txt"
+    },
+    {
+      "id": "info.none",
+      "title": "No version-disclosing headers",
+      "severity": "pass",
+      "category": "info",
+      "control": "info-headers",
+      "why": "The response does not advertise software versions.",
+      "detail": "No header advertises a software version.",
+      "remediation_key": "info-headers"
+    }
+  ],
+  "csp": {
+    "present": true,
+    "report_only": false,
+    "raw": "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com wss://production-copilot-host.webpubsub.azure.com api.github.com/cmc_internal/api/ edge.fullstory.com rs.fullstory.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com www.youtube-nocookie.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com repository-images.githubusercontent.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com *.googleusercontent.com objects-origin.githubusercontent.com *.githubusercontent.com images.ctfassets.net/8aevphvgewt8/; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com assets.ctfassets.net/8aevphvgewt8/ videos.ctfassets.net/8aevphvgewt8/; script-src github.githubassets.com 'sha256-tSjmyPUky1KbRZ0fw9VUil3wFEbeM82rtbJDygGJAXw='; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+    "directives": [
+      {
+        "name": "default-src",
+        "values": [
+          "'none'"
+        ]
+      },
+      {
+        "name": "base-uri",
+        "values": [
+          "'self'"
+        ]
+      },
+      {
+        "name": "child-src",
+        "values": [
+          "github.githubassets.com",
+          "github.com/assets-cdn/worker/",
+          "github.com/assets/",
+          "gist.github.com/assets-cdn/worker/"
+        ]
+      },
+      {
+        "name": "connect-src",
+        "values": [
+          "'self'",
+          "uploads.github.com",
+          "www.githubstatus.com",
+          "collector.github.com",
+          "raw.githubusercontent.com",
+          "api.github.com",
+          "github-cloud.s3.amazonaws.com",
+          "github-production-repository-file-5c1aeb.s3.amazonaws.com",
+          "github-production-upload-manifest-file-7fdce7.s3.amazonaws.com",
+          "github-production-user-asset-6210df.s3.amazonaws.com",
+          "*.rel.tunnels.api.visualstudio.com",
+          "wss://*.rel.tunnels.api.visualstudio.com",
+          "github.githubassets.com",
+          "objects-origin.githubusercontent.com",
+          "copilot-proxy.githubusercontent.com",
+          "proxy.individual.githubcopilot.com",
+          "proxy.business.githubcopilot.com",
+          "proxy.enterprise.githubcopilot.com",
+          "*.actions.githubusercontent.com",
+          "wss://*.actions.githubusercontent.com",
+          "productionresultssa0.blob.core.windows.net",
+          "productionresultssa1.blob.core.windows.net",
+          "productionresultssa2.blob.core.windows.net",
+          "productionresultssa3.blob.core.windows.net",
+          "productionresultssa4.blob.core.windows.net",
+          "productionresultssa5.blob.core.windows.net",
+          "productionresultssa6.blob.core.windows.net",
+          "productionresultssa7.blob.core.windows.net",
+          "productionresultssa8.blob.core.windows.net",
+          "productionresultssa9.blob.core.windows.net",
+          "productionresultssa10.blob.core.windows.net",
+          "productionresultssa11.blob.core.windows.net",
+          "productionresultssa12.blob.core.windows.net",
+          "productionresultssa13.blob.core.windows.net",
+          "productionresultssa14.blob.core.windows.net",
+          "productionresultssa15.blob.core.windows.net",
+          "productionresultssa16.blob.core.windows.net",
+          "productionresultssa17.blob.core.windows.net",
+          "productionresultssa18.blob.core.windows.net",
+          "productionresultssa19.blob.core.windows.net",
+          "github-production-repository-image-32fea6.s3.amazonaws.com",
+          "github-production-release-asset-2e65be.s3.amazonaws.com",
+          "insights.github.com",
+          "wss://alive.github.com",
+          "wss://alive-staging.github.com",
+          "api.githubcopilot.com",
+          "api.individual.githubcopilot.com",
+          "api.business.githubcopilot.com",
+          "api.enterprise.githubcopilot.com",
+          "wss://production-copilot-host.webpubsub.azure.com",
+          "api.github.com/cmc_internal/api/",
+          "edge.fullstory.com",
+          "rs.fullstory.com"
+        ]
+      },
+      {
+        "name": "font-src",
+        "values": [
+          "github.githubassets.com"
+        ]
+      },
+      {
+        "name": "form-action",
+        "values": [
+          "'self'",
+          "github.com",
+          "gist.github.com",
+          "copilot-workspace.githubnext.com",
+          "objects-origin.githubusercontent.com"
+        ]
+      },
+      {
+        "name": "frame-ancestors",
+        "values": [
+          "'none'"
+        ]
+      },
+      {
+        "name": "frame-src",
+        "values": [
+          "viewscreen.githubusercontent.com",
+          "notebooks.githubusercontent.com",
+          "www.youtube-nocookie.com"
+        ]
+      },
+      {
+        "name": "img-src",
+        "values": [
+          "'self'",
+          "data:",
+          "blob:",
+          "github.githubassets.com",
+          "media.githubusercontent.com",
+          "camo.githubusercontent.com",
+          "identicons.github.com",
+          "avatars.githubusercontent.com",
+          "private-avatars.githubusercontent.com",
+          "github-cloud.s3.amazonaws.com",
+          "objects.githubusercontent.com",
+          "release-assets.githubusercontent.com",
+          "secured-user-images.githubusercontent.com",
+          "user-images.githubusercontent.com",
+          "private-user-images.githubusercontent.com",
+          "opengraph.githubassets.com",
+          "repository-images.githubusercontent.com",
+          "marketplace-screenshots.githubusercontent.com",
+          "copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/",
+          "github-production-user-asset-6210df.s3.amazonaws.com",
+          "customer-stories-feed.github.com",
+          "spotlights-feed.github.com",
+          "explore-feed.github.com",
+          "*.googleusercontent.com",
+          "objects-origin.githubusercontent.com",
+          "*.githubusercontent.com",
+          "images.ctfassets.net/8aevphvgewt8/"
+        ]
+      },
+      {
+        "name": "manifest-src",
+        "values": [
+          "'self'"
+        ]
+      },
+      {
+        "name": "media-src",
+        "values": [
+          "github.com",
+          "user-images.githubusercontent.com",
+          "secured-user-images.githubusercontent.com",
+          "private-user-images.githubusercontent.com",
+          "github-production-user-asset-6210df.s3.amazonaws.com",
+          "gist.github.com",
+          "github.githubassets.com",
+          "assets.ctfassets.net/8aevphvgewt8/",
+          "videos.ctfassets.net/8aevphvgewt8/"
+        ]
+      },
+      {
+        "name": "script-src",
+        "values": [
+          "github.githubassets.com",
+          "'sha256-tSjmyPUky1KbRZ0fw9VUil3wFEbeM82rtbJDygGJAXw='"
+        ]
+      },
+      {
+        "name": "style-src",
+        "values": [
+          "'unsafe-inline'",
+          "github.githubassets.com"
+        ]
+      },
+      {
+        "name": "upgrade-insecure-requests",
+        "values": []
+      },
+      {
+        "name": "worker-src",
+        "values": [
+          "github.githubassets.com",
+          "github.com/assets-cdn/worker/",
+          "github.com/assets/",
+          "gist.github.com/assets-cdn/worker/"
+        ]
+      }
+    ]
+  },
+  "tls": {
+    "versions": {
+      "TLS 1.0": false,
+      "TLS 1.1": false,
+      "TLS 1.2": true,
+      "TLS 1.3": true
+    },
+    "tls12_suites": [
+      "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+      "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+      "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+      "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+      "TLS_RSA_WITH_AES_128_CBC_SHA256",
+      "TLS_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_RSA_WITH_AES_256_GCM_SHA384"
+    ],
+    "tls13_suite": "TLS_AES_128_GCM_SHA256",
+    "cipher_preference": "server",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "ocsp_stapled": false,
+    "chain_length": 3,
+    "certificate_subject": "CN=github.com",
+    "certificate_issuer": "CN=Sectigo Public Server Authentication CA DV E36,O=Sectigo Limited,C=GB",
+    "certificate_not_after": "2026-11-29T23:59:59Z",
+    "certificate_sans": [
+      "github.com",
+      "www.github.com"
+    ],
+    "certificate_key": "ECDSA 256 bits",
+    "certificate_signature": "ECDSA-SHA256"
+  },
+  "cookies": [
+    {
+      "name": "_gh_sess",
+      "secure": true,
+      "http_only": true,
+      "same_site": "Lax",
+      "path": "/"
+    },
+    {
+      "name": "_octo",
+      "secure": true,
+      "http_only": false,
+      "same_site": "Lax",
+      "domain": ".github.com",
+      "path": "/"
+    },
+    {
+      "name": "logged_in",
+      "secure": true,
+      "http_only": true,
+      "same_site": "Lax",
+      "domain": ".github.com",
+      "path": "/"
+    }
+  ]
+}

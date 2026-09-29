@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>httpsec report — example.com</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #f7f7f8;
+  --card: #ffffff;
+  --ink: #16181d;
+  --muted: #5b616e;
+  --line: #e1e3e8;
+  --code-bg: #f2f3f5;
+  --critical: #b3261e;
+  --high: #c2410c;
+  --medium: #a16207;
+  --low: #1d4ed8;
+  --info: #64748b;
+  --pass: #15803d;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --card: #171a21;
+    --ink: #e6e8ee;
+    --muted: #9aa1ae;
+    --line: #272b34;
+    --code-bg: #0b0d11;
+    --critical: #ff6b6b;
+    --high: #ff9f5a;
+    --medium: #e8c34a;
+    --low: #7aa7ff;
+    --info: #97a1b0;
+    --pass: #5dd39e;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 2rem 1rem 4rem;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+main { max-width: 62rem; margin: 0 auto; }
+h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
+h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
+h3 { font-size: 1rem; margin: 0 0 .35rem; }
+a { color: var(--low); }
+code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+.sub { color: var(--muted); font-size: .9rem; margin: 0 0 1.5rem; }
+
+.hero {
+  display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+}
+.grade {
+  font-size: 3.4rem; font-weight: 700; line-height: 1;
+  min-width: 5rem; text-align: center; padding: .5rem .75rem; border-radius: var(--radius);
+  border: 2px solid currentColor;
+}
+.grade.a { color: var(--pass); }
+.grade.b { color: var(--pass); }
+.grade.c { color: var(--medium); }
+.grade.d { color: var(--high); }
+.grade.f { color: var(--critical); }
+.hero-meta { flex: 1 1 18rem; }
+.hero-meta .score { font-size: 1.1rem; font-weight: 600; }
+.bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; margin: .5rem 0; }
+.bar > span { display: block; height: 100%; background: currentColor; }
+
+.tally { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: .5rem 0 0; }
+.tally li {
+  border: 1px solid var(--line); border-radius: 999px; padding: .1rem .7rem;
+  font-size: .82rem; background: var(--card);
+}
+.tally .n { font-weight: 700; }
+
+.cap { border: 1px solid var(--critical); border-left-width: 4px; border-radius: var(--radius);
+       background: var(--card); padding: .9rem 1.1rem; margin-bottom: 1.25rem; }
+.cap h2 { margin: 0 0 .4rem; font-size: 1rem; color: var(--critical); }
+.cap ul { margin: 0; padding-left: 1.2rem; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: 1rem 1.25rem; margin-bottom: 1rem; }
+.finding { border-top: 1px solid var(--line); padding: 1rem 0; }
+.finding:first-of-type { border-top: 0; padding-top: .25rem; }
+.badge {
+  display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: .1rem .5rem; border-radius: 4px;
+  border: 1px solid currentColor; margin-right: .5rem; vertical-align: .1em;
+}
+.badge.critical { color: var(--critical); }
+.badge.high     { color: var(--high); }
+.badge.medium   { color: var(--medium); }
+.badge.low      { color: var(--low); }
+.badge.info     { color: var(--info); }
+.badge.pass     { color: var(--pass); }
+.subject { color: var(--muted); font-weight: 400; }
+.detail { margin: .35rem 0; }
+.why { color: var(--muted); font-size: .92rem; margin: .35rem 0; }
+.fid { color: var(--muted); font-size: .76rem; font-family: ui-monospace, monospace; }
+
+details { margin: .5rem 0 0; }
+summary { cursor: pointer; font-size: .88rem; color: var(--muted); }
+pre {
+  background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px;
+  padding: .7rem .9rem; overflow-x: auto; font-size: .82rem; margin: .5rem 0;
+  white-space: pre-wrap; word-break: break-word;
+}
+table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+th, td { text-align: left; padding: .35rem .6rem; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr.skipped td { color: var(--muted); }
+footer { color: var(--muted); font-size: .82rem; margin-top: 3rem; }
+
+@media print {
+  body { background: #fff; color: #000; padding: 0; }
+  .card, .hero, .cap { border: 1px solid #ccc; break-inside: avoid; }
+  details { display: block; }
+  details > summary { display: none; }
+  details > *:not(summary) { display: block !important; }
+  a { color: #000; text-decoration: none; }
+  pre { background: #f6f6f6; }
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>httpsec report — example.com</h1>
+  <p class="sub">
+    https://example.com/ · generated 2026-09-29 18:04 UTC · evidence gathered by httpsec 0.1.0-dev (commit none, built unknown)
+  </p>
+
+  <section class="hero">
+    <div class="grade f">F</div>
+    <div class="hero-meta">
+      <div class="score">50 / 100</div>
+      <div class="bar f" style="color: currentColor">
+        <span style="width: 50.2%"></span>
+      </div>
+      <div class="sub" style="margin:0">
+        71.2 of 142.0 weighted points ·
+        rubric httpsec default rubric v1.0.0
+      </div>
+      <ul class="tally">
+        <li><span class="n" style="color:var(--critical)">2</span> critical</li>
+        <li><span class="n" style="color:var(--high)">5</span> high</li>
+        <li><span class="n" style="color:var(--medium)">6</span> medium</li>
+        <li><span class="n" style="color:var(--low)">7</span> low</li>
+        <li><span class="n" style="color:var(--info)">4</span> info</li>
+        <li><span class="n" style="color:var(--pass)">9</span> pass</li>
+      </ul>
+    </div>
+  </section>
+
+  
+  <section class="cap">
+    <h2>The grade is capped</h2>
+    <p class="sub" style="margin:0 0 .4rem">
+      Without these, the score of 50 would grade <strong>F</strong>.
+    </p>
+    <ul>
+      
+      <li><code>redirect.no-https</code> caps the grade at <strong>D</strong> — Content served over plain HTTP can be read and rewritten in transit.</li>
+      
+      <li><code>tls.version.tls10</code> caps the grade at <strong>C</strong> — TLS 1.0 is deprecated by RFC 8996.</li>
+      
+      <li><code>tls.version.tls11</code> caps the grade at <strong>B</strong> — TLS 1.1 is deprecated by RFC 8996.</li>
+      
+    </ul>
+  </section>
+  
+
+  
+  <h2 id="tls">TLS and certificates</h2>
+  <section class="card">
+    
+    <article class="finding">
+      <h3>
+        <span class="badge critical">critical</span>TLS 1.0 is accepted
+        
+      </h3>
+      <p class="detail">The server completed a TLS 1.0 handshake.</p>
+      <p class="why"><strong>Why it matters.</strong> TLS 1.0 has been deprecated by RFC 8996 and is disabled in every current browser. It is vulnerable to BEAST and to downgrade attacks, and it fails PCI DSS.</p>
+      <details><summary>Evidence</summary><pre>TLS 1.0: accepted (TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA)
+TLS 1.1: accepted (TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA)
+TLS 1.2: accepted (TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256)
+TLS 1.3: accepted (TLS_AES_128_GCM_SHA256)</pre></details>
+      
+      <details>
+        <summary>How to fix it — Offer only TLS 1.2 and TLS 1.3.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>ssl_protocols TLSv1.2 TLSv1.3;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>SSLProtocol -all &#43;TLSv1.2 &#43;TLSv1.3</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>tls {
+    protocols tls1.2 tls1.3
+}
+# Caddy defaults to TLS 1.2&#43; already; this block is only needed to pin it.</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare: SSL/TLS -&gt; Edge Certificates -&gt; Minimum TLS Version -&gt; TLS 1.2</pre>
+        
+        <p class="why">Check your client population before dropping TLS 1.0/1.1: it mostly affects Android 4.x and Windows XP era clients.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://www.rfc-editor.org/rfc/rfc8996">https://www.rfc-editor.org/rfc/rfc8996</a> </p>
+      
+      <p class="fid">tls.version.tls10</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge high">high</span>Server accepts cipher suites without forward secrecy
+        
+      </h3>
+      <p class="detail">5 accepted suites use static RSA key exchange: TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384.</p>
+      <p class="why"><strong>Why it matters.</strong> Static-RSA key exchange means a single future compromise of the private key decrypts every session ever recorded. ECDHE removes that risk.</p>
+      <details><summary>Evidence</summary><pre>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+TLS_RSA_WITH_AES_128_CBC_SHA
+TLS_RSA_WITH_AES_128_CBC_SHA256
+TLS_RSA_WITH_AES_128_GCM_SHA256
+TLS_RSA_WITH_AES_256_CBC_SHA
+TLS_RSA_WITH_AES_256_GCM_SHA384</pre></details>
+      
+      <details>
+        <summary>How to fix it — Restrict TLS 1.2 to AEAD suites with forward secrecy and let the server pick the order.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>ssl_protocols TLSv1.2 TLSv1.3;
+ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305;
+ssl_prefer_server_ciphers on;
+ssl_ecdh_curve X25519:prime256v1:secp384r1;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>SSLCipherSuite ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305
+SSLHonorCipherOrder on
+SSLOpenSSLConfCmd Curves X25519:prime256v1:secp384r1</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>tls {
+    ciphers TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+    curves x25519 secp256r1 secp384r1
+}</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare manages cipher selection at the edge; set Minimum TLS Version to 1.2 and leave the rest to the platform.</pre>
+        
+        <p class="why">The list above is the Mozilla &#34;intermediate&#34; profile minus the CBC suites.</p>
+      </details>
+      
+      
+      <p class="fid">tls.cipher.no-forward-secrecy</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge high">high</span>TLS 1.1 is accepted
+        
+      </h3>
+      <p class="detail">The server completed a TLS 1.1 handshake.</p>
+      <p class="why"><strong>Why it matters.</strong> TLS 1.1 is deprecated by RFC 8996 and relies on MD5/SHA-1 in its handshake signatures. No current client needs it.</p>
+      <details><summary>Evidence</summary><pre>TLS 1.0: accepted (TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA)
+TLS 1.1: accepted (TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA)
+TLS 1.2: accepted (TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256)
+TLS 1.3: accepted (TLS_AES_128_GCM_SHA256)</pre></details>
+      
+      <details>
+        <summary>How to fix it — Offer only TLS 1.2 and TLS 1.3.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>ssl_protocols TLSv1.2 TLSv1.3;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>SSLProtocol -all &#43;TLSv1.2 &#43;TLSv1.3</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>tls {
+    protocols tls1.2 tls1.3
+}
+# Caddy defaults to TLS 1.2&#43; already; this block is only needed to pin it.</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare: SSL/TLS -&gt; Edge Certificates -&gt; Minimum TLS Version -&gt; TLS 1.2</pre>
+        
+        <p class="why">Check your client population before dropping TLS 1.0/1.1: it mostly affects Android 4.x and Windows XP era clients.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://www.rfc-editor.org/rfc/rfc8996">https://www.rfc-editor.org/rfc/rfc8996</a> </p>
+      
+      <p class="fid">tls.version.tls11</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge medium">medium</span>Certificate expires in less than 30 days
+        
+      </h3>
+      <p class="detail">The certificate expires on 2026-10-27T22:17:21Z, in 28 days.</p>
+      <p class="why"><strong>Why it matters.</strong> Renewal automation fails quietly more often than it fails loudly. Thirty days is the last point at which a failure is still comfortable to fix.</p>
+      <details><summary>Evidence</summary><pre>subject: CN=example.com
+issuer: CN=Cloudflare TLS Issuing ECC CA 3,O=SSL Corporation,C=US
+valid: 2026-07-29T22:10:08Z .. 2026-10-27T22:17:21Z
+sans: example.com, *.example.com
+signature: ECDSA-SHA256
+key: ECDSA 256 bits
+sha256: 6153a96fd1a6ab7f4d438fc34932484299d0729d9140b3a126bb2f9c07b02200</pre></details>
+      
+      <details>
+        <summary>How to fix it — Serve a certificate from a publicly trusted CA that covers the hostname, with the full intermediate chain, and automate renewal.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;   # leaf &#43; intermediates
+ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+# fullchain.pem, not cert.pem: cert.pem alone leaves the chain incomplete.</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>SSLCertificateFile      /etc/letsencrypt/live/example.com/fullchain.pem
+SSLCertificateKeyFile   /etc/letsencrypt/live/example.com/privkey.pem
+# Apache &lt; 2.4.8 also needs SSLCertificateChainFile.</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre># Caddy obtains and renews certificates automatically:
+example.com {
+    # nothing to configure; or, for your own certificate:
+    # tls /etc/ssl/fullchain.pem /etc/ssl/privkey.pem
+}</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare: SSL/TLS -&gt; Edge Certificates covers the edge.
+# Use an Origin CA certificate on the origin and set the mode to Full (strict).</pre>
+        
+        <p class="why">Verify the deployed chain with: openssl s_client -connect example.com:443 -servername example.com -showcerts</p>
+      </details>
+      
+      
+      <p class="fid">tls.cert.expiring-soon</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>Server accepts CBC-mode cipher suites
+        
+      </h3>
+      <p class="detail">9 accepted suites use CBC mode: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA.</p>
+      <p class="why"><strong>Why it matters.</strong> CBC with MAC-then-encrypt has produced a decade of padding-oracle and timing attacks (Lucky13 and successors). AEAD suites have no equivalent history.</p>
+      <details><summary>Evidence</summary><pre>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+TLS_RSA_WITH_AES_128_CBC_SHA
+TLS_RSA_WITH_AES_128_CBC_SHA256
+TLS_RSA_WITH_AES_128_GCM_SHA256
+TLS_RSA_WITH_AES_256_CBC_SHA
+TLS_RSA_WITH_AES_256_GCM_SHA384</pre></details>
+      
+      <details>
+        <summary>How to fix it — Restrict TLS 1.2 to AEAD suites with forward secrecy and let the server pick the order.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>ssl_protocols TLSv1.2 TLSv1.3;
+ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305;
+ssl_prefer_server_ciphers on;
+ssl_ecdh_curve X25519:prime256v1:secp384r1;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>SSLCipherSuite ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305
+SSLHonorCipherOrder on
+SSLOpenSSLConfCmd Curves X25519:prime256v1:secp384r1</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>tls {
+    ciphers TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+    curves x25519 secp256r1 secp384r1
+}</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare manages cipher selection at the edge; set Minimum TLS Version to 1.2 and leave the rest to the platform.</pre>
+        
+        <p class="why">The list above is the Mozilla &#34;intermediate&#34; profile minus the CBC suites.</p>
+      </details>
+      
+      
+      <p class="fid">tls.cipher.cbc</p>
+    </article>
+    
+  </section>
+  
+  <h2 id="headers">Security headers</h2>
+  <section class="card">
+    
+    <article class="finding">
+      <h3>
+        <span class="badge high">high</span>No Strict-Transport-Security header
+        
+      </h3>
+      <p class="detail">No Strict-Transport-Security header on the HTTPS response.</p>
+      <p class="why"><strong>Why it matters.</strong> Without HSTS the first request of every session can be downgraded to plain HTTP by an on-path attacker, and the redirect to HTTPS happens too late to protect the cookies already sent.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Send Strict-Transport-Security with a one-year max-age and includeSubDomains from the TLS vhost.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header Strict-Transport-Security &#34;max-age=31536000; includeSubDomains; preload&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Strict-Transport-Security &#34;max-age=31536000; includeSubDomains; preload&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Strict-Transport-Security &#34;max-age=31536000; includeSubDomains; preload&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare: SSL/TLS -&gt; Edge Certificates -&gt; HTTP Strict Transport Security (HSTS) -&gt; Enable
+#   Max Age: 12 months, Apply to subdomains: On, Preload: On</pre>
+        
+        <p class="why">Only add `preload` once every subdomain is HTTPS-only: submission to hstspreload.org is slow to reverse.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://developer.mozilla.org/docs/Web/HTTP/Headers/Strict-Transport-Security">https://developer.mozilla.org/docs/Web/HTTP/Headers/Strict-Transport-Security</a> </p>
+      
+      <p class="fid">hsts.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge medium">medium</span>No X-Content-Type-Options: nosniff
+        
+      </h3>
+      <p class="detail">No X-Content-Type-Options header, so browsers may MIME-sniff responses whose declared type they distrust.</p>
+      <p class="why"><strong>Why it matters.</strong> Without nosniff, browsers may MIME-sniff a user-uploaded file as HTML or JavaScript and execute it in your origin. It also enables cross-origin script inclusion of JSON endpoints.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Send X-Content-Type-Options: nosniff on every response.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header X-Content-Type-Options &#34;nosniff&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set X-Content-Type-Options &#34;nosniff&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header X-Content-Type-Options &#34;nosniff&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Transform Rule -&gt; Set static -&gt; X-Content-Type-Options: nosniff</pre>
+        
+        <p class="why">Make sure Content-Type is correct for every response first, since nosniff makes the declared type binding.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Content-Type-Options">https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Content-Type-Options</a> </p>
+      
+      <p class="fid">nosniff.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge medium">medium</span>No Referrer-Policy header
+        
+      </h3>
+      <p class="detail">No Referrer-Policy header, so the browser default applies and it is not the same in every browser.</p>
+      <p class="why"><strong>Why it matters.</strong> Browser defaults differ. Where the default is still no-referrer-when-downgrade, the full URL of your page, including any tokens in the path or query, is sent to every third-party host you reference.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Send Referrer-Policy: strict-origin-when-cross-origin or no-referrer.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header Referrer-Policy &#34;strict-origin-when-cross-origin&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Referrer-Policy &#34;strict-origin-when-cross-origin&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Referrer-Policy &#34;strict-origin-when-cross-origin&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Transform Rule -&gt; Set static -&gt; Referrer-Policy: strict-origin-when-cross-origin</pre>
+        
+        <p class="why">strict-origin-when-cross-origin keeps the full URL for same-origin navigation and sends only the origin elsewhere.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://www.w3.org/TR/referrer-policy/">https://www.w3.org/TR/referrer-policy/</a> </p>
+      
+      <p class="fid">referrer-policy.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>No Cross-Origin-Opener-Policy header
+        
+      </h3>
+      <p class="detail">No Cross-Origin-Opener-Policy header, so cross-origin documents can retain a window reference to this page.</p>
+      <p class="why"><strong>Why it matters.</strong> Without COOP a page you open, or that opens you, keeps a window reference across origins. That reference is the basis of tabnabbing and of several XS-Leaks.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Send Cross-Origin-Opener-Policy: same-origin to isolate the browsing context group.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header Cross-Origin-Opener-Policy &#34;same-origin&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Cross-Origin-Opener-Policy &#34;same-origin&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Cross-Origin-Opener-Policy &#34;same-origin&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Transform Rule -&gt; Set static -&gt; Cross-Origin-Opener-Policy: same-origin</pre>
+        
+        <p class="why">Use same-origin-allow-popups if the site opens OAuth popups that need window.opener.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy">https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy</a> </p>
+      
+      <p class="fid">coop.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>No Permissions-Policy header
+        
+      </h3>
+      <p class="detail">No Permissions-Policy header, so camera, microphone, geolocation and payment keep their default availability.</p>
+      <p class="why"><strong>Why it matters.</strong> Powerful features stay available to the document and, in some cases, to embedded third-party frames. Denying what you do not use limits what injected or embedded code can reach.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Send Permissions-Policy denying the features the site does not use.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header Permissions-Policy &#34;accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Permissions-Policy &#34;accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Permissions-Policy &#34;accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Transform Rule -&gt; Set static -&gt; Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=()</pre>
+        
+        <p class="why">An empty allowlist `()` denies the feature to the document and to every frame it embeds.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a> </p>
+      
+      <p class="fid">permissions-policy.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>No X-Frame-Options header
+        
+      </h3>
+      <p class="detail">Neither X-Frame-Options nor CSP frame-ancestors restricts who may frame this page.</p>
+      <p class="why"><strong>Why it matters.</strong> With neither X-Frame-Options nor CSP frame-ancestors the page can be framed by any site, which enables clickjacking.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Send X-Frame-Options: DENY for legacy clients, and rely on CSP frame-ancestors for modern ones.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header X-Frame-Options &#34;DENY&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set X-Frame-Options &#34;DENY&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header X-Frame-Options &#34;DENY&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Transform Rule -&gt; Set static -&gt; X-Frame-Options: DENY</pre>
+        
+        <p class="why">ALLOW-FROM is not supported anywhere; use CSP frame-ancestors when you need to allow specific origins.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Frame-Options">https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Frame-Options</a> </p>
+      
+      <p class="fid">xfo.missing</p>
+    </article>
+    
+  </section>
+  
+  <h2 id="csp">Content Security Policy</h2>
+  <section class="card">
+    
+    <article class="finding">
+      <h3>
+        <span class="badge high">high</span>No Content-Security-Policy header
+        
+      </h3>
+      <p class="detail">No Content-Security-Policy or Content-Security-Policy-Report-Only header was returned.</p>
+      <p class="why"><strong>Why it matters.</strong> Without a CSP the browser will execute any script the page references or injects, so any HTML injection becomes script execution. CSP is the only defence-in-depth layer that survives a templating mistake.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Deploy an enforced Content-Security-Policy. Start from a nonce-based policy and roll it out with Report-Only first.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre># Replace $csp_nonce with a per-request nonce (ngx_http_sub_module or your app).
+add_header Content-Security-Policy &#34;default-src &#39;self&#39;; script-src &#39;nonce-$csp_nonce&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;; frame-ancestors &#39;none&#39;; require-trusted-types-for &#39;script&#39;&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre># mod_headers; generate the nonce in your application and expose it as %{CSP_NONCE}e
+Header always set Content-Security-Policy &#34;default-src &#39;self&#39;; script-src &#39;nonce-%{CSP_NONCE}e&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;; frame-ancestors &#39;none&#39;&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header {
+    Content-Security-Policy &#34;default-src &#39;self&#39;; script-src &#39;nonce-{http.vars.csp_nonce}&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;; frame-ancestors &#39;none&#39;&#34;
+}</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare Transform Rule (Modify Response Header) -&gt; Set static
+# Header name:  Content-Security-Policy
+# Value:        default-src &#39;self&#39;; script-src &#39;self&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;; frame-ancestors &#39;none&#39;
+# A nonce-based policy needs a Worker, since the value must change per request.</pre>
+        
+        <p class="why">Deploy as Content-Security-Policy-Report-Only first, collect violations for a release cycle, then switch the header name.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy">https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy</a> </p>
+      
+      <p class="fid">csp.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge high">high</span>CSP restricts nothing for scripts
+        
+      </h3>
+      <p class="detail">No enforced Content-Security-Policy applies, so this control has nothing to restrict it.</p>
+      <p class="why"><strong>Why it matters.</strong> Neither script-src nor default-src is present, so script loading is unrestricted.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Remove &#39;unsafe-inline&#39; from script-src and adopt per-request nonces with &#39;strict-dynamic&#39;.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre># 1. Generate a nonce per request and place it on every &lt;script&gt; tag.
+# 2. Then drop &#39;unsafe-inline&#39; (keep it only as the CSP1 fallback shown here):
+add_header Content-Security-Policy &#34;script-src &#39;nonce-$csp_nonce&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Content-Security-Policy &#34;script-src &#39;nonce-%{CSP_NONCE}e&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Content-Security-Policy &#34;script-src &#39;nonce-{http.vars.csp_nonce}&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Nonces cannot be produced by a static header rule. Use a Cloudflare Worker:
+#   const nonce = crypto.randomUUID().replace(/-/g,&#39;&#39;);
+#   res.headers.set(&#39;Content-Security-Policy&#39;, `script-src &#39;nonce-${nonce}&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;`)
+# and inject the same nonce into the HTML with HTMLRewriter.</pre>
+        
+        <p class="why">&#39;unsafe-inline&#39; is ignored by CSP3 browsers when a nonce is present, so keeping it is safe and helps old clients.</p>
+      </details>
+      
+      
+      <p class="fid">csp.script-src.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge medium">medium</span>CSP does not set base-uri
+        
+      </h3>
+      <p class="detail">No enforced Content-Security-Policy applies, so this control has nothing to restrict it.</p>
+      <p class="why"><strong>Why it matters.</strong> base-uri does not fall back to default-src. Without it an injected &lt;base&gt; tag rewrites every relative script URL on the page, which bypasses a host allowlist entirely.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Set base-uri &#39;none&#39; (or &#39;self&#39;) so an injected &lt;base&gt; tag cannot rewrite relative script URLs.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header Content-Security-Policy &#34;...; base-uri &#39;none&#39;&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Content-Security-Policy &#34;...; base-uri &#39;none&#39;&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Content-Security-Policy &#34;...; base-uri &#39;none&#39;&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Append `base-uri &#39;none&#39;;` to the CSP value.</pre>
+        
+        <p class="why">base-uri does not fall back to default-src, so it must be listed explicitly.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://www.w3.org/TR/CSP3/#directive-base-uri">https://www.w3.org/TR/CSP3/#directive-base-uri</a> </p>
+      
+      <p class="fid">csp.base-uri.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge medium">medium</span>CSP has no default-src fallback
+        
+      </h3>
+      <p class="detail">No enforced Content-Security-Policy applies, so this control has nothing to restrict it.</p>
+      <p class="why"><strong>Why it matters.</strong> Fetch directives you did not list fall back to default-src. Without it, connect-src, font-src, frame-src, worker-src and friends are completely unrestricted.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Add a restrictive default-src so unlisted fetch directives inherit a safe fallback.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header Content-Security-Policy &#34;default-src &#39;self&#39;; ...&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Content-Security-Policy &#34;default-src &#39;self&#39;; ...&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Content-Security-Policy &#34;default-src &#39;self&#39;; ...&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Add `default-src &#39;self&#39;;` to the start of the CSP value in your Transform Rule.</pre>
+        
+        
+      </details>
+      
+      
+      <p class="why"><a href="https://www.w3.org/TR/CSP3/#directive-default-src">https://www.w3.org/TR/CSP3/#directive-default-src</a> </p>
+      
+      <p class="fid">csp.default-src.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge medium">medium</span>CSP does not set frame-ancestors
+        
+      </h3>
+      <p class="detail">No enforced Content-Security-Policy applies, so this control has nothing to restrict it.</p>
+      <p class="why"><strong>Why it matters.</strong> frame-ancestors is the modern clickjacking control and does not fall back to default-src. Without it (and without X-Frame-Options) the page can be framed by anyone.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Set frame-ancestors to &#39;none&#39;, or to the exact origins allowed to frame the page.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header Content-Security-Policy &#34;...; frame-ancestors &#39;none&#39;&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Content-Security-Policy &#34;...; frame-ancestors &#39;none&#39;&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Content-Security-Policy &#34;...; frame-ancestors &#39;none&#39;&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Append `frame-ancestors &#39;none&#39;;` to the CSP value.</pre>
+        
+        <p class="why">frame-ancestors supersedes X-Frame-Options and supports multiple origins, which X-Frame-Options never did.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://www.w3.org/TR/CSP3/#directive-frame-ancestors">https://www.w3.org/TR/CSP3/#directive-frame-ancestors</a> </p>
+      
+      <p class="fid">csp.frame-ancestors.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>CSP does not set object-src &#39;none&#39;
+        
+      </h3>
+      <p class="detail">No enforced Content-Security-Policy applies, so this control has nothing to restrict it.</p>
+      <p class="why"><strong>Why it matters.</strong> Legacy plugin content (&lt;object&gt;, &lt;embed&gt;) can execute script in some browsers. object-src &#39;none&#39; is free to deploy and closes that path.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Set object-src &#39;none&#39; to block plugin-based script execution.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header Content-Security-Policy &#34;...; object-src &#39;none&#39;&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Content-Security-Policy &#34;...; object-src &#39;none&#39;&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Content-Security-Policy &#34;...; object-src &#39;none&#39;&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Append `object-src &#39;none&#39;;` to the CSP value.</pre>
+        
+        
+      </details>
+      
+      
+      <p class="why"><a href="https://csp.withgoogle.com/docs/strict-csp.html">https://csp.withgoogle.com/docs/strict-csp.html</a> </p>
+      
+      <p class="fid">csp.object-src.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>CSP restricts nothing for stylesheets
+        
+      </h3>
+      <p class="detail">No enforced Content-Security-Policy applies, so this control has nothing to restrict it.</p>
+      <p class="why"><strong>Why it matters.</strong> Neither style-src nor default-src is present, so stylesheet loading and inline styles are unrestricted.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Remove &#39;unsafe-inline&#39; from script-src and adopt per-request nonces with &#39;strict-dynamic&#39;.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre># 1. Generate a nonce per request and place it on every &lt;script&gt; tag.
+# 2. Then drop &#39;unsafe-inline&#39; (keep it only as the CSP1 fallback shown here):
+add_header Content-Security-Policy &#34;script-src &#39;nonce-$csp_nonce&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Content-Security-Policy &#34;script-src &#39;nonce-%{CSP_NONCE}e&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Content-Security-Policy &#34;script-src &#39;nonce-{http.vars.csp_nonce}&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Nonces cannot be produced by a static header rule. Use a Cloudflare Worker:
+#   const nonce = crypto.randomUUID().replace(/-/g,&#39;&#39;);
+#   res.headers.set(&#39;Content-Security-Policy&#39;, `script-src &#39;nonce-${nonce}&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;`)
+# and inject the same nonce into the HTML with HTMLRewriter.</pre>
+        
+        <p class="why">&#39;unsafe-inline&#39; is ignored by CSP3 browsers when a nonce is present, so keeping it is safe and helps old clients.</p>
+      </details>
+      
+      
+      <p class="fid">csp.style-src.missing</p>
+    </article>
+    
+  </section>
+  
+  <h2 id="network">Network behaviour</h2>
+  <section class="card">
+    
+    <article class="finding">
+      <h3>
+        <span class="badge critical">critical</span>Plain HTTP is served without redirecting to HTTPS
+        
+      </h3>
+      <p class="detail">http://example.com returned 200 and ended at http://example.com/ without upgrading to HTTPS.</p>
+      <p class="why"><strong>Why it matters.</strong> Anything served over HTTP can be read and rewritten in transit. If the same content is reachable over both schemes, an on-path attacker simply keeps the user on the insecure one.</p>
+      <details><summary>Evidence</summary><pre>200 http://example.com/</pre></details>
+      
+      <details>
+        <summary>How to fix it — Redirect every plain-HTTP request to the same host over HTTPS with a single permanent redirect.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com www.example.com;
+    return 301 https://$host$request_uri;
+}</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>&lt;VirtualHost *:80&gt;
+    ServerName example.com
+    Redirect permanent / https://example.com/
+&lt;/VirtualHost&gt;
+# Or with mod_rewrite:
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre># Caddy redirects HTTP to HTTPS automatically for any site with a hostname.
+example.com {
+    # automatic HTTP -&gt; HTTPS redirect
+}</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare: SSL/TLS -&gt; Edge Certificates -&gt; Always Use HTTPS -&gt; On</pre>
+        
+        <p class="why">Redirect to the same host first and let that host redirect to the canonical name, otherwise the browser never records an HSTS entry for the original host.</p>
+      </details>
+      
+      
+      <p class="fid">redirect.no-https</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>No /.well-known/security.txt
+        
+      </h3>
+      <p class="detail">https://example.com/.well-known/security.txt returned 404.</p>
+      <p class="why"><strong>Why it matters.</strong> Without a published contact, someone who finds a vulnerability has to guess where to send it, and often gives up or goes public instead.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Publish /.well-known/security.txt with at least Contact and Expires, served over HTTPS as text/plain.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>location = /.well-known/security.txt {
+    default_type text/plain;
+    return 200 &#34;Contact: mailto:security@example.com\nExpires: 2027-01-01T00:00:00.000Z\nPreferred-Languages: en, es\nCanonical: https://example.com/.well-known/security.txt\n&#34;;
+}</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre># Place the file at DOCUMENT_ROOT/.well-known/security.txt and force its type:
+&lt;Files &#34;security.txt&#34;&gt;
+    ForceType text/plain
+&lt;/Files&gt;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>handle /.well-known/security.txt {
+    header Content-Type text/plain
+    respond &#34;Contact: mailto:security@example.com\nExpires: 2027-01-01T00:00:00.000Z\n&#34; 200
+}</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare Pages/Workers: serve a static /.well-known/security.txt with Content-Type: text/plain,
+# or use a Worker that returns the file contents for that path.</pre>
+        
+        <p class="why">Sign the file with PGP and link the signature from the Canonical field if you publish a key.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://www.rfc-editor.org/rfc/rfc9116">https://www.rfc-editor.org/rfc/rfc9116</a> </p>
+      
+      <p class="fid">security-txt.missing</p>
+    </article>
+    
+  </section>
+  
+
+  
+  <h2>TLS summary</h2>
+  <section class="card">
+    <table>
+      <tbody>
+        <tr><th>Protocol versions</th><td>
+          TLS 1.0: accepted · TLS 1.1: accepted · TLS 1.2: accepted · TLS 1.3: accepted · 
+        </td></tr>
+        <tr><th>TLS 1.3 suite</th><td><code>TLS_AES_128_GCM_SHA256</code></td></tr>
+        <tr><th>TLS 1.2 suites</th><td><code>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA</code><br><code>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256</code><br><code>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</code><br><code>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA</code><br><code>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</code><br><code>TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256</code><br><code>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA</code><br><code>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256</code><br><code>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</code><br><code>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA</code><br><code>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code><br><code>TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256</code><br><code>TLS_RSA_WITH_AES_128_CBC_SHA</code><br><code>TLS_RSA_WITH_AES_128_CBC_SHA256</code><br><code>TLS_RSA_WITH_AES_128_GCM_SHA256</code><br><code>TLS_RSA_WITH_AES_256_CBC_SHA</code><br><code>TLS_RSA_WITH_AES_256_GCM_SHA384</code><br></td></tr>
+        <tr><th>Suite preference</th><td>server</td></tr>
+        <tr><th>ALPN</th><td>h2 http/1.1 </td></tr>
+        <tr><th>OCSP stapling</th><td>enabled</td></tr>
+        <tr><th>Certificate</th><td>CN=example.com</td></tr>
+        <tr><th>Issuer</th><td>CN=Cloudflare TLS Issuing ECC CA 3,O=SSL Corporation,C=US</td></tr>
+        <tr><th>Expires</th><td>2026-10-27</td></tr>
+        <tr><th>Key</th><td>ECDSA 256 bits</td></tr>
+        <tr><th>Signature</th><td>ECDSA-SHA256</td></tr>
+        <tr><th>SANs</th><td>example.com *.example.com </td></tr>
+      </tbody>
+    </table>
+  </section>
+  
+
+  
+
+  
+
+  <h2>How the grade was calculated</h2>
+  <section class="card">
+    <table>
+      <thead><tr><th>Control</th><th class="num">Weight</th><th class="num">Earned</th><th class="num">Lost</th><th>Why</th></tr></thead>
+      <tbody>
+        
+        <tr >
+          <td><code>csp.present</code></td>
+          <td class="num">10.0</td>
+          <td class="num">2.0</td>
+          <td class="num">8.0</td>
+          <td>No Content-Security-Policy header (high); </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.script-src</code></td>
+          <td class="num">10.0</td>
+          <td class="num">2.0</td>
+          <td class="num">8.0</td>
+          <td>CSP restricts nothing for scripts (high); </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.frame-ancestors</code></td>
+          <td class="num">4.0</td>
+          <td class="num">2.0</td>
+          <td class="num">2.0</td>
+          <td>CSP does not set frame-ancestors (medium); </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.base-uri</code></td>
+          <td class="num">3.0</td>
+          <td class="num">1.5</td>
+          <td class="num">1.5</td>
+          <td>CSP does not set base-uri (medium); </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.object-src</code></td>
+          <td class="num">3.0</td>
+          <td class="num">2.2</td>
+          <td class="num">0.8</td>
+          <td>CSP does not set object-src &#39;none&#39; (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.default-src</code></td>
+          <td class="num">3.0</td>
+          <td class="num">1.5</td>
+          <td class="num">1.5</td>
+          <td>CSP has no default-src fallback (medium); </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.style-src</code></td>
+          <td class="num">2.0</td>
+          <td class="num">1.5</td>
+          <td class="num">0.5</td>
+          <td>CSP restricts nothing for stylesheets (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>hsts</code></td>
+          <td class="num">10.0</td>
+          <td class="num">2.0</td>
+          <td class="num">8.0</td>
+          <td>No Strict-Transport-Security header (high); </td>
+        </tr>
+        
+        <tr >
+          <td><code>nosniff</code></td>
+          <td class="num">4.0</td>
+          <td class="num">2.0</td>
+          <td class="num">2.0</td>
+          <td>No X-Content-Type-Options: nosniff (medium); </td>
+        </tr>
+        
+        <tr >
+          <td><code>referrer-policy</code></td>
+          <td class="num">4.0</td>
+          <td class="num">2.0</td>
+          <td class="num">2.0</td>
+          <td>No Referrer-Policy header (medium); </td>
+        </tr>
+        
+        <tr >
+          <td><code>xfo</code></td>
+          <td class="num">3.0</td>
+          <td class="num">2.2</td>
+          <td class="num">0.8</td>
+          <td>No X-Frame-Options header (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>permissions-policy</code></td>
+          <td class="num">3.0</td>
+          <td class="num">2.2</td>
+          <td class="num">0.8</td>
+          <td>No Permissions-Policy header (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>coop</code></td>
+          <td class="num">3.0</td>
+          <td class="num">2.2</td>
+          <td class="num">0.8</td>
+          <td>No Cross-Origin-Opener-Policy header (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>coep</code></td>
+          <td class="num">2.0</td>
+          <td class="num">2.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>coep.missing</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>corp</code></td>
+          <td class="num">2.0</td>
+          <td class="num">2.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>corp.missing</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>cors</code></td>
+          <td class="num">8.0</td>
+          <td class="num">8.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>cors.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>legacy-headers</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>legacy.none</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>info-headers</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>info.server-present</code> <code>info.none</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>cookies</code></td>
+          <td class="num">8.0</td>
+          <td class="num">8.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>cookie.none</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>tls.versions</code></td>
+          <td class="num">12.0</td>
+          <td class="num">0.0</td>
+          <td class="num">12.0</td>
+          <td>TLS 1.0 is accepted (critical); TLS 1.1 is accepted (high); </td>
+        </tr>
+        
+        <tr >
+          <td><code>tls.certificate</code></td>
+          <td class="num">12.0</td>
+          <td class="num">6.0</td>
+          <td class="num">6.0</td>
+          <td>Certificate expires in less than 30 days (medium); </td>
+        </tr>
+        
+        <tr >
+          <td><code>tls.ciphers</code></td>
+          <td class="num">8.0</td>
+          <td class="num">0.0</td>
+          <td class="num">8.0</td>
+          <td>Server accepts cipher suites without forward secrecy (high); Server accepts CBC-mode cipher suites (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>tls.extras</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>tls.resumption.none</code> <code>tls.alpn.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>tls.ocsp</code></td>
+          <td class="num">2.0</td>
+          <td class="num">2.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>tls.ocsp.stapled</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>redirect</code></td>
+          <td class="num">8.0</td>
+          <td class="num">0.0</td>
+          <td class="num">8.0</td>
+          <td>Plain HTTP is served without redirecting to HTTPS (critical); </td>
+        </tr>
+        
+        <tr >
+          <td><code>mixed-content</code></td>
+          <td class="num">5.0</td>
+          <td class="num">5.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>mixed-content.none</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>http-methods</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>methods.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>security-txt</code></td>
+          <td class="num">1.0</td>
+          <td class="num">0.8</td>
+          <td class="num">0.2</td>
+          <td>No /.well-known/security.txt (low); </td>
+        </tr>
+        
+        <tr>
+          <td><strong>total</strong></td>
+          <td class="num"><strong>142.0</strong></td>
+          <td class="num"><strong>71.2</strong></td>
+          <td class="num"></td>
+          <td>71.2 / 142.0 = 50% → grade F</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <footer>
+    <p>
+      Evidence gathered by httpsec 0.1.0-dev (commit none, built unknown). This report describes what the server revealed in a normal
+      HTTP and TLS interaction. It is not a vulnerability scan, and it should only be run against
+      hosts you own or have permission to test.
+    </p>
+  </footer>
+</main>
+</body>
+</html>

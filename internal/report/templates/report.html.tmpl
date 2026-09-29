@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>httpsec report — {{ .Report.Target.Host }}</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #f7f7f8;
+  --card: #ffffff;
+  --ink: #16181d;
+  --muted: #5b616e;
+  --line: #e1e3e8;
+  --code-bg: #f2f3f5;
+  --critical: #b3261e;
+  --high: #c2410c;
+  --medium: #a16207;
+  --low: #1d4ed8;
+  --info: #64748b;
+  --pass: #15803d;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --card: #171a21;
+    --ink: #e6e8ee;
+    --muted: #9aa1ae;
+    --line: #272b34;
+    --code-bg: #0b0d11;
+    --critical: #ff6b6b;
+    --high: #ff9f5a;
+    --medium: #e8c34a;
+    --low: #7aa7ff;
+    --info: #97a1b0;
+    --pass: #5dd39e;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 2rem 1rem 4rem;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+main { max-width: 62rem; margin: 0 auto; }
+h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
+h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
+h3 { font-size: 1rem; margin: 0 0 .35rem; }
+a { color: var(--low); }
+code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+.sub { color: var(--muted); font-size: .9rem; margin: 0 0 1.5rem; }
+
+.hero {
+  display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+}
+.grade {
+  font-size: 3.4rem; font-weight: 700; line-height: 1;
+  min-width: 5rem; text-align: center; padding: .5rem .75rem; border-radius: var(--radius);
+  border: 2px solid currentColor;
+}
+.grade.a { color: var(--pass); }
+.grade.b { color: var(--pass); }
+.grade.c { color: var(--medium); }
+.grade.d { color: var(--high); }
+.grade.f { color: var(--critical); }
+.hero-meta { flex: 1 1 18rem; }
+.hero-meta .score { font-size: 1.1rem; font-weight: 600; }
+.bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; margin: .5rem 0; }
+.bar > span { display: block; height: 100%; background: currentColor; }
+
+.tally { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: .5rem 0 0; }
+.tally li {
+  border: 1px solid var(--line); border-radius: 999px; padding: .1rem .7rem;
+  font-size: .82rem; background: var(--card);
+}
+.tally .n { font-weight: 700; }
+
+.cap { border: 1px solid var(--critical); border-left-width: 4px; border-radius: var(--radius);
+       background: var(--card); padding: .9rem 1.1rem; margin-bottom: 1.25rem; }
+.cap h2 { margin: 0 0 .4rem; font-size: 1rem; color: var(--critical); }
+.cap ul { margin: 0; padding-left: 1.2rem; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: 1rem 1.25rem; margin-bottom: 1rem; }
+.finding { border-top: 1px solid var(--line); padding: 1rem 0; }
+.finding:first-of-type { border-top: 0; padding-top: .25rem; }
+.badge {
+  display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: .1rem .5rem; border-radius: 4px;
+  border: 1px solid currentColor; margin-right: .5rem; vertical-align: .1em;
+}
+.badge.critical { color: var(--critical); }
+.badge.high     { color: var(--high); }
+.badge.medium   { color: var(--medium); }
+.badge.low      { color: var(--low); }
+.badge.info     { color: var(--info); }
+.badge.pass     { color: var(--pass); }
+.subject { color: var(--muted); font-weight: 400; }
+.detail { margin: .35rem 0; }
+.why { color: var(--muted); font-size: .92rem; margin: .35rem 0; }
+.fid { color: var(--muted); font-size: .76rem; font-family: ui-monospace, monospace; }
+
+details { margin: .5rem 0 0; }
+summary { cursor: pointer; font-size: .88rem; color: var(--muted); }
+pre {
+  background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px;
+  padding: .7rem .9rem; overflow-x: auto; font-size: .82rem; margin: .5rem 0;
+  white-space: pre-wrap; word-break: break-word;
+}
+table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+th, td { text-align: left; padding: .35rem .6rem; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr.skipped td { color: var(--muted); }
+footer { color: var(--muted); font-size: .82rem; margin-top: 3rem; }
+
+@media print {
+  body { background: #fff; color: #000; padding: 0; }
+  .card, .hero, .cap { border: 1px solid #ccc; break-inside: avoid; }
+  details { display: block; }
+  details > summary { display: none; }
+  details > *:not(summary) { display: block !important; }
+  a { color: #000; text-decoration: none; }
+  pre { background: #f6f6f6; }
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>httpsec report — {{ .Report.Target.Host }}</h1>
+  <p class="sub">
+    {{ with .Report.Target.FinalURL }}{{ . }} · {{ end }}generated {{ .Generated }} · evidence gathered by {{ .Report.Tool }}
+  </p>
+
+  <section class="hero">
+    <div class="grade {{ .GradeClass }}">{{ .Report.Score.Grade }}</div>
+    <div class="hero-meta">
+      <div class="score">{{ .Report.Score.Score }} / 100</div>
+      <div class="bar {{ .GradeClass }}" style="color: currentColor">
+        <span style="width: {{ printf "%.1f" (pct .Report.Score.EarnedWeight .Report.Score.TotalWeight) }}%"></span>
+      </div>
+      <div class="sub" style="margin:0">
+        {{ printf "%.1f" .Report.Score.EarnedWeight }} of {{ printf "%.1f" .Report.Score.TotalWeight }} weighted points ·
+        rubric {{ .Report.Score.RubricName }} v{{ .Report.Score.RubricVersion }}
+      </div>
+      <ul class="tally">
+        <li><span class="n" style="color:var(--critical)">{{ .Report.Summary.Critical }}</span> critical</li>
+        <li><span class="n" style="color:var(--high)">{{ .Report.Summary.High }}</span> high</li>
+        <li><span class="n" style="color:var(--medium)">{{ .Report.Summary.Medium }}</span> medium</li>
+        <li><span class="n" style="color:var(--low)">{{ .Report.Summary.Low }}</span> low</li>
+        <li><span class="n" style="color:var(--info)">{{ .Report.Summary.Info }}</span> info</li>
+        <li><span class="n" style="color:var(--pass)">{{ .Report.Summary.Pass }}</span> pass</li>
+      </ul>
+    </div>
+  </section>
+
+  {{ if .Report.Score.Caps }}
+  <section class="cap">
+    <h2>The grade is capped</h2>
+    <p class="sub" style="margin:0 0 .4rem">
+      Without these, the score of {{ .Report.Score.Score }} would grade <strong>{{ .Report.Score.UncappedGrade }}</strong>.
+    </p>
+    <ul>
+      {{ range .Report.Score.Caps }}
+      <li><code>{{ .Finding }}</code> caps the grade at <strong>{{ .MaxGrade }}</strong> — {{ .Reason }}</li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+
+  {{ range .Groups }}
+  <h2 id="{{ .ID }}">{{ .Title }}</h2>
+  <section class="card">
+    {{ range .Findings }}
+    <article class="finding">
+      <h3>
+        <span class="badge {{ .SeverityClass }}">{{ .Severity }}</span>{{ .Title }}
+        {{ with .Subject }}<span class="subject">— {{ . }}</span>{{ end }}
+      </h3>
+      {{ with .Detail }}<p class="detail">{{ . }}</p>{{ end }}
+      {{ if and .Why (ne (printf "%s" .Severity) "pass") }}<p class="why"><strong>Why it matters.</strong> {{ .Why }}</p>{{ end }}
+      {{ with .Evidence }}<details><summary>Evidence</summary><pre>{{ . }}</pre></details>{{ end }}
+      {{ if and .Snippets (ne (printf "%s" .Severity) "pass") }}
+      <details>
+        <summary>How to fix it{{ with .Summary }} — {{ . }}{{ end }}</summary>
+        {{ range .Snippets }}
+        <p class="why" style="margin-bottom:0"><strong>{{ .Title }}</strong></p>
+        <pre>{{ .Config }}</pre>
+        {{ end }}
+        {{ with .Notes }}<p class="why">{{ . }}</p>{{ end }}
+      </details>
+      {{ end }}
+      {{ if .References }}
+      <p class="why">{{ range .References }}<a href="{{ . }}">{{ . }}</a> {{ end }}</p>
+      {{ end }}
+      <p class="fid">{{ .ID }}</p>
+    </article>
+    {{ end }}
+  </section>
+  {{ end }}
+
+  {{ if .Report.TLS }}
+  <h2>TLS summary</h2>
+  <section class="card">
+    <table>
+      <tbody>
+        <tr><th>Protocol versions</th><td>
+          {{ range $v, $ok := .Report.TLS.Versions }}{{ $v }}: {{ if $ok }}accepted{{ else }}refused{{ end }} · {{ end }}
+        </td></tr>
+        {{ with .Report.TLS.TLS13Suite }}<tr><th>TLS 1.3 suite</th><td><code>{{ . }}</code></td></tr>{{ end }}
+        {{ if .Report.TLS.Suites }}<tr><th>TLS 1.2 suites</th><td>{{ range .Report.TLS.Suites }}<code>{{ . }}</code><br>{{ end }}</td></tr>{{ end }}
+        <tr><th>Suite preference</th><td>{{ .Report.TLS.Preference }}</td></tr>
+        <tr><th>ALPN</th><td>{{ if .Report.TLS.ALPN }}{{ range .Report.TLS.ALPN }}{{ . }} {{ end }}{{ else }}none{{ end }}</td></tr>
+        <tr><th>OCSP stapling</th><td>{{ if .Report.TLS.OCSPStapled }}enabled{{ else }}not enabled{{ end }}</td></tr>
+        {{ with .Report.TLS.CertSubject }}<tr><th>Certificate</th><td>{{ . }}</td></tr>{{ end }}
+        {{ with .Report.TLS.CertIssuer }}<tr><th>Issuer</th><td>{{ . }}</td></tr>{{ end }}
+        {{ with .Report.TLS.CertNotAfter }}<tr><th>Expires</th><td>{{ .Format "2006-01-02" }}</td></tr>{{ end }}
+        {{ with .Report.TLS.CertKey }}<tr><th>Key</th><td>{{ . }}</td></tr>{{ end }}
+        {{ with .Report.TLS.CertSignature }}<tr><th>Signature</th><td>{{ . }}</td></tr>{{ end }}
+        {{ if .Report.TLS.CertSANs }}<tr><th>SANs</th><td>{{ range .Report.TLS.CertSANs }}{{ . }} {{ end }}</td></tr>{{ end }}
+      </tbody>
+    </table>
+  </section>
+  {{ end }}
+
+  {{ if .Report.Cookies }}
+  <h2>Cookies</h2>
+  <section class="card">
+    <table>
+      <thead><tr><th>Name</th><th>Secure</th><th>HttpOnly</th><th>SameSite</th><th>Domain</th><th>Path</th></tr></thead>
+      <tbody>
+        {{ range .Report.Cookies }}
+        <tr>
+          <td><code>{{ .Name }}</code></td>
+          <td>{{ if .Secure }}yes{{ else }}no{{ end }}</td>
+          <td>{{ if .HTTPOnly }}yes{{ else }}no{{ end }}</td>
+          <td>{{ if .SameSite }}{{ .SameSite }}{{ else }}—{{ end }}</td>
+          <td>{{ if .Domain }}{{ .Domain }}{{ else }}—{{ end }}</td>
+          <td>{{ if .Path }}{{ .Path }}{{ else }}—{{ end }}</td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </section>
+  {{ end }}
+
+  {{ if .Report.CSP }}
+  <h2>Content Security Policy</h2>
+  <section class="card">
+    <p class="sub" style="margin:0 0 .5rem">
+      {{ if .Report.CSP.ReportOnly }}Report-Only — nothing is enforced.{{ else }}Enforced policy.{{ end }}
+    </p>
+    <table>
+      <thead><tr><th>Directive</th><th>Sources</th></tr></thead>
+      <tbody>
+        {{ range .Report.CSP.Directives }}
+        <tr><td><code>{{ .Name }}</code></td><td><code>{{ range .Values }}{{ . }} {{ end }}</code></td></tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </section>
+  {{ end }}
+
+  <h2>How the grade was calculated</h2>
+  <section class="card">
+    <table>
+      <thead><tr><th>Control</th><th class="num">Weight</th><th class="num">Earned</th><th class="num">Lost</th><th>Why</th></tr></thead>
+      <tbody>
+        {{ range .Controls }}
+        <tr {{ if not .Applicable }}class="skipped"{{ end }}>
+          <td><code>{{ .ID }}</code></td>
+          <td class="num">{{ printf "%.1f" .Weight }}</td>
+          <td class="num">{{ if .Applicable }}{{ printf "%.1f" .Earned }}{{ else }}—{{ end }}</td>
+          <td class="num">{{ if .Applicable }}{{ printf "%.1f" .Lost }}{{ else }}—{{ end }}</td>
+          <td>{{ if not .Applicable }}not evaluated, excluded from the total{{ else if .Reasons }}{{ range .Reasons }}{{ . }}; {{ end }}{{ else if .Findings }}no points lost: {{ range .Findings }}<code>{{ . }}</code> {{ end }}{{ else }}all checks passed{{ end }}</td>
+        </tr>
+        {{ end }}
+        <tr>
+          <td><strong>total</strong></td>
+          <td class="num"><strong>{{ printf "%.1f" .Report.Score.TotalWeight }}</strong></td>
+          <td class="num"><strong>{{ printf "%.1f" .Report.Score.EarnedWeight }}</strong></td>
+          <td class="num"></td>
+          <td>{{ printf "%.1f" .Report.Score.EarnedWeight }} / {{ printf "%.1f" .Report.Score.TotalWeight }} = {{ .Report.Score.Score }}% → grade {{ .Report.Score.UncappedGrade }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  {{ if or .Report.Notes .Report.Errors }}
+  <h2>Notes</h2>
+  <section class="card">
+    <ul>
+      {{ range .Report.Notes }}<li>{{ . }}</li>{{ end }}
+      {{ range .Report.Errors }}<li><strong>error:</strong> {{ . }}</li>{{ end }}
+    </ul>
+  </section>
+  {{ end }}
+
+  <footer>
+    <p>
+      Evidence gathered by {{ .Report.Tool }}. This report describes what the server revealed in a normal
+      HTTP and TLS interaction. It is not a vulnerability scan, and it should only be run against
+      hosts you own or have permission to test.
+    </p>
+  </footer>
+</main>
+</body>
+</html>

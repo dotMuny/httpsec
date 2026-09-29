@@ -1,0 +1,527 @@
+{
+  "schema_version": 1,
+  "tool": "httpsec 0.1.0-dev (commit none, built unknown)",
+  "target": "wikipedia.org",
+  "host": "wikipedia.org",
+  "port": "443",
+  "started_at": "2026-09-24T10:19:19.574081569Z",
+  "duration_ms": 0,
+  "https": {
+    "request_url": "https://wikipedia.org/",
+    "final_url": "https://www.wikipedia.org/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Age": [
+        "REDACTED"
+      ],
+      "Cache-Control": [
+        "s-maxage=86400, must-revalidate, max-age=3600"
+      ],
+      "Content-Length": [
+        "119573"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Etag": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Nel": [
+        "REDACTED"
+      ],
+      "Report-To": [
+        "REDACTED"
+      ],
+      "Server": [
+        "ATS/9.2.15"
+      ],
+      "Server-Timing": [
+        "cache;desc=\"hit-front\", host;desc=\"cp6009\",co_id;desc=\"2447050050\""
+      ],
+      "Set-Cookie": [
+        "WMF-Last-Access=REDACTED;Path=/;HttpOnly;secure;Expires=Mon, 26 Oct 2026 00:00:00 GMT",
+        "WMF-Last-Access-Global=REDACTED;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Mon, 26 Oct 2026 00:00:00 GMT",
+        "GeoIP=REDACTED; Path=/; secure; Domain=.wikipedia.org",
+        "NetworkProbeLimit=REDACTED;Path=/;Secure;SameSite=None;Max-Age=3600",
+        "WMF-Uniq=REDACTED;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Fri, 24 Sep 2027 00:00:00 GMT"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=106384710; includeSubDomains; preload"
+      ],
+      "X-Analytics": [
+        ""
+      ],
+      "X-Cache": [
+        "REDACTED"
+      ],
+      "X-Cache-Status": [
+        "hit-front"
+      ],
+      "X-Client-Ip": [
+        "REDACTED"
+      ],
+      "X-Request-Id": [
+        "REDACTED"
+      ]
+    },
+    "body": "<!DOCTYPE html>\n<html lang=\"en\" class=\"no-js\">\n<head>\n<meta charset=\"utf-8\">\n<title>Wikipedia</title>\n<meta name=\"description\" content=\"Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.\">\n<script>\ndocument.documentElement.className = document.documentElement.className.replace( /(^|\\s)no-js(\\s|$)/, \"$1js-enabled$2\" );\n</script>\n<meta name=\"viewport\" content=\"initial-scale=1,user-scalable=yes\">\n<link rel=\"apple-touch-icon\" href=\"/static/apple-touch/wikipedia.png\">\n<link rel=\"shortcut icon\" href=\"/static/favicon/wikipedia.ico\">\n<link rel=\"license\" href=\"//creativecommons.org/licenses/by-sa/4.0/\">\n<style>\n.sprite{background-image:linear-gradient(transparent,transparent),url(portal/wikipedia.org/assets/img/sprite-e49fbf32.svg);background-repeat:no-repeat;display:inline-block;vertical-align:middle}.svg-Commons-logo_sister{background-position:0 0;width:47px;height:47px}.svg-MediaWiki-logo_sister{background-position:0 -47px;width:42px;height:42px}.svg-Meta-Wiki-logo_sister{background-position:0 -89px;width:37px;height:37px}.svg-Wikibooks-logo_sister{background-position:0 -126px;width:37px;height:37px}.svg-Wikidata-logo_sister{background-position:0 -163px;width:49px;height:49px}.svg-Wikifunctions-logo_sister{background-position:0 -212px;width:50px;height:50px}.svg-Wikimedia-logo_black{background-position:0 -262px;width:42px;height:42px}.svg-Wikipedia_wordmark{background-position:0 -304px;width:176px;height:32px}.svg-Wikiquote-logo_sister{background-position:0 -336px;width:42px;height:42px}.svg-Wikisource-logo_sister{background-position:0 -378px;width:39px;height:39px}.svg-Wikispecies-logo_sister{background-position:0 -417px;width:42px;height:42px}.svg-Wikiversity-logo_sister{background-position:0 -459px;width:43px;height:37px}.svg-Wikivoyage-logo_sister{background-position:0 -496px;width:36px;height:36px}.svg-Wiktionary-logo_sister{background-position:0 -532px;width:37px;height:37px}.svg-arrow-down{background-position:0 -569px;width:12px;height:8px}.svg-arrow-down-blue{background-position:0 -577px;width:14px;height:14px}.svg-badge_google_play_store{background-position:0 -591px;width:124px;height:38px}.svg-badge_ios_app_store{background-position:0 -629px;width:110px;height:38px}.svg-language-icon{background-position:0 -667px;width:22px;height:22px}.svg-noimage{background-position:0 -689px;width:58px;height:58px}.svg-search-icon{background-position:0 -747px;width:22px;height:22px}.svg-wikipedia_app_tile{background-position:0 -769px;width:42px;height:42px}\n</style>\n<style>\n:root{--color-base:#202122;--color-base-fixed:#202122;--color-base--hover:#404244;--color-emphasized:#101418;--color-neutral:#404244;--color-subtle:#54595d;--color-placeholder:#72777d;--color-disabled:#a2a9b1;--color-disabled-emphasized:#a2a9b1;--color-inverted:#fff;--color-inverted-fixed:#fff;--color-progressive:#36c;--color-progressive--hover:#3056a9;--color-progressive--active:#233566;--color-progressive--focus:#36c;--color-destructive:#bf3c2c;--color-destructive--hover:#9f3526;--color-destructive--active:#612419;--color-destructive--focus:#36c;--color-visited:#6a60b0;--color-visited--hover:#534fa3;--color-visited--active:#353262;--color-destructive--visited:#9f5555;--color-destructive--visited--hover:#854848;--color-destructive--visited--active:#512e2e;--color-error:#bf3c2c;--color-error--hover:#9f3526;--color-error--active:#612419;--color-warning:#886425;--color-success:#177860;--color-notice:#404244;--color-icon-error:#f54739;--color-icon-warning:#ab7f2a;--color-icon-success:#099979;--color-icon-notice:#72777d;--color-icon-progressive:#36c;--color-content-added:#006400;--color-content-removed:#8b0000;--color-option-red:#bf3c2c;--color-option-orange:#a95226;--color-option-yellow:#886425;--color-option-lime:#1f7a39;--color-option-green:#177860;--color-option-blue:#36c;--color-option-purple:#6a60b0;--color-option-pink:#9b527f;--color-option-maroon:#9f5555;--opacity-base:1;--opacity-medium:0.65;--opacity-low:0.3;--opacity-transparent:0;--filter-invert-icon:0;--filter-invert-primary-button-icon:1;--background-position-base:center;--background-size-search-figure:cover;--z-index-bottom:-100;--z-index-base:0;--z-index-above-content:1;--z-index-toolbar:2;--z-index-dropdown:50;--z-index-sticky:100;--z-index-fixed:200;--z-index-off-canvas-backdrop:300;--z-index-off-canvas:350;--z-index-overlay-backdrop:400;--z-index-overlay:450;--z-index-popover:700;--z-index-tooltip:800;--z-index-toast-notification:900;--z-index-top:9999;--z-index-stacking-0:0;--z-index-stacking-1:1;--z-index-stacking-2:2;--z-index-stacking-3:3;--box-sizing-base:border-box;--size-0:0;--size-6:0.0625rem;--size-12:0.125rem;--size-25:0.25rem;--size-50:0.5rem;--size-75:0.75rem;--size-100:1rem;--size-125:1.25rem;--size-150:1.5rem;--size-200:2rem;--size-250:2.5rem;--size-275:2.75rem;--size-300:3rem;--size-400:4rem;--size-800:8rem;--size-1200:12rem;--size-1600:16rem;--size-2400:24rem;--size-2800:28rem;--size-3200:32rem;--size-4000:40rem;--size-5600:56rem;--size-viewport-width-full:100vw;--size-viewport-height-full:100vh;--size-absolute-1:1px;--size-absolute-9999:9999px;--size-content-min:min-content;--size-content-fit:fit-content;--size-content-max:max-content;--size-third:33.33%;--size-half:50%;--size-full:100%;--size-double:200%;--size-search-figure:2.5rem;--max-width-base:none;--max-width-breakpoint-mobile:calc(640px - var(--size-absolute-1));--max-width-breakpoint-tablet:calc(1120px - var(--size-absolute-1));--max-width-breakpoint-desktop:calc(1680px - var(--size-absolute-1));--max-width-button:28rem;--border-style-base:solid;--border-style-dashed:dashed;--box-shadow-inset-small:inset 0 0 0 1px;--box-shadow-inset-medium:inset 0 0 0 2px;--box-shadow-inset-medium-vertical:inset 0 -2px 0 0;--box-shadow-outset-small:0 0 0 1px;--box-shadow-outset-small-top:0 -1px 0 0;--box-shadow-outset-small-bottom:0 1px 0 0;--box-shadow-outset-small-start:-1px 0 0 0;--box-shadow-outset-medium-below:0 4px 4px 0;--box-shadow-outset-medium-around:0 0 8px 0;--box-shadow-outset-large-below:0 4px 8px 0;--box-shadow-outset-large-around:0 0 16px 0;--box-shadow-color-base:#a2a9b1;--box-shadow-color-progressive--active:#233566;--box-shadow-color-progressive--focus:#36c;--box-shadow-color-progressive-selected:#36c;--box-shadow-color-progressive-selected--hover:#3056a9;--box-shadow-color-progressive-selected--active:#233566;--box-shadow-color-destructive--focus:#36c;--box-shadow-color-inverted:#fff;--box-shadow-color-alpha-base:rgba(0,0,0,0.06);--box-shadow-color-transparent:transparent;--font-family-base:sans-serif;--font-family-system-sans:-apple-system,\"BlinkMacSystemFont\",\"Segoe UI\",\"Roboto\",\"Inter\",\"Helvetica\",\"Arial\",sans-serif;--font-family-sans--fallback:sans-serif;--font-family-serif:\"Linux Libertine\",\"Georgia\",\"Times\",\"Source Serif 4\",serif;--font-family-serif--fallback:serif;--font-family-monospace:\"Menlo\",\"Consolas\",\"Liberation Mono\",\"Fira Code\",\"Courier New\",monospace;--font-family-monospace--fallback:monospace,monospace;--font-family-heading-main:\"Linux Libertine\",\"Georgia\",\"Times\",\"Source Serif 4\",serif;--font-size-x-small:0.75rem;--font-size-small:0.875rem;--font-size-medium:1rem;--font-size-large:1.125rem;--font-size-x-large:1.25rem;--font-size-xx-large:1.5rem;--font-size-xxx-large:1.75rem;--font-weight-hairline:100;--font-weight-light:300;--font-weight-normal:400;--font-weight-semi-bold:600;--font-weight-bold:700;--line-height-x-small:1.25rem;--line-height-small:1.375rem;--line-height-medium:1.625rem;--line-height-large:1.75rem;--line-height-x-large:1.875rem;--line-height-xx-large:2.125rem;--line-height-xxx-large:2.375rem;--line-height-content:1.625;--text-decoration-none:none;--text-decoration-line-through:line-through;--text-decoration-underline:underline;--text-overflow-clip:clip;--text-overflow-ellipsis:ellipsis;--tab-size-base:4;--transform-checkbox-tick--checked:rotate(45deg);--transform-progress-indicator-spinner-start:rotate(-45deg);--transform-progress-indi",
+    "body_bytes": 119573,
+    "redirects": [
+      {
+        "url": "https://wikipedia.org/",
+        "scheme": "https",
+        "host": "wikipedia.org",
+        "status_code": 301,
+        "location": "https://www.wikipedia.org/"
+      }
+    ],
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0,
+    "body_truncated": true
+  },
+  "plain_http": {
+    "request_url": "http://wikipedia.org/",
+    "final_url": "https://www.wikipedia.org/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Age": [
+        "REDACTED"
+      ],
+      "Cache-Control": [
+        "s-maxage=86400, must-revalidate, max-age=3600"
+      ],
+      "Content-Length": [
+        "119573"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Etag": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Nel": [
+        "REDACTED"
+      ],
+      "Report-To": [
+        "REDACTED"
+      ],
+      "Server": [
+        "ATS/9.2.15"
+      ],
+      "Server-Timing": [
+        "cache;desc=\"hit-front\", host;desc=\"cp6009\",co_id;desc=\"610623684\""
+      ],
+      "Set-Cookie": [
+        "WMF-Last-Access=REDACTED;Path=/;HttpOnly;secure;Expires=Mon, 26 Oct 2026 00:00:00 GMT",
+        "WMF-Last-Access-Global=REDACTED;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Mon, 26 Oct 2026 00:00:00 GMT",
+        "GeoIP=REDACTED; Path=/; secure; Domain=.wikipedia.org",
+        "NetworkProbeLimit=REDACTED;Path=/;Secure;SameSite=None;Max-Age=3600",
+        "WMF-Uniq=REDACTED;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Fri, 24 Sep 2027 00:00:00 GMT"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=106384710; includeSubDomains; preload"
+      ],
+      "X-Analytics": [
+        ""
+      ],
+      "X-Cache": [
+        "REDACTED"
+      ],
+      "X-Cache-Status": [
+        "hit-front"
+      ],
+      "X-Client-Ip": [
+        "REDACTED"
+      ],
+      "X-Request-Id": [
+        "REDACTED"
+      ]
+    },
+    "body_truncated": true,
+    "body_bytes": 4097,
+    "redirects": [
+      {
+        "url": "http://wikipedia.org/",
+        "scheme": "http",
+        "host": "wikipedia.org",
+        "status_code": 301,
+        "location": "https://wikipedia.org/"
+      },
+      {
+        "url": "https://wikipedia.org/",
+        "scheme": "https",
+        "host": "wikipedia.org",
+        "status_code": 301,
+        "location": "https://www.wikipedia.org/"
+      }
+    ],
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "cors": {
+    "sent_origin": "https://httpsec-probe.invalid",
+    "sent_null_origin": true,
+    "allow_origin": "",
+    "allow_credentials": "",
+    "allow_methods": "",
+    "allow_headers": "",
+    "expose_headers": "",
+    "vary": "",
+    "null_allow_origin": "",
+    "null_allow_credentials": ""
+  },
+  "options": {
+    "request_url": "https://wikipedia.org/",
+    "final_url": "https://wikipedia.org/",
+    "method": "OPTIONS",
+    "status_code": 405,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Cache-Control": [
+        "no-cache"
+      ],
+      "Content-Length": [
+        "147"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Server": [
+        "HAProxy"
+      ],
+      "X-Cache": [
+        "REDACTED"
+      ],
+      "X-Cache-Status": [
+        "int-tls"
+      ],
+      "X-Request-Id": [
+        "REDACTED"
+      ]
+    },
+    "body_bytes": 147,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "trace": {
+    "request_url": "https://wikipedia.org/",
+    "final_url": "https://wikipedia.org/",
+    "method": "TRACE",
+    "status_code": 405,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Allow": [
+        "DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT"
+      ],
+      "Cache-Control": [
+        "no-cache"
+      ],
+      "Content-Length": [
+        "147"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Server": [
+        "HAProxy"
+      ],
+      "X-Cache": [
+        "REDACTED"
+      ],
+      "X-Cache-Status": [
+        "int-tls"
+      ],
+      "X-Request-Id": [
+        "REDACTED"
+      ]
+    },
+    "body_bytes": 147,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "security_txt": {
+    "request_url": "https://wikipedia.org/.well-known/security.txt",
+    "final_url": "https://en.wikipedia.org/.well-known/security.txt",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Age": [
+        "REDACTED"
+      ],
+      "Content-Length": [
+        "222"
+      ],
+      "Content-Type": [
+        "text/plain"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Etag": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Nel": [
+        "REDACTED"
+      ],
+      "Report-To": [
+        "REDACTED"
+      ],
+      "Server": [
+        "mw-web.eqiad.main-5c5554d4b-ffpgv"
+      ],
+      "Server-Timing": [
+        "cache;desc=\"miss\", host;desc=\"cp6009\",co_id;desc=\"1514617917\""
+      ],
+      "Set-Cookie": [
+        "WMF-Last-Access=REDACTED;Path=/;HttpOnly;secure;Expires=Mon, 26 Oct 2026 00:00:00 GMT",
+        "WMF-Last-Access-Global=REDACTED;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Mon, 26 Oct 2026 00:00:00 GMT",
+        "GeoIP=REDACTED; Path=/; secure; Domain=.wikipedia.org",
+        "NetworkProbeLimit=REDACTED;Path=/;Secure;SameSite=None;Max-Age=3600",
+        "WMF-Uniq=REDACTED;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Fri, 24 Sep 2027 00:00:00 GMT"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=106384710; includeSubDomains; preload"
+      ],
+      "X-Analytics": [
+        ""
+      ],
+      "X-Cache": [
+        "REDACTED"
+      ],
+      "X-Cache-Status": [
+        "miss"
+      ],
+      "X-Client-Ip": [
+        "REDACTED"
+      ],
+      "X-Request-Id": [
+        "REDACTED"
+      ]
+    },
+    "body": "Contact: mailto:security@wikimedia.org\nExpires: 2029-03-31T09:00:00.000Z\nAcknowledgments: https://security.wikimedia.org/hall-of-fame/\nPreferred-Languages: en\nPolicy: https://www.mediawiki.org/wiki/Reporting_security_bugs\n",
+    "body_bytes": 222,
+    "redirects": [
+      {
+        "url": "https://wikipedia.org/.well-known/security.txt",
+        "scheme": "https",
+        "host": "wikipedia.org",
+        "status_code": 301,
+        "location": "https://www.wikipedia.org/.well-known/security.txt"
+      },
+      {
+        "url": "https://www.wikipedia.org/.well-known/security.txt",
+        "scheme": "https",
+        "host": "www.wikipedia.org",
+        "status_code": 301,
+        "location": "https://en.wikipedia.org/.well-known/security.txt"
+      }
+    ],
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "tls": {
+    "server_name": "wikipedia.org",
+    "versions": [
+      {
+        "version": "TLS 1.0",
+        "supported": false,
+        "error": "remote error: tls: protocol version not supported"
+      },
+      {
+        "version": "TLS 1.1",
+        "supported": false,
+        "error": "remote error: tls: protocol version not supported"
+      },
+      {
+        "version": "TLS 1.2",
+        "supported": true,
+        "suite": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"
+      },
+      {
+        "version": "TLS 1.3",
+        "supported": true,
+        "suite": "TLS_AES_128_GCM_SHA256"
+      }
+    ],
+    "suites": [
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "id": 49195,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "id": 49196,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+        "id": 52393,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "ChaCha20-Poly1305",
+        "bits": 256,
+        "insecure": false
+      }
+    ],
+    "tls13_suite": "TLS_AES_128_GCM_SHA256",
+    "preference": "server",
+    "chain": [
+      {
+        "subject": "CN=*.wikipedia.org",
+        "issuer": "CN=YE2,O=Let's Encrypt,C=US",
+        "serial_number": "534764066176206449022366283691622123617759",
+        "not_before": "2026-08-05T19:15:41Z",
+        "not_after": "2026-11-03T19:15:40Z",
+        "dns_names": [
+          "*.m.mediawiki.org",
+          "*.m.wikibooks.org",
+          "*.m.wikidata.org",
+          "*.m.wikimedia.org",
+          "*.m.wikinews.org",
+          "*.m.wikipedia.org",
+          "*.m.wikiquote.org",
+          "*.m.wikisource.org",
+          "*.m.wikiversity.org",
+          "*.m.wikivoyage.org",
+          "*.m.wiktionary.org",
+          "*.mediawiki.org",
+          "*.planet.wikimedia.org",
+          "*.wikibooks.org",
+          "*.wikidata.org",
+          "*.wikifunctions.org",
+          "*.wikimedia.org",
+          "*.wikimediafoundation.org",
+          "*.wikinews.org",
+          "*.wikipedia.org",
+          "*.wikiquote.org",
+          "*.wikisource.org",
+          "*.wikiversity.org",
+          "*.wikivoyage.org",
+          "*.wiktionary.org",
+          "*.wmfusercontent.org",
+          "mediawiki.org",
+          "w.wiki",
+          "wikibooks.org",
+          "wikidata.org",
+          "wikifunctions.org",
+          "wikimedia.org",
+          "wikimediafoundation.org",
+          "wikinews.org",
+          "wikipedia.org",
+          "wikiquote.org",
+          "wikisource.org",
+          "wikiversity.org",
+          "wikivoyage.org",
+          "wiktionary.org",
+          "wmfusercontent.org"
+        ],
+        "signature_algorithm": "ECDSA-SHA384",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 256,
+        "is_ca": false,
+        "self_signed": false,
+        "sct_count": 2,
+        "sha256_fingerprint": "08e0b65df41fb075ec91c1dcd2cacc4e8c7dda53b754806525117b32f7b73253"
+      },
+      {
+        "subject": "CN=YE2,O=Let's Encrypt,C=US",
+        "issuer": "CN=Root YE,O=ISRG,C=US",
+        "serial_number": "103615881233243919450438579527522644245",
+        "not_before": "2025-09-03T00:00:00Z",
+        "not_after": "2028-09-02T23:59:59Z",
+        "signature_algorithm": "ECDSA-SHA384",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 384,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "sha256_fingerprint": "97658de8c68dfa98ace1e5028a63d54a1aae911b3e21471076c6850cd08cbab4"
+      },
+      {
+        "subject": "CN=Root YE,O=ISRG,C=US",
+        "issuer": "CN=ISRG Root X2,O=Internet Security Research Group,C=US",
+        "serial_number": "179619193732476545641173103431506703674",
+        "not_before": "2026-05-13T00:00:00Z",
+        "not_after": "2032-09-02T23:59:59Z",
+        "signature_algorithm": "ECDSA-SHA384",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 384,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "sha256_fingerprint": "0fc0901cca2bae9e9fdbb02d50d02f1094f7b36672086991b9e897626dc485f0"
+      },
+      {
+        "subject": "CN=ISRG Root X2,O=Internet Security Research Group,C=US",
+        "issuer": "CN=ISRG Root X1,O=Internet Security Research Group,C=US",
+        "serial_number": "144299725964134815114551462777128548813",
+        "not_before": "2026-05-13T00:00:00Z",
+        "not_after": "2032-09-02T23:59:59Z",
+        "signature_algorithm": "SHA256-RSA",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 384,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "sha256_fingerprint": "ee5f7abd6981bb0255632cd8f49283451b4b18844d12040b44ee00f07b8fe2c6"
+      }
+    ],
+    "chain_length": 4,
+    "chain_complete": true,
+    "verified_chain_length": 4,
+    "hostname_match": true,
+    "self_signed": false,
+    "ocsp_stapled": false,
+    "ocsp_checked": false,
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "negotiated_alpn": "h2",
+    "sct_count": 2,
+    "resumption": "none",
+    "compression": false,
+    "secure_renegotiation": true
+  }
+}

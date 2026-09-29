@@ -1,0 +1,885 @@
+{
+  "schema_version": 1,
+  "tool": "httpsec 0.1.0-dev (commit none, built unknown)",
+  "generated_at": "2026-09-29T18:04:37.492378716Z",
+  "target": {
+    "input": "example.com",
+    "host": "example.com",
+    "port": "443",
+    "final_url": "https://example.com/",
+    "status_code": 200,
+    "duration_ms": 0
+  },
+  "score": {
+    "rubric_name": "httpsec default rubric",
+    "rubric_version": "1.0.0",
+    "score": 50,
+    "grade": "F",
+    "uncapped_grade": "F",
+    "earned_weight": 71.25,
+    "total_weight": 142,
+    "controls": [
+      {
+        "id": "csp.present",
+        "title": "A Content-Security-Policy is enforced",
+        "category": "csp",
+        "weight": 10,
+        "applicable": true,
+        "earned": 2,
+        "lost": 8,
+        "findings": [
+          "csp.missing"
+        ],
+        "reasons": [
+          "No Content-Security-Policy header (high)"
+        ]
+      },
+      {
+        "id": "csp.script-src",
+        "title": "Script sources are restricted",
+        "category": "csp",
+        "weight": 10,
+        "applicable": true,
+        "earned": 2,
+        "lost": 8,
+        "findings": [
+          "csp.script-src.missing"
+        ],
+        "reasons": [
+          "CSP restricts nothing for scripts (high)"
+        ]
+      },
+      {
+        "id": "csp.frame-ancestors",
+        "title": "Framing is restricted by CSP",
+        "category": "csp",
+        "weight": 4,
+        "applicable": true,
+        "earned": 2,
+        "lost": 2,
+        "findings": [
+          "csp.frame-ancestors.missing"
+        ],
+        "reasons": [
+          "CSP does not set frame-ancestors (medium)"
+        ]
+      },
+      {
+        "id": "csp.base-uri",
+        "title": "base-uri is restricted",
+        "category": "csp",
+        "weight": 3,
+        "applicable": true,
+        "earned": 1.5,
+        "lost": 1.5,
+        "findings": [
+          "csp.base-uri.missing"
+        ],
+        "reasons": [
+          "CSP does not set base-uri (medium)"
+        ]
+      },
+      {
+        "id": "csp.object-src",
+        "title": "Plugin content is blocked",
+        "category": "csp",
+        "weight": 3,
+        "applicable": true,
+        "earned": 2.25,
+        "lost": 0.75,
+        "findings": [
+          "csp.object-src.missing"
+        ],
+        "reasons": [
+          "CSP does not set object-src 'none' (low)"
+        ]
+      },
+      {
+        "id": "csp.default-src",
+        "title": "A restrictive default-src exists",
+        "category": "csp",
+        "weight": 3,
+        "applicable": true,
+        "earned": 1.5,
+        "lost": 1.5,
+        "findings": [
+          "csp.default-src.missing"
+        ],
+        "reasons": [
+          "CSP has no default-src fallback (medium)"
+        ]
+      },
+      {
+        "id": "csp.style-src",
+        "title": "Style sources are restricted",
+        "category": "csp",
+        "weight": 2,
+        "applicable": true,
+        "earned": 1.5,
+        "lost": 0.5,
+        "findings": [
+          "csp.style-src.missing"
+        ],
+        "reasons": [
+          "CSP restricts nothing for stylesheets (low)"
+        ]
+      },
+      {
+        "id": "hsts",
+        "title": "HTTP Strict Transport Security",
+        "category": "headers",
+        "weight": 10,
+        "applicable": true,
+        "earned": 2,
+        "lost": 8,
+        "findings": [
+          "hsts.missing"
+        ],
+        "reasons": [
+          "No Strict-Transport-Security header (high)"
+        ]
+      },
+      {
+        "id": "nosniff",
+        "title": "MIME sniffing is disabled",
+        "category": "headers",
+        "weight": 4,
+        "applicable": true,
+        "earned": 2,
+        "lost": 2,
+        "findings": [
+          "nosniff.missing"
+        ],
+        "reasons": [
+          "No X-Content-Type-Options: nosniff (medium)"
+        ]
+      },
+      {
+        "id": "referrer-policy",
+        "title": "Referrer leakage is controlled",
+        "category": "headers",
+        "weight": 4,
+        "applicable": true,
+        "earned": 2,
+        "lost": 2,
+        "findings": [
+          "referrer-policy.missing"
+        ],
+        "reasons": [
+          "No Referrer-Policy header (medium)"
+        ]
+      },
+      {
+        "id": "xfo",
+        "title": "Legacy framing protection",
+        "category": "headers",
+        "weight": 3,
+        "applicable": true,
+        "earned": 2.25,
+        "lost": 0.75,
+        "findings": [
+          "xfo.missing"
+        ],
+        "reasons": [
+          "No X-Frame-Options header (low)"
+        ]
+      },
+      {
+        "id": "permissions-policy",
+        "title": "Powerful features are restricted",
+        "category": "headers",
+        "weight": 3,
+        "applicable": true,
+        "earned": 2.25,
+        "lost": 0.75,
+        "findings": [
+          "permissions-policy.missing"
+        ],
+        "reasons": [
+          "No Permissions-Policy header (low)"
+        ]
+      },
+      {
+        "id": "coop",
+        "title": "Cross-origin opener isolation",
+        "category": "headers",
+        "weight": 3,
+        "applicable": true,
+        "earned": 2.25,
+        "lost": 0.75,
+        "findings": [
+          "coop.missing"
+        ],
+        "reasons": [
+          "No Cross-Origin-Opener-Policy header (low)"
+        ]
+      },
+      {
+        "id": "coep",
+        "title": "Cross-origin embedder policy",
+        "category": "headers",
+        "weight": 2,
+        "applicable": true,
+        "earned": 2,
+        "lost": 0,
+        "findings": [
+          "coep.missing"
+        ]
+      },
+      {
+        "id": "corp",
+        "title": "Cross-origin resource policy",
+        "category": "headers",
+        "weight": 2,
+        "applicable": true,
+        "earned": 2,
+        "lost": 0,
+        "findings": [
+          "corp.missing"
+        ]
+      },
+      {
+        "id": "cors",
+        "title": "CORS configuration",
+        "category": "headers",
+        "weight": 8,
+        "applicable": true,
+        "earned": 8,
+        "lost": 0,
+        "findings": [
+          "cors.ok"
+        ]
+      },
+      {
+        "id": "legacy-headers",
+        "title": "No withdrawn security headers",
+        "category": "headers",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "legacy.none"
+        ]
+      },
+      {
+        "id": "info-headers",
+        "title": "No version disclosure",
+        "category": "info",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "info.server-present",
+          "info.none"
+        ]
+      },
+      {
+        "id": "cookies",
+        "title": "Cookie attributes",
+        "category": "cookies",
+        "weight": 8,
+        "applicable": true,
+        "earned": 8,
+        "lost": 0,
+        "findings": [
+          "cookie.none"
+        ]
+      },
+      {
+        "id": "tls.versions",
+        "title": "TLS protocol versions",
+        "category": "tls",
+        "weight": 12,
+        "applicable": true,
+        "earned": 0,
+        "lost": 12,
+        "findings": [
+          "tls.version.tls10",
+          "tls.version.tls11"
+        ],
+        "reasons": [
+          "TLS 1.0 is accepted (critical)",
+          "TLS 1.1 is accepted (high)"
+        ]
+      },
+      {
+        "id": "tls.certificate",
+        "title": "Certificate and chain",
+        "category": "tls",
+        "weight": 12,
+        "applicable": true,
+        "earned": 6,
+        "lost": 6,
+        "findings": [
+          "tls.cert.expiring-soon"
+        ],
+        "reasons": [
+          "Certificate expires in less than 30 days (medium)"
+        ]
+      },
+      {
+        "id": "tls.ciphers",
+        "title": "Cipher suite selection",
+        "category": "tls",
+        "weight": 8,
+        "applicable": true,
+        "earned": 0,
+        "lost": 8,
+        "findings": [
+          "tls.cipher.no-forward-secrecy",
+          "tls.cipher.cbc",
+          "tls.cipher.server-preference"
+        ],
+        "reasons": [
+          "Server accepts cipher suites without forward secrecy (high)",
+          "Server accepts CBC-mode cipher suites (low)"
+        ]
+      },
+      {
+        "id": "tls.extras",
+        "title": "TLS protocol hardening",
+        "category": "tls",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "tls.resumption.none",
+          "tls.alpn.ok"
+        ]
+      },
+      {
+        "id": "tls.ocsp",
+        "title": "OCSP stapling",
+        "category": "tls",
+        "weight": 2,
+        "applicable": true,
+        "earned": 2,
+        "lost": 0,
+        "findings": [
+          "tls.ocsp.stapled"
+        ]
+      },
+      {
+        "id": "redirect",
+        "title": "HTTP to HTTPS upgrade",
+        "category": "network",
+        "weight": 8,
+        "applicable": true,
+        "earned": 0,
+        "lost": 8,
+        "findings": [
+          "redirect.no-https"
+        ],
+        "reasons": [
+          "Plain HTTP is served without redirecting to HTTPS (critical)"
+        ]
+      },
+      {
+        "id": "mixed-content",
+        "title": "No mixed content",
+        "category": "network",
+        "weight": 5,
+        "applicable": true,
+        "earned": 5,
+        "lost": 0,
+        "findings": [
+          "mixed-content.none"
+        ]
+      },
+      {
+        "id": "http-methods",
+        "title": "HTTP methods",
+        "category": "network",
+        "weight": 3,
+        "applicable": true,
+        "earned": 3,
+        "lost": 0,
+        "findings": [
+          "methods.ok"
+        ]
+      },
+      {
+        "id": "security-txt",
+        "title": "Disclosure contact published",
+        "category": "network",
+        "weight": 1,
+        "applicable": true,
+        "earned": 0.75,
+        "lost": 0.25,
+        "findings": [
+          "security-txt.missing"
+        ],
+        "reasons": [
+          "No /.well-known/security.txt (low)"
+        ]
+      }
+    ],
+    "caps_applied": [
+      {
+        "finding": "redirect.no-https",
+        "title": "Plain HTTP is served without redirecting to HTTPS",
+        "max_grade": "D",
+        "reason": "Content served over plain HTTP can be read and rewritten in transit."
+      },
+      {
+        "finding": "tls.version.tls10",
+        "title": "TLS 1.0 is accepted",
+        "max_grade": "C",
+        "reason": "TLS 1.0 is deprecated by RFC 8996."
+      },
+      {
+        "finding": "tls.version.tls11",
+        "title": "TLS 1.1 is accepted",
+        "max_grade": "B",
+        "reason": "TLS 1.1 is deprecated by RFC 8996."
+      }
+    ]
+  },
+  "summary": {
+    "critical": 2,
+    "high": 5,
+    "medium": 6,
+    "low": 7,
+    "info": 4,
+    "pass": 9,
+    "problems": 20
+  },
+  "findings": [
+    {
+      "id": "tls.version.tls10",
+      "title": "TLS 1.0 is accepted",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.versions",
+      "why": "TLS 1.0 has been deprecated by RFC 8996 and is disabled in every current browser. It is vulnerable to BEAST and to downgrade attacks, and it fails PCI DSS.",
+      "detail": "The server completed a TLS 1.0 handshake.",
+      "evidence": "TLS 1.0: accepted (TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA)\nTLS 1.1: accepted (TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA)\nTLS 1.2: accepted (TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256)\nTLS 1.3: accepted (TLS_AES_128_GCM_SHA256)",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc8996"
+      ],
+      "remediation_key": "tls.versions"
+    },
+    {
+      "id": "redirect.no-https",
+      "title": "Plain HTTP is served without redirecting to HTTPS",
+      "severity": "critical",
+      "category": "network",
+      "control": "redirect",
+      "why": "Anything served over HTTP can be read and rewritten in transit. If the same content is reachable over both schemes, an on-path attacker simply keeps the user on the insecure one.",
+      "detail": "http://example.com returned 200 and ended at http://example.com/ without upgrading to HTTPS.",
+      "evidence": "200 http://example.com/",
+      "remediation_key": "redirect"
+    },
+    {
+      "id": "tls.cipher.no-forward-secrecy",
+      "title": "Server accepts cipher suites without forward secrecy",
+      "severity": "high",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "why": "Static-RSA key exchange means a single future compromise of the private key decrypts every session ever recorded. ECDHE removes that risk.",
+      "detail": "5 accepted suites use static RSA key exchange: TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384.",
+      "evidence": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA\nTLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA\nTLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA\nTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_RSA_WITH_AES_256_CBC_SHA\nTLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_RSA_WITH_AES_128_CBC_SHA\nTLS_RSA_WITH_AES_128_CBC_SHA256\nTLS_RSA_WITH_AES_128_GCM_SHA256\nTLS_RSA_WITH_AES_256_CBC_SHA\nTLS_RSA_WITH_AES_256_GCM_SHA384",
+      "remediation_key": "tls.ciphers"
+    },
+    {
+      "id": "tls.version.tls11",
+      "title": "TLS 1.1 is accepted",
+      "severity": "high",
+      "category": "tls",
+      "control": "tls.versions",
+      "why": "TLS 1.1 is deprecated by RFC 8996 and relies on MD5/SHA-1 in its handshake signatures. No current client needs it.",
+      "detail": "The server completed a TLS 1.1 handshake.",
+      "evidence": "TLS 1.0: accepted (TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA)\nTLS 1.1: accepted (TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA)\nTLS 1.2: accepted (TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256)\nTLS 1.3: accepted (TLS_AES_128_GCM_SHA256)",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc8996"
+      ],
+      "remediation_key": "tls.versions"
+    },
+    {
+      "id": "hsts.missing",
+      "title": "No Strict-Transport-Security header",
+      "severity": "high",
+      "category": "headers",
+      "control": "hsts",
+      "why": "Without HSTS the first request of every session can be downgraded to plain HTTP by an on-path attacker, and the redirect to HTTPS happens too late to protect the cookies already sent.",
+      "detail": "No Strict-Transport-Security header on the HTTPS response.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Strict-Transport-Security"
+      ],
+      "remediation_key": "hsts"
+    },
+    {
+      "id": "csp.missing",
+      "title": "No Content-Security-Policy header",
+      "severity": "high",
+      "category": "csp",
+      "control": "csp.present",
+      "why": "Without a CSP the browser will execute any script the page references or injects, so any HTML injection becomes script execution. CSP is the only defence-in-depth layer that survives a templating mistake.",
+      "detail": "No Content-Security-Policy or Content-Security-Policy-Report-Only header was returned.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy"
+      ],
+      "remediation_key": "csp.policy"
+    },
+    {
+      "id": "csp.script-src.missing",
+      "title": "CSP restricts nothing for scripts",
+      "severity": "high",
+      "category": "csp",
+      "control": "csp.script-src",
+      "why": "Neither script-src nor default-src is present, so script loading is unrestricted.",
+      "detail": "No enforced Content-Security-Policy applies, so this control has nothing to restrict it.",
+      "remediation_key": "csp.unsafe-inline"
+    },
+    {
+      "id": "tls.cert.expiring-soon",
+      "title": "Certificate expires in less than 30 days",
+      "severity": "medium",
+      "category": "tls",
+      "control": "tls.certificate",
+      "why": "Renewal automation fails quietly more often than it fails loudly. Thirty days is the last point at which a failure is still comfortable to fix.",
+      "detail": "The certificate expires on 2026-10-27T22:17:21Z, in 28 days.",
+      "evidence": "subject: CN=example.com\nissuer: CN=Cloudflare TLS Issuing ECC CA 3,O=SSL Corporation,C=US\nvalid: 2026-07-29T22:10:08Z .. 2026-10-27T22:17:21Z\nsans: example.com, *.example.com\nsignature: ECDSA-SHA256\nkey: ECDSA 256 bits\nsha256: 6153a96fd1a6ab7f4d438fc34932484299d0729d9140b3a126bb2f9c07b02200",
+      "remediation_key": "tls.certificate"
+    },
+    {
+      "id": "nosniff.missing",
+      "title": "No X-Content-Type-Options: nosniff",
+      "severity": "medium",
+      "category": "headers",
+      "control": "nosniff",
+      "why": "Without nosniff, browsers may MIME-sniff a user-uploaded file as HTML or JavaScript and execute it in your origin. It also enables cross-origin script inclusion of JSON endpoints.",
+      "detail": "No X-Content-Type-Options header, so browsers may MIME-sniff responses whose declared type they distrust.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Content-Type-Options"
+      ],
+      "remediation_key": "nosniff"
+    },
+    {
+      "id": "referrer-policy.missing",
+      "title": "No Referrer-Policy header",
+      "severity": "medium",
+      "category": "headers",
+      "control": "referrer-policy",
+      "why": "Browser defaults differ. Where the default is still no-referrer-when-downgrade, the full URL of your page, including any tokens in the path or query, is sent to every third-party host you reference.",
+      "detail": "No Referrer-Policy header, so the browser default applies and it is not the same in every browser.",
+      "references": [
+        "https://www.w3.org/TR/referrer-policy/"
+      ],
+      "remediation_key": "referrer-policy"
+    },
+    {
+      "id": "csp.base-uri.missing",
+      "title": "CSP does not set base-uri",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.base-uri",
+      "why": "base-uri does not fall back to default-src. Without it an injected \u003cbase\u003e tag rewrites every relative script URL on the page, which bypasses a host allowlist entirely.",
+      "detail": "No enforced Content-Security-Policy applies, so this control has nothing to restrict it.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#directive-base-uri"
+      ],
+      "remediation_key": "csp.base-uri"
+    },
+    {
+      "id": "csp.default-src.missing",
+      "title": "CSP has no default-src fallback",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.default-src",
+      "why": "Fetch directives you did not list fall back to default-src. Without it, connect-src, font-src, frame-src, worker-src and friends are completely unrestricted.",
+      "detail": "No enforced Content-Security-Policy applies, so this control has nothing to restrict it.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#directive-default-src"
+      ],
+      "remediation_key": "csp.default-src"
+    },
+    {
+      "id": "csp.frame-ancestors.missing",
+      "title": "CSP does not set frame-ancestors",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.frame-ancestors",
+      "why": "frame-ancestors is the modern clickjacking control and does not fall back to default-src. Without it (and without X-Frame-Options) the page can be framed by anyone.",
+      "detail": "No enforced Content-Security-Policy applies, so this control has nothing to restrict it.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#directive-frame-ancestors"
+      ],
+      "remediation_key": "csp.frame-ancestors"
+    },
+    {
+      "id": "tls.cipher.cbc",
+      "title": "Server accepts CBC-mode cipher suites",
+      "severity": "low",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "why": "CBC with MAC-then-encrypt has produced a decade of padding-oracle and timing attacks (Lucky13 and successors). AEAD suites have no equivalent history.",
+      "detail": "9 accepted suites use CBC mode: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA.",
+      "evidence": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA\nTLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA\nTLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA\nTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_RSA_WITH_AES_256_CBC_SHA\nTLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_RSA_WITH_AES_128_CBC_SHA\nTLS_RSA_WITH_AES_128_CBC_SHA256\nTLS_RSA_WITH_AES_128_GCM_SHA256\nTLS_RSA_WITH_AES_256_CBC_SHA\nTLS_RSA_WITH_AES_256_GCM_SHA384",
+      "remediation_key": "tls.ciphers"
+    },
+    {
+      "id": "coop.missing",
+      "title": "No Cross-Origin-Opener-Policy header",
+      "severity": "low",
+      "category": "headers",
+      "control": "coop",
+      "why": "Without COOP a page you open, or that opens you, keeps a window reference across origins. That reference is the basis of tabnabbing and of several XS-Leaks.",
+      "detail": "No Cross-Origin-Opener-Policy header, so cross-origin documents can retain a window reference to this page.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy"
+      ],
+      "remediation_key": "coop"
+    },
+    {
+      "id": "permissions-policy.missing",
+      "title": "No Permissions-Policy header",
+      "severity": "low",
+      "category": "headers",
+      "control": "permissions-policy",
+      "why": "Powerful features stay available to the document and, in some cases, to embedded third-party frames. Denying what you do not use limits what injected or embedded code can reach.",
+      "detail": "No Permissions-Policy header, so camera, microphone, geolocation and payment keep their default availability.",
+      "references": [
+        "https://www.w3.org/TR/permissions-policy-1/"
+      ],
+      "remediation_key": "permissions-policy"
+    },
+    {
+      "id": "xfo.missing",
+      "title": "No X-Frame-Options header",
+      "severity": "low",
+      "category": "headers",
+      "control": "xfo",
+      "why": "With neither X-Frame-Options nor CSP frame-ancestors the page can be framed by any site, which enables clickjacking.",
+      "detail": "Neither X-Frame-Options nor CSP frame-ancestors restricts who may frame this page.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Frame-Options"
+      ],
+      "remediation_key": "xfo"
+    },
+    {
+      "id": "csp.object-src.missing",
+      "title": "CSP does not set object-src 'none'",
+      "severity": "low",
+      "category": "csp",
+      "control": "csp.object-src",
+      "why": "Legacy plugin content (\u003cobject\u003e, \u003cembed\u003e) can execute script in some browsers. object-src 'none' is free to deploy and closes that path.",
+      "detail": "No enforced Content-Security-Policy applies, so this control has nothing to restrict it.",
+      "references": [
+        "https://csp.withgoogle.com/docs/strict-csp.html"
+      ],
+      "remediation_key": "csp.object-src"
+    },
+    {
+      "id": "csp.style-src.missing",
+      "title": "CSP restricts nothing for stylesheets",
+      "severity": "low",
+      "category": "csp",
+      "control": "csp.style-src",
+      "why": "Neither style-src nor default-src is present, so stylesheet loading and inline styles are unrestricted.",
+      "detail": "No enforced Content-Security-Policy applies, so this control has nothing to restrict it.",
+      "remediation_key": "csp.unsafe-inline"
+    },
+    {
+      "id": "security-txt.missing",
+      "title": "No /.well-known/security.txt",
+      "severity": "low",
+      "category": "network",
+      "control": "security-txt",
+      "why": "Without a published contact, someone who finds a vulnerability has to guess where to send it, and often gives up or goes public instead.",
+      "detail": "https://example.com/.well-known/security.txt returned 404.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc9116"
+      ],
+      "remediation_key": "security-txt"
+    },
+    {
+      "id": "tls.resumption.none",
+      "title": "Session resumption is not offered",
+      "severity": "info",
+      "category": "tls",
+      "control": "tls.extras",
+      "why": "Resumption is a latency optimisation. Disabling it is a defensible trade-off in exchange for simpler forward-secrecy reasoning.",
+      "detail": "A second handshake with the same session cache did not resume.",
+      "remediation_key": "tls.extras"
+    },
+    {
+      "id": "coep.missing",
+      "title": "No Cross-Origin-Embedder-Policy header",
+      "severity": "info",
+      "category": "headers",
+      "control": "coep",
+      "why": "COEP is only needed if you want crossOriginIsolated (SharedArrayBuffer, precise timers). It breaks third-party embeds that do not opt in, so its absence is reported, not penalised.",
+      "detail": "No Cross-Origin-Embedder-Policy header, so the document is not cross-origin isolated.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy"
+      ],
+      "remediation_key": "coep"
+    },
+    {
+      "id": "corp.missing",
+      "title": "No Cross-Origin-Resource-Policy header",
+      "severity": "info",
+      "category": "headers",
+      "control": "corp",
+      "why": "CORP tells the browser who may embed this response. It is the cheapest mitigation for Spectre-style cross-origin leaks of resource contents.",
+      "detail": "No Cross-Origin-Resource-Policy header, so other origins may embed this response.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy"
+      ],
+      "remediation_key": "corp"
+    },
+    {
+      "id": "info.server-present",
+      "title": "Server header present without a version",
+      "severity": "info",
+      "category": "info",
+      "control": "info-headers",
+      "why": "The product name alone is low-value information. Suppressing it entirely is cheap but optional.",
+      "detail": "Server names the product but not a version.",
+      "evidence": "cloudflare",
+      "subject": "Server",
+      "remediation_key": "info-headers"
+    },
+    {
+      "id": "tls.alpn.ok",
+      "title": "Server advertises modern protocols over ALPN",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.extras",
+      "why": "ALPN negotiation offers HTTP/2.",
+      "detail": "ALPN negotiated: h2, http/1.1.",
+      "evidence": "h2, http/1.1",
+      "remediation_key": "tls.extras"
+    },
+    {
+      "id": "tls.cipher.server-preference",
+      "title": "Server enforces its own cipher suite order",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "why": "The server, not the client, decides which suite is used.",
+      "detail": "The server selected the same suite regardless of the order the client offered them.",
+      "evidence": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA\nTLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA\nTLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA\nTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256\nTLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256\nTLS_ECDHE_RSA_WITH_AES_256_CBC_SHA\nTLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384\nTLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256\nTLS_RSA_WITH_AES_128_CBC_SHA\nTLS_RSA_WITH_AES_128_CBC_SHA256\nTLS_RSA_WITH_AES_128_GCM_SHA256\nTLS_RSA_WITH_AES_256_CBC_SHA\nTLS_RSA_WITH_AES_256_GCM_SHA384",
+      "remediation_key": "tls.ciphers"
+    },
+    {
+      "id": "tls.ocsp.stapled",
+      "title": "OCSP stapling is enabled",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.ocsp",
+      "why": "The server provides a fresh revocation proof in the handshake.",
+      "detail": "The handshake carried a stapled OCSP response with status good.",
+      "evidence": "good",
+      "remediation_key": "tls.ocsp"
+    },
+    {
+      "id": "cors.ok",
+      "title": "CORS configuration is sound",
+      "severity": "pass",
+      "category": "headers",
+      "control": "cors",
+      "why": "The server does not expose credentialed responses to arbitrary origins.",
+      "detail": "No Access-Control-Allow-Origin was returned for a foreign origin.",
+      "remediation_key": "cors"
+    },
+    {
+      "id": "legacy.none",
+      "title": "No deprecated security headers",
+      "severity": "pass",
+      "category": "headers",
+      "control": "legacy-headers",
+      "why": "The response carries no withdrawn or counterproductive headers.",
+      "detail": "No withdrawn security headers are sent.",
+      "remediation_key": "legacy-headers"
+    },
+    {
+      "id": "cookie.none",
+      "title": "No cookies set on this response",
+      "severity": "pass",
+      "category": "cookies",
+      "control": "cookies",
+      "why": "Nothing to misconfigure.",
+      "detail": "The response set no cookies.",
+      "remediation_key": "cookies"
+    },
+    {
+      "id": "methods.ok",
+      "title": "No unexpected HTTP methods advertised",
+      "severity": "pass",
+      "category": "network",
+      "control": "http-methods",
+      "why": "Only safe methods are advertised and TRACE is refused.",
+      "detail": "TRACE is refused.",
+      "remediation_key": "http-methods"
+    },
+    {
+      "id": "mixed-content.none",
+      "title": "No plain-HTTP subresource references found",
+      "severity": "pass",
+      "category": "network",
+      "control": "mixed-content",
+      "why": "The retrieved HTML references no http:// subresources.",
+      "detail": "No http:// subresource references were found in the retrieved HTML.",
+      "remediation_key": "mixed-content"
+    },
+    {
+      "id": "info.none",
+      "title": "No version-disclosing headers",
+      "severity": "pass",
+      "category": "info",
+      "control": "info-headers",
+      "why": "The response does not advertise software versions.",
+      "detail": "No header advertises a software version.",
+      "remediation_key": "info-headers"
+    }
+  ],
+  "tls": {
+    "versions": {
+      "TLS 1.0": true,
+      "TLS 1.1": true,
+      "TLS 1.2": true,
+      "TLS 1.3": true
+    },
+    "tls12_suites": [
+      "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+      "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+      "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+      "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+      "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+      "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+      "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+      "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+      "TLS_RSA_WITH_AES_128_CBC_SHA",
+      "TLS_RSA_WITH_AES_128_CBC_SHA256",
+      "TLS_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_RSA_WITH_AES_256_CBC_SHA",
+      "TLS_RSA_WITH_AES_256_GCM_SHA384"
+    ],
+    "tls13_suite": "TLS_AES_128_GCM_SHA256",
+    "cipher_preference": "server",
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "ocsp_stapled": true,
+    "chain_length": 4,
+    "certificate_subject": "CN=example.com",
+    "certificate_issuer": "CN=Cloudflare TLS Issuing ECC CA 3,O=SSL Corporation,C=US",
+    "certificate_not_after": "2026-10-27T22:17:21Z",
+    "certificate_sans": [
+      "example.com",
+      "*.example.com"
+    ],
+    "certificate_key": "ECDSA 256 bits",
+    "certificate_signature": "ECDSA-SHA256"
+  }
+}

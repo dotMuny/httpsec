@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "servers": [
+    "nginx",
+    "apache",
+    "caddy",
+    "cdn"
+  ],
+  "remediation": {
+    "csp.policy": {
+      "summary": "Deploy an enforced Content-Security-Policy. Start from a nonce-based policy and roll it out with Report-Only first.",
+      "nginx": "# Replace $csp_nonce with a per-request nonce (ngx_http_sub_module or your app).\nadd_header Content-Security-Policy \"default-src 'self'; script-src 'nonce-$csp_nonce' 'strict-dynamic' https: 'unsafe-inline'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; require-trusted-types-for 'script'\" always;",
+      "apache": "# mod_headers; generate the nonce in your application and expose it as %{CSP_NONCE}e\nHeader always set Content-Security-Policy \"default-src 'self'; script-src 'nonce-%{CSP_NONCE}e' 'strict-dynamic' https: 'unsafe-inline'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'\"",
+      "caddy": "header {\n    Content-Security-Policy \"default-src 'self'; script-src 'nonce-{http.vars.csp_nonce}' 'strict-dynamic' https: 'unsafe-inline'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'\"\n}",
+      "cdn": "# Cloudflare Transform Rule (Modify Response Header) -> Set static\n# Header name:  Content-Security-Policy\n# Value:        default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'\n# A nonce-based policy needs a Worker, since the value must change per request.",
+      "notes": "Deploy as Content-Security-Policy-Report-Only first, collect violations for a release cycle, then switch the header name."
+    },
+    "csp.default-src": {
+      "summary": "Add a restrictive default-src so unlisted fetch directives inherit a safe fallback.",
+      "nginx": "add_header Content-Security-Policy \"default-src 'self'; ...\" always;",
+      "apache": "Header always set Content-Security-Policy \"default-src 'self'; ...\" ",
+      "caddy": "header Content-Security-Policy \"default-src 'self'; ...\"",
+      "cdn": "# Add `default-src 'self';` to the start of the CSP value in your Transform Rule.",
+      "notes": ""
+    },
+    "csp.unsafe-inline": {
+      "summary": "Remove 'unsafe-inline' from script-src and adopt per-request nonces with 'strict-dynamic'.",
+      "nginx": "# 1. Generate a nonce per request and place it on every <script> tag.\n# 2. Then drop 'unsafe-inline' (keep it only as the CSP1 fallback shown here):\nadd_header Content-Security-Policy \"script-src 'nonce-$csp_nonce' 'strict-dynamic' https: 'unsafe-inline'; object-src 'none'; base-uri 'none'\" always;",
+      "apache": "Header always set Content-Security-Policy \"script-src 'nonce-%{CSP_NONCE}e' 'strict-dynamic' https: 'unsafe-inline'; object-src 'none'; base-uri 'none'\"",
+      "caddy": "header Content-Security-Policy \"script-src 'nonce-{http.vars.csp_nonce}' 'strict-dynamic' https: 'unsafe-inline'; object-src 'none'; base-uri 'none'\"",
+      "cdn": "# Nonces cannot be produced by a static header rule. Use a Cloudflare Worker:\n#   const nonce = crypto.randomUUID().replace(/-/g,'');\n#   res.headers.set('Content-Security-Policy', `script-src 'nonce-${nonce}' 'strict-dynamic' https: 'unsafe-inline'`)\n# and inject the same nonce into the HTML with HTMLRewriter.",
+      "notes": "'unsafe-inline' is ignored by CSP3 browsers when a nonce is present, so keeping it is safe and helps old clients."
+    },
+    "csp.unsafe-eval": {
+      "summary": "Remove 'unsafe-eval' and replace the eval-based code paths (templating engines, JSON parsing, dynamic imports).",
+      "nginx": "add_header Content-Security-Policy \"script-src 'self' 'nonce-$csp_nonce'\" always;   # no 'unsafe-eval'",
+      "apache": "Header always set Content-Security-Policy \"script-src 'self' 'nonce-%{CSP_NONCE}e'\" ",
+      "caddy": "header Content-Security-Policy \"script-src 'self' 'nonce-{http.vars.csp_nonce}\"",
+      "cdn": "# Delete the `'unsafe-eval'` token from the CSP value in your Transform Rule or Worker.",
+      "notes": "Common sources are AngularJS's expression evaluator, older Vue builds with the runtime compiler, and Function() in analytics bundles."
+    },
+    "csp.wildcard": {
+      "summary": "Replace wildcard, scheme-only and known-bypassable sources with an explicit host list, or move to 'strict-dynamic'.",
+      "nginx": "add_header Content-Security-Policy \"script-src 'self' https://cdn.example.com; object-src 'none'; base-uri 'none'\" always;\n# Better: stop depending on the host allowlist entirely\n# add_header Content-Security-Policy \"script-src 'nonce-$csp_nonce' 'strict-dynamic'\" always;",
+      "apache": "Header always set Content-Security-Policy \"script-src 'self' https://cdn.example.com; object-src 'none'; base-uri 'none'\"",
+      "caddy": "header Content-Security-Policy \"script-src 'self' https://cdn.example.com; object-src 'none'; base-uri 'none'\"",
+      "cdn": "# Replace `*`, `https:` and `data:` in script-src with the specific hosts you actually load scripts from.",
+      "notes": "A host allowlist is only as strong as its weakest entry; 'strict-dynamic' removes the class of bypass entirely."
+    },
+    "csp.object-src": {
+      "summary": "Set object-src 'none' to block plugin-based script execution.",
+      "nginx": "add_header Content-Security-Policy \"...; object-src 'none'\" always;",
+      "apache": "Header always set Content-Security-Policy \"...; object-src 'none'\" ",
+      "caddy": "header Content-Security-Policy \"...; object-src 'none'\"",
+      "cdn": "# Append `object-src 'none';` to the CSP value.",
+      "notes": ""
+    },
+    "csp.base-uri": {
+      "summary": "Set base-uri 'none' (or 'self') so an injected <base> tag cannot rewrite relative script URLs.",
+      "nginx": "add_header Content-Security-Policy \"...; base-uri 'none'\" always;",
+      "apache": "Header always set Content-Security-Policy \"...; base-uri 'none'\" ",
+      "caddy": "header Content-Security-Policy \"...; base-uri 'none'\"",
+      "cdn": "# Append `base-uri 'none';` to the CSP value.",
+      "notes": "base-uri does not fall back to default-src, so it must be listed explicitly."
+    },
+    "csp.frame-ancestors": {
+      "summary": "Set frame-ancestors to 'none', or to the exact origins allowed to frame the page.",
+      "nginx": "add_header Content-Security-Policy \"...; frame-ancestors 'none'\" always;",
+      "apache": "Header always set Content-Security-Policy \"...; frame-ancestors 'none'\" ",
+      "caddy": "header Content-Security-Policy \"...; frame-ancestors 'none'\"",
+      "cdn": "# Append `frame-ancestors 'none';` to the CSP value.",
+      "notes": "frame-ancestors supersedes X-Frame-Options and supports multiple origins, which X-Frame-Options never did."
+    },
+    "csp.reporting": {
+      "summary": "Add a report-to group backed by a Reporting-Endpoints header alongside the legacy report-uri.",
+      "nginx": "add_header Reporting-Endpoints 'csp-endpoint=\"https://example.com/csp-reports\"' always;\nadd_header Content-Security-Policy \"...; report-to csp-endpoint; report-uri https://example.com/csp-reports\" always;",
+      "apache": "Header always set Reporting-Endpoints \"csp-endpoint=\\\"https://example.com/csp-reports\\\"\"\nHeader always set Content-Security-Policy \"...; report-to csp-endpoint; report-uri https://example.com/csp-reports\"",
+      "caddy": "header {\n    Reporting-Endpoints `csp-endpoint=\"https://example.com/csp-reports\"`\n    Content-Security-Policy \"...; report-to csp-endpoint; report-uri https://example.com/csp-reports\"\n}",
+      "cdn": "# Add both a `Reporting-Endpoints` response header and a `report-to` directive in the CSP.",
+      "notes": "Keep report-uri for now: Safari still only understands that one."
+    },
+    "hsts": {
+      "summary": "Send Strict-Transport-Security with a one-year max-age and includeSubDomains from the TLS vhost.",
+      "nginx": "add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains; preload\" always;",
+      "apache": "Header always set Strict-Transport-Security \"max-age=31536000; includeSubDomains; preload\" ",
+      "caddy": "header Strict-Transport-Security \"max-age=31536000; includeSubDomains; preload\"",
+      "cdn": "# Cloudflare: SSL/TLS -> Edge Certificates -> HTTP Strict Transport Security (HSTS) -> Enable\n#   Max Age: 12 months, Apply to subdomains: On, Preload: On",
+      "notes": "Only add `preload` once every subdomain is HTTPS-only: submission to hstspreload.org is slow to reverse."
+    },
+    "xfo": {
+      "summary": "Send X-Frame-Options: DENY for legacy clients, and rely on CSP frame-ancestors for modern ones.",
+      "nginx": "add_header X-Frame-Options \"DENY\" always;",
+      "apache": "Header always set X-Frame-Options \"DENY\" ",
+      "caddy": "header X-Frame-Options \"DENY\"",
+      "cdn": "# Transform Rule -> Set static -> X-Frame-Options: DENY",
+      "notes": "ALLOW-FROM is not supported anywhere; use CSP frame-ancestors when you need to allow specific origins."
+    },
+    "nosniff": {
+      "summary": "Send X-Content-Type-Options: nosniff on every response.",
+      "nginx": "add_header X-Content-Type-Options \"nosniff\" always;",
+      "apache": "Header always set X-Content-Type-Options \"nosniff\" ",
+      "caddy": "header X-Content-Type-Options \"nosniff\"",
+      "cdn": "# Transform Rule -> Set static -> X-Content-Type-Options: nosniff",
+      "notes": "Make sure Content-Type is correct for every response first, since nosniff makes the declared type binding."
+    },
+    "referrer-policy": {
+      "summary": "Send Referrer-Policy: strict-origin-when-cross-origin or no-referrer.",
+      "nginx": "add_header Referrer-Policy \"strict-origin-when-cross-origin\" always;",
+      "apache": "Header always set Referrer-Policy \"strict-origin-when-cross-origin\" ",
+      "caddy": "header Referrer-Policy \"strict-origin-when-cross-origin\"",
+      "cdn": "# Transform Rule -> Set static -> Referrer-Policy: strict-origin-when-cross-origin",
+      "notes": "strict-origin-when-cross-origin keeps the full URL for same-origin navigation and sends only the origin elsewhere."
+    },
+    "permissions-policy": {
+      "summary": "Send Permissions-Policy denying the features the site does not use.",
+      "nginx": "add_header Permissions-Policy \"accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()\" always;",
+      "apache": "Header always set Permissions-Policy \"accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()\" ",
+      "caddy": "header Permissions-Policy \"accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()\"",
+      "cdn": "# Transform Rule -> Set static -> Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=()",
+      "notes": "An empty allowlist `()` denies the feature to the document and to every frame it embeds."
+    },
+    "coop": {
+      "summary": "Send Cross-Origin-Opener-Policy: same-origin to isolate the browsing context group.",
+      "nginx": "add_header Cross-Origin-Opener-Policy \"same-origin\" always;",
+      "apache": "Header always set Cross-Origin-Opener-Policy \"same-origin\" ",
+      "caddy": "header Cross-Origin-Opener-Policy \"same-origin\"",
+      "cdn": "# Transform Rule -> Set static -> Cross-Origin-Opener-Policy: same-origin",
+      "notes": "Use same-origin-allow-popups if the site opens OAuth popups that need window.opener."
+    },
+    "coep": {
+      "summary": "Send Cross-Origin-Embedder-Policy: require-corp (or credentialless) to enable cross-origin isolation.",
+      "nginx": "add_header Cross-Origin-Embedder-Policy \"require-corp\" always;",
+      "apache": "Header always set Cross-Origin-Embedder-Policy \"require-corp\" ",
+      "caddy": "header Cross-Origin-Embedder-Policy \"require-corp\"",
+      "cdn": "# Transform Rule -> Set static -> Cross-Origin-Embedder-Policy: require-corp",
+      "notes": "This breaks third-party embeds that do not send CORP or CORS headers. Roll out behind Cross-Origin-Embedder-Policy-Report-Only first."
+    },
+    "corp": {
+      "summary": "Send Cross-Origin-Resource-Policy: same-origin (or same-site) so other origins cannot embed the response.",
+      "nginx": "add_header Cross-Origin-Resource-Policy \"same-origin\" always;",
+      "apache": "Header always set Cross-Origin-Resource-Policy \"same-origin\" ",
+      "caddy": "header Cross-Origin-Resource-Policy \"same-origin\"",
+      "cdn": "# Transform Rule -> Set static -> Cross-Origin-Resource-Policy: same-origin",
+      "notes": "Use cross-origin for assets that are meant to be hotlinked, such as a public CDN bucket."
+    },
+    "cors": {
+      "summary": "Never reflect an arbitrary Origin. Match against an explicit allowlist and only then echo it, and never combine a wildcard with credentials.",
+      "nginx": "map $http_origin $cors_origin {\n    default                       \"\";\n    \"https://app.example.com\"     $http_origin;\n    \"https://admin.example.com\"   $http_origin;\n}\nlocation /api/ {\n    add_header Access-Control-Allow-Origin  $cors_origin always;\n    add_header Access-Control-Allow-Credentials \"true\" always;\n    add_header Vary \"Origin\" always;\n}",
+      "apache": "SetEnvIf Origin \"^https://(app|admin)\\.example\\.com$\" CORS_ORIGIN=$0\nHeader always set Access-Control-Allow-Origin %{CORS_ORIGIN}e env=CORS_ORIGIN\nHeader always set Access-Control-Allow-Credentials \"true\" env=CORS_ORIGIN\nHeader always append Vary \"Origin\"",
+      "caddy": "@allowed_origin header Origin \"https://app.example.com\"\nheader @allowed_origin {\n    Access-Control-Allow-Origin \"https://app.example.com\"\n    Access-Control-Allow-Credentials \"true\"\n    Vary \"Origin\"\n}",
+      "cdn": "# Cloudflare Worker:\n#   const allowed = new Set(['https://app.example.com']);\n#   const o = req.headers.get('Origin');\n#   if (allowed.has(o)) { res.headers.set('Access-Control-Allow-Origin', o);\n#                         res.headers.set('Access-Control-Allow-Credentials','true');\n#                         res.headers.append('Vary','Origin'); }",
+      "notes": "Also reject the literal string `null`: any sandboxed iframe can send it."
+    },
+    "cookies": {
+      "summary": "Set Secure, HttpOnly and an explicit SameSite on every cookie, and use the __Host- prefix for session cookies.",
+      "nginx": "# nginx can only rewrite cookies it proxies:\nproxy_cookie_flags ~ secure httponly samesite=lax;\n# Preferably set the attributes in the application, e.g.:\n#   Set-Cookie: __Host-session=...; Path=/; Secure; HttpOnly; SameSite=Lax",
+      "apache": "Header always edit Set-Cookie ^(.*)$ \"$1; Secure; HttpOnly; SameSite=Lax\"\n# Or, for the session cookie of a specific module:\n#   php_value session.cookie_secure 1\n#   php_value session.cookie_httponly 1\n#   php_value session.cookie_samesite Lax",
+      "caddy": "# Caddy does not rewrite cookies; set the attributes in the upstream application:\n#   Set-Cookie: __Host-session=...; Path=/; Secure; HttpOnly; SameSite=Lax",
+      "cdn": "# Cloudflare Transform Rule cannot safely rewrite Set-Cookie. Fix it in the origin application:\n#   Set-Cookie: __Host-session=...; Path=/; Secure; HttpOnly; SameSite=Lax",
+      "notes": "__Host- requires Secure, Path=/ and no Domain attribute, which pins the cookie to exactly one origin."
+    },
+    "tls.versions": {
+      "summary": "Offer only TLS 1.2 and TLS 1.3.",
+      "nginx": "ssl_protocols TLSv1.2 TLSv1.3;",
+      "apache": "SSLProtocol -all +TLSv1.2 +TLSv1.3",
+      "caddy": "tls {\n    protocols tls1.2 tls1.3\n}\n# Caddy defaults to TLS 1.2+ already; this block is only needed to pin it.",
+      "cdn": "# Cloudflare: SSL/TLS -> Edge Certificates -> Minimum TLS Version -> TLS 1.2",
+      "notes": "Check your client population before dropping TLS 1.0/1.1: it mostly affects Android 4.x and Windows XP era clients."
+    },
+    "tls.ciphers": {
+      "summary": "Restrict TLS 1.2 to AEAD suites with forward secrecy and let the server pick the order.",
+      "nginx": "ssl_protocols TLSv1.2 TLSv1.3;\nssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305;\nssl_prefer_server_ciphers on;\nssl_ecdh_curve X25519:prime256v1:secp384r1;",
+      "apache": "SSLCipherSuite ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305\nSSLHonorCipherOrder on\nSSLOpenSSLConfCmd Curves X25519:prime256v1:secp384r1",
+      "caddy": "tls {\n    ciphers TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305\n    curves x25519 secp256r1 secp384r1\n}",
+      "cdn": "# Cloudflare manages cipher selection at the edge; set Minimum TLS Version to 1.2 and leave the rest to the platform.",
+      "notes": "The list above is the Mozilla \"intermediate\" profile minus the CBC suites."
+    },
+    "tls.certificate": {
+      "summary": "Serve a certificate from a publicly trusted CA that covers the hostname, with the full intermediate chain, and automate renewal.",
+      "nginx": "ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;   # leaf + intermediates\nssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;\n# fullchain.pem, not cert.pem: cert.pem alone leaves the chain incomplete.",
+      "apache": "SSLCertificateFile      /etc/letsencrypt/live/example.com/fullchain.pem\nSSLCertificateKeyFile   /etc/letsencrypt/live/example.com/privkey.pem\n# Apache < 2.4.8 also needs SSLCertificateChainFile.",
+      "caddy": "# Caddy obtains and renews certificates automatically:\nexample.com {\n    # nothing to configure; or, for your own certificate:\n    # tls /etc/ssl/fullchain.pem /etc/ssl/privkey.pem\n}",
+      "cdn": "# Cloudflare: SSL/TLS -> Edge Certificates covers the edge.\n# Use an Origin CA certificate on the origin and set the mode to Full (strict).",
+      "notes": "Verify the deployed chain with: openssl s_client -connect example.com:443 -servername example.com -showcerts"
+    },
+    "tls.ocsp": {
+      "summary": "Enable OCSP stapling so the handshake carries a fresh revocation proof.",
+      "nginx": "ssl_stapling on;\nssl_stapling_verify on;\nssl_trusted_certificate /etc/letsencrypt/live/example.com/chain.pem;\nresolver 1.1.1.1 9.9.9.9 valid=300s;",
+      "apache": "SSLUseStapling On\nSSLStaplingCache \"shmcb:/var/run/ocsp(128000)\"",
+      "caddy": "# Caddy staples OCSP responses automatically for the certificates it manages.",
+      "cdn": "# Cloudflare staples OCSP at the edge automatically; no configuration is required.",
+      "notes": "Let's Encrypt has wound down its OCSP service; with a CA that no longer publishes OCSP this control is not applicable."
+    },
+    "tls.extras": {
+      "summary": "Enable ALPN with HTTP/2, keep secure renegotiation on, and make sure TLS compression is disabled.",
+      "nginx": "listen 443 ssl;\nhttp2 on;\nssl_session_cache shared:SSL:10m;\nssl_session_timeout 1d;\nssl_session_tickets off;   # keeps forward secrecy simple",
+      "apache": "Protocols h2 http/1.1\nSSLSessionCache \"shmcb:/var/run/ssl_scache(512000)\"\nSSLCompression off\nSSLInsecureRenegotiation off",
+      "caddy": "# Caddy enables HTTP/2 and h3 by default and never enables TLS compression.\nservers {\n    protocols h1 h2 h3\n}",
+      "cdn": "# Cloudflare: Network -> HTTP/2 and HTTP/3 (with QUIC) -> On",
+      "notes": "TLS compression is off by default in every current OpenSSL build; if it is on, the build or configuration is unusually old."
+    },
+    "redirect": {
+      "summary": "Redirect every plain-HTTP request to the same host over HTTPS with a single permanent redirect.",
+      "nginx": "server {\n    listen 80;\n    listen [::]:80;\n    server_name example.com www.example.com;\n    return 301 https://$host$request_uri;\n}",
+      "apache": "<VirtualHost *:80>\n    ServerName example.com\n    Redirect permanent / https://example.com/\n</VirtualHost>\n# Or with mod_rewrite:\n#   RewriteEngine On\n#   RewriteCond %{HTTPS} off\n#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]",
+      "caddy": "# Caddy redirects HTTP to HTTPS automatically for any site with a hostname.\nexample.com {\n    # automatic HTTP -> HTTPS redirect\n}",
+      "cdn": "# Cloudflare: SSL/TLS -> Edge Certificates -> Always Use HTTPS -> On",
+      "notes": "Redirect to the same host first and let that host redirect to the canonical name, otherwise the browser never records an HSTS entry for the original host."
+    },
+    "mixed-content": {
+      "summary": "Change subresource URLs to https:// (or protocol-relative-free absolute HTTPS URLs) and add upgrade-insecure-requests as a backstop.",
+      "nginx": "add_header Content-Security-Policy \"...; upgrade-insecure-requests\" always;",
+      "apache": "Header always set Content-Security-Policy \"...; upgrade-insecure-requests\" ",
+      "caddy": "header Content-Security-Policy \"...; upgrade-insecure-requests\"",
+      "cdn": "# Cloudflare: SSL/TLS -> Edge Certificates -> Automatic HTTPS Rewrites -> On\n# This rewrites http:// subresource URLs in HTML at the edge.",
+      "notes": "upgrade-insecure-requests hides the problem rather than fixing it; correct the URLs in the templates as well."
+    },
+    "security-txt": {
+      "summary": "Publish /.well-known/security.txt with at least Contact and Expires, served over HTTPS as text/plain.",
+      "nginx": "location = /.well-known/security.txt {\n    default_type text/plain;\n    return 200 \"Contact: mailto:security@example.com\\nExpires: 2027-01-01T00:00:00.000Z\\nPreferred-Languages: en, es\\nCanonical: https://example.com/.well-known/security.txt\\n\";\n}",
+      "apache": "# Place the file at DOCUMENT_ROOT/.well-known/security.txt and force its type:\n<Files \"security.txt\">\n    ForceType text/plain\n</Files>",
+      "caddy": "handle /.well-known/security.txt {\n    header Content-Type text/plain\n    respond \"Contact: mailto:security@example.com\\nExpires: 2027-01-01T00:00:00.000Z\\n\" 200\n}",
+      "cdn": "# Cloudflare Pages/Workers: serve a static /.well-known/security.txt with Content-Type: text/plain,\n# or use a Worker that returns the file contents for that path.",
+      "notes": "Sign the file with PGP and link the signature from the Canonical field if you publish a key."
+    },
+    "http-methods": {
+      "summary": "Disable TRACE and restrict the methods the server will act on to those the application needs.",
+      "nginx": "# nginx never implements TRACE, but a proxied backend might:\nif ($request_method !~ ^(GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS)$) {\n    return 405;\n}",
+      "apache": "TraceEnable off\n<LimitExcept GET HEAD POST OPTIONS>\n    Require all denied\n</LimitExcept>",
+      "caddy": "@bad_method not method GET HEAD POST PUT PATCH DELETE OPTIONS\nrespond @bad_method 405",
+      "cdn": "# Cloudflare WAF custom rule:\n#   Expression: (http.request.method in {\"TRACE\" \"TRACK\" \"CONNECT\"})\n#   Action:     Block",
+      "notes": ""
+    },
+    "info-headers": {
+      "summary": "Suppress headers that advertise software versions.",
+      "nginx": "server_tokens off;\n# For headers added by a proxied backend:\nproxy_hide_header X-Powered-By;\nproxy_hide_header X-AspNet-Version;\nproxy_hide_header X-AspNetMvc-Version;\nproxy_hide_header X-Generator;\n# Removing the Server header entirely needs the headers-more module:\n#   more_clear_headers 'Server';",
+      "apache": "ServerTokens Prod\nServerSignature Off\nHeader always unset X-Powered-By\nHeader always unset X-AspNet-Version\nHeader always unset X-AspNetMvc-Version\nHeader always unset X-Generator\n# PHP: expose_php = Off in php.ini",
+      "caddy": "header {\n    -Server\n    -X-Powered-By\n    -X-AspNet-Version\n    -X-Generator\n}",
+      "cdn": "# Cloudflare Transform Rule (Modify Response Header) -> Remove:\n#   X-Powered-By, X-AspNet-Version, X-AspNetMvc-Version, X-Generator",
+      "notes": "This is obscurity, not security. Do it because it is free, not because it protects anything on its own."
+    },
+    "legacy-headers": {
+      "summary": "Remove withdrawn security headers: X-XSS-Protection, Public-Key-Pins and Expect-CT.",
+      "nginx": "# nginx: simply stop emitting them. To strip them from a backend:\nproxy_hide_header X-XSS-Protection;\nproxy_hide_header Public-Key-Pins;\nproxy_hide_header Public-Key-Pins-Report-Only;\nproxy_hide_header Expect-CT;",
+      "apache": "Header always unset X-XSS-Protection\nHeader always unset Public-Key-Pins\nHeader always unset Public-Key-Pins-Report-Only\nHeader always unset Expect-CT",
+      "caddy": "header {\n    -X-XSS-Protection\n    -Public-Key-Pins\n    -Expect-CT\n}",
+      "cdn": "# Cloudflare Transform Rule (Modify Response Header) -> Remove:\n#   X-XSS-Protection, Public-Key-Pins, Expect-CT",
+      "notes": "If a compliance checklist insists on X-XSS-Protection, send the value 0, which disables the removed auditor rather than enabling it."
+    }
+  }
+}

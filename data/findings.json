@@ -1,0 +1,1398 @@
+{
+  "schema_version": 1,
+  "findings": {
+    "csp.missing": {
+      "title": "No Content-Security-Policy header",
+      "severity": "high",
+      "category": "csp",
+      "control": "csp.present",
+      "remediation": "csp.policy",
+      "why": "Without a CSP the browser will execute any script the page references or injects, so any HTML injection becomes script execution. CSP is the only defence-in-depth layer that survives a templating mistake.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy"
+      ]
+    },
+    "csp.present": {
+      "title": "Content-Security-Policy is set",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.present",
+      "remediation": "csp.policy",
+      "why": "A Content-Security-Policy header is enforced by the browser.",
+      "references": []
+    },
+    "csp.report-only-only": {
+      "title": "Only Content-Security-Policy-Report-Only is set",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.present",
+      "remediation": "csp.policy",
+      "why": "Report-Only never blocks anything. It is a rollout tool, not a control: an attacker's injected script runs exactly as it would with no policy at all.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only"
+      ]
+    },
+    "csp.report-only-present": {
+      "title": "A Report-Only policy is deployed alongside the enforced one",
+      "severity": "info",
+      "category": "csp",
+      "control": "csp.present",
+      "remediation": "csp.policy",
+      "why": "Running a stricter policy in report-only mode next to the enforced one is the recommended way to tighten CSP safely.",
+      "references": []
+    },
+    "csp.multiple-policies": {
+      "title": "Multiple Content-Security-Policy headers are sent",
+      "severity": "info",
+      "category": "csp",
+      "control": "csp.present",
+      "remediation": "csp.policy",
+      "why": "Multiple policies are intersected by the browser, so the result is at least as strict as each one. It is usually accidental (a proxy or CDN adding its own) and makes the effective policy hard to reason about.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#multiple-policies"
+      ]
+    },
+    "csp.parse-error": {
+      "title": "Content-Security-Policy contains unknown or malformed directives",
+      "severity": "low",
+      "category": "csp",
+      "control": "csp.present",
+      "remediation": "csp.policy",
+      "why": "Browsers ignore directives they do not understand. A typo silently removes the protection you thought you had deployed.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/"
+      ]
+    },
+    "csp.deprecated-directive": {
+      "title": "Content-Security-Policy uses deprecated directives",
+      "severity": "low",
+      "category": "csp",
+      "control": "csp.present",
+      "remediation": "csp.policy",
+      "why": "Deprecated directives such as block-all-mixed-content or referrer are ignored by current browsers and give a false sense of coverage.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#directives-deprecated"
+      ]
+    },
+    "csp.default-src.missing": {
+      "title": "CSP has no default-src fallback",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.default-src",
+      "remediation": "csp.default-src",
+      "why": "Fetch directives you did not list fall back to default-src. Without it, connect-src, font-src, frame-src, worker-src and friends are completely unrestricted.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#directive-default-src"
+      ]
+    },
+    "csp.default-src.permissive": {
+      "title": "CSP default-src is permissive",
+      "severity": "low",
+      "category": "csp",
+      "control": "csp.default-src",
+      "remediation": "csp.default-src",
+      "why": "A default-src of * or https: does not restrict anything meaningful for the directives that fall back to it.",
+      "references": []
+    },
+    "csp.default-src.ok": {
+      "title": "CSP declares a restrictive default-src",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.default-src",
+      "remediation": "csp.default-src",
+      "why": "Directives that are not listed explicitly fall back to a restrictive default.",
+      "references": []
+    },
+    "csp.script-src.unsafe-inline": {
+      "title": "script-src allows 'unsafe-inline'",
+      "severity": "high",
+      "category": "csp",
+      "control": "csp.script-src",
+      "remediation": "csp.unsafe-inline",
+      "why": "'unsafe-inline' with no nonce or hash present lets any injected <script> tag or inline event handler run. This is the single change that most often reduces a CSP to decoration.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#grammardef-unsafe-inline"
+      ]
+    },
+    "csp.script-src.unsafe-inline-ignored": {
+      "title": "script-src has 'unsafe-inline' but a nonce or hash is present",
+      "severity": "info",
+      "category": "csp",
+      "control": "csp.script-src",
+      "remediation": "csp.unsafe-inline",
+      "why": "CSP3 browsers ignore 'unsafe-inline' when a nonce or hash source is present, so it only affects CSP1 browsers. Keeping it is the documented backwards-compatibility pattern.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#allow-all-inline"
+      ]
+    },
+    "csp.script-src.unsafe-eval": {
+      "title": "script-src allows 'unsafe-eval'",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.script-src",
+      "remediation": "csp.unsafe-eval",
+      "why": "'unsafe-eval' re-enables eval(), new Function() and string timers, which turns many DOM-based sinks back into script execution even when source restrictions hold.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#grammardef-unsafe-eval"
+      ]
+    },
+    "csp.script-src.wildcard": {
+      "title": "script-src allows a wildcard source",
+      "severity": "high",
+      "category": "csp",
+      "control": "csp.script-src",
+      "remediation": "csp.wildcard",
+      "why": "A source of *, https: or http: lets scripts load from any host on the internet, so an attacker only needs to be able to inject a <script src> tag.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#framework-directive-source-list"
+      ]
+    },
+    "csp.script-src.data-uri": {
+      "title": "script-src allows data: URIs",
+      "severity": "high",
+      "category": "csp",
+      "control": "csp.script-src",
+      "remediation": "csp.wildcard",
+      "why": "data: in script-src means the attacker supplies the script body inline in the URL. It defeats the whole source allowlist.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/"
+      ]
+    },
+    "csp.script-src.bypassable-host": {
+      "title": "script-src allows a host known to be CSP-bypassable",
+      "severity": "high",
+      "category": "csp",
+      "control": "csp.script-src",
+      "remediation": "csp.wildcard",
+      "why": "Some popular CDNs host JSONP endpoints, AngularJS or unrestricted user content. Allowlisting them lets an attacker load attacker-controlled JavaScript from a host your policy trusts.",
+      "references": [
+        "https://research.google/pubs/pub45542/"
+      ]
+    },
+    "csp.script-src.missing": {
+      "title": "CSP restricts nothing for scripts",
+      "severity": "high",
+      "category": "csp",
+      "control": "csp.script-src",
+      "remediation": "csp.unsafe-inline",
+      "why": "Neither script-src nor default-src is present, so script loading is unrestricted.",
+      "references": []
+    },
+    "csp.script-src.strict-dynamic": {
+      "title": "script-src uses 'strict-dynamic' with nonces or hashes",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.script-src",
+      "remediation": "csp.unsafe-inline",
+      "why": "This is the recommended modern shape: trust propagates from nonced scripts to the scripts they load, and host allowlists (and their bypasses) stop mattering.",
+      "references": [
+        "https://csp.withgoogle.com/docs/strict-csp.html"
+      ]
+    },
+    "csp.script-src.ok": {
+      "title": "script-src is restrictive",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.script-src",
+      "remediation": "csp.unsafe-inline",
+      "why": "Script sources are limited to an explicit allowlist with no inline execution.",
+      "references": []
+    },
+    "csp.style-src.unsafe-inline": {
+      "title": "style-src allows 'unsafe-inline'",
+      "severity": "low",
+      "category": "csp",
+      "control": "csp.style-src",
+      "remediation": "csp.unsafe-inline",
+      "why": "Inline styles enable CSS-based data exfiltration and UI redressing. It is much less severe than inline script and is often impractical to remove, but it is not free.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#directive-style-src"
+      ]
+    },
+    "csp.style-src.missing": {
+      "title": "CSP restricts nothing for stylesheets",
+      "severity": "low",
+      "category": "csp",
+      "control": "csp.style-src",
+      "remediation": "csp.unsafe-inline",
+      "why": "Neither style-src nor default-src is present, so stylesheet loading and inline styles are unrestricted.",
+      "references": []
+    },
+    "csp.style-src.ok": {
+      "title": "style-src is restrictive",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.style-src",
+      "remediation": "csp.unsafe-inline",
+      "why": "Stylesheets are limited to an explicit allowlist with no inline styles.",
+      "references": []
+    },
+    "csp.object-src.missing": {
+      "title": "CSP does not set object-src 'none'",
+      "severity": "low",
+      "category": "csp",
+      "control": "csp.object-src",
+      "remediation": "csp.object-src",
+      "why": "Legacy plugin content (<object>, <embed>) can execute script in some browsers. object-src 'none' is free to deploy and closes that path.",
+      "references": [
+        "https://csp.withgoogle.com/docs/strict-csp.html"
+      ]
+    },
+    "csp.object-src.permissive": {
+      "title": "CSP object-src is permissive",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.object-src",
+      "remediation": "csp.object-src",
+      "why": "An object-src that is not 'none' leaves plugin-based script execution reachable. Almost no site needs it.",
+      "references": []
+    },
+    "csp.object-src.ok": {
+      "title": "CSP sets object-src 'none'",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.object-src",
+      "remediation": "csp.object-src",
+      "why": "Plugin content is blocked.",
+      "references": []
+    },
+    "csp.base-uri.missing": {
+      "title": "CSP does not set base-uri",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.base-uri",
+      "remediation": "csp.base-uri",
+      "why": "base-uri does not fall back to default-src. Without it an injected <base> tag rewrites every relative script URL on the page, which bypasses a host allowlist entirely.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#directive-base-uri"
+      ]
+    },
+    "csp.base-uri.permissive": {
+      "title": "CSP base-uri is permissive",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.base-uri",
+      "remediation": "csp.base-uri",
+      "why": "A wildcard base-uri leaves the injected-<base> bypass open.",
+      "references": []
+    },
+    "csp.base-uri.ok": {
+      "title": "CSP sets a restrictive base-uri",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.base-uri",
+      "remediation": "csp.base-uri",
+      "why": "Injected <base> tags cannot redirect relative script URLs.",
+      "references": []
+    },
+    "csp.frame-ancestors.missing": {
+      "title": "CSP does not set frame-ancestors",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.frame-ancestors",
+      "remediation": "csp.frame-ancestors",
+      "why": "frame-ancestors is the modern clickjacking control and does not fall back to default-src. Without it (and without X-Frame-Options) the page can be framed by anyone.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#directive-frame-ancestors"
+      ]
+    },
+    "csp.frame-ancestors.permissive": {
+      "title": "CSP frame-ancestors allows any origin",
+      "severity": "medium",
+      "category": "csp",
+      "control": "csp.frame-ancestors",
+      "remediation": "csp.frame-ancestors",
+      "why": "frame-ancestors * explicitly permits framing from anywhere, which is a clickjacking primitive.",
+      "references": []
+    },
+    "csp.frame-ancestors.ok": {
+      "title": "CSP sets a restrictive frame-ancestors",
+      "severity": "pass",
+      "category": "csp",
+      "control": "csp.frame-ancestors",
+      "remediation": "csp.frame-ancestors",
+      "why": "Framing is limited to an explicit set of origins.",
+      "references": []
+    },
+    "csp.reporting.uri-without-to": {
+      "title": "CSP uses report-uri without report-to",
+      "severity": "low",
+      "category": "csp",
+      "control": "csp.present",
+      "remediation": "csp.reporting",
+      "why": "report-uri is deprecated and is being removed from Chromium. Without a matching report-to and Reporting-Endpoints header you will stop receiving violation reports.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#directive-report-to"
+      ]
+    },
+    "hsts.missing": {
+      "title": "No Strict-Transport-Security header",
+      "severity": "high",
+      "category": "headers",
+      "control": "hsts",
+      "remediation": "hsts",
+      "why": "Without HSTS the first request of every session can be downgraded to plain HTTP by an on-path attacker, and the redirect to HTTPS happens too late to protect the cookies already sent.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Strict-Transport-Security"
+      ]
+    },
+    "hsts.malformed": {
+      "title": "Strict-Transport-Security is malformed",
+      "severity": "medium",
+      "category": "headers",
+      "control": "hsts",
+      "remediation": "hsts",
+      "why": "A header the browser cannot parse (missing or non-numeric max-age) is discarded, so the site behaves as if HSTS were never deployed.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc6797"
+      ]
+    },
+    "hsts.max-age-zero": {
+      "title": "Strict-Transport-Security has max-age=0",
+      "severity": "high",
+      "category": "headers",
+      "control": "hsts",
+      "remediation": "hsts",
+      "why": "max-age=0 actively tells browsers to forget the HSTS entry for this host. It is the documented way to turn HSTS off.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc6797#section-6.1.1"
+      ]
+    },
+    "hsts.max-age-low": {
+      "title": "Strict-Transport-Security max-age is below 180 days",
+      "severity": "medium",
+      "category": "headers",
+      "control": "hsts",
+      "remediation": "hsts",
+      "why": "A short max-age shrinks the window in which a returning visitor is protected, and 31536000 (one year) is required for the preload list.",
+      "references": [
+        "https://hstspreload.org/"
+      ]
+    },
+    "hsts.no-subdomains": {
+      "title": "Strict-Transport-Security lacks includeSubDomains",
+      "severity": "low",
+      "category": "headers",
+      "control": "hsts",
+      "remediation": "hsts",
+      "why": "Without includeSubDomains an attacker can serve plain HTTP on any subdomain and set cookies scoped to the parent domain, which undermines the protected origin.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc6797#section-6.1.2"
+      ]
+    },
+    "hsts.no-preload": {
+      "title": "Strict-Transport-Security lacks preload",
+      "severity": "info",
+      "category": "headers",
+      "control": "hsts",
+      "remediation": "hsts",
+      "why": "Preloading removes the trust-on-first-use gap entirely. It is a deliberate, hard-to-reverse commitment, so its absence is reported but not penalised.",
+      "references": [
+        "https://hstspreload.org/"
+      ]
+    },
+    "hsts.preloaded": {
+      "title": "Domain is on the Chrome HSTS preload list",
+      "severity": "pass",
+      "category": "headers",
+      "control": "hsts",
+      "remediation": "hsts",
+      "why": "Browsers refuse plain HTTP for this host before the first request is ever made.",
+      "references": [
+        "https://hstspreload.org/"
+      ]
+    },
+    "hsts.ok": {
+      "title": "Strict-Transport-Security is correctly configured",
+      "severity": "pass",
+      "category": "headers",
+      "control": "hsts",
+      "remediation": "hsts",
+      "why": "A long max-age with includeSubDomains is enforced.",
+      "references": []
+    },
+    "hsts.over-http": {
+      "title": "Strict-Transport-Security sent over plain HTTP",
+      "severity": "low",
+      "category": "headers",
+      "control": "hsts",
+      "remediation": "hsts",
+      "why": "Browsers must ignore HSTS headers received over a non-secure transport. Emitting it there is harmless but signals the header is set globally rather than on the TLS vhost.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc6797#section-8.1"
+      ]
+    },
+    "xfo.missing": {
+      "title": "No X-Frame-Options header",
+      "severity": "low",
+      "category": "headers",
+      "control": "xfo",
+      "remediation": "xfo",
+      "why": "With neither X-Frame-Options nor CSP frame-ancestors the page can be framed by any site, which enables clickjacking.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Frame-Options"
+      ]
+    },
+    "xfo.redundant": {
+      "title": "X-Frame-Options is redundant given CSP frame-ancestors",
+      "severity": "info",
+      "category": "headers",
+      "control": "xfo",
+      "remediation": "xfo",
+      "why": "Every browser that supports frame-ancestors ignores X-Frame-Options when both are present. Keeping it only helps very old clients; it is not a finding.",
+      "references": [
+        "https://www.w3.org/TR/CSP3/#frame-ancestors-and-frame-options"
+      ]
+    },
+    "xfo.invalid": {
+      "title": "X-Frame-Options has an invalid value",
+      "severity": "low",
+      "category": "headers",
+      "control": "xfo",
+      "remediation": "xfo",
+      "why": "ALLOW-FROM was never implemented outside Firefox and is now removed; any unrecognised value makes browsers fall back to allowing framing.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Frame-Options"
+      ]
+    },
+    "xfo.allowall": {
+      "title": "X-Frame-Options explicitly allows framing",
+      "severity": "medium",
+      "category": "headers",
+      "control": "xfo",
+      "remediation": "xfo",
+      "why": "The page opts out of framing protection, so a hostile site can overlay it and harvest clicks.",
+      "references": []
+    },
+    "xfo.ok": {
+      "title": "X-Frame-Options denies framing",
+      "severity": "pass",
+      "category": "headers",
+      "control": "xfo",
+      "remediation": "xfo",
+      "why": "Legacy clients are protected from clickjacking.",
+      "references": []
+    },
+    "nosniff.missing": {
+      "title": "No X-Content-Type-Options: nosniff",
+      "severity": "medium",
+      "category": "headers",
+      "control": "nosniff",
+      "remediation": "nosniff",
+      "why": "Without nosniff, browsers may MIME-sniff a user-uploaded file as HTML or JavaScript and execute it in your origin. It also enables cross-origin script inclusion of JSON endpoints.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/X-Content-Type-Options"
+      ]
+    },
+    "nosniff.invalid": {
+      "title": "X-Content-Type-Options has an unexpected value",
+      "severity": "medium",
+      "category": "headers",
+      "control": "nosniff",
+      "remediation": "nosniff",
+      "why": "nosniff is the only defined value. Anything else is ignored and provides no protection.",
+      "references": []
+    },
+    "nosniff.ok": {
+      "title": "X-Content-Type-Options: nosniff is set",
+      "severity": "pass",
+      "category": "headers",
+      "control": "nosniff",
+      "remediation": "nosniff",
+      "why": "MIME sniffing is disabled.",
+      "references": []
+    },
+    "referrer-policy.missing": {
+      "title": "No Referrer-Policy header",
+      "severity": "medium",
+      "category": "headers",
+      "control": "referrer-policy",
+      "remediation": "referrer-policy",
+      "why": "Browser defaults differ. Where the default is still no-referrer-when-downgrade, the full URL of your page, including any tokens in the path or query, is sent to every third-party host you reference.",
+      "references": [
+        "https://www.w3.org/TR/referrer-policy/"
+      ]
+    },
+    "referrer-policy.leaky": {
+      "title": "Referrer-Policy leaks the full URL to third parties",
+      "severity": "medium",
+      "category": "headers",
+      "control": "referrer-policy",
+      "remediation": "referrer-policy",
+      "why": "unsafe-url and no-referrer-when-downgrade send path and query to cross-origin destinations. Password-reset links, invite tokens and search terms end up in other people's logs.",
+      "references": [
+        "https://www.w3.org/TR/referrer-policy/#referrer-policy-unsafe-url"
+      ]
+    },
+    "referrer-policy.unknown": {
+      "title": "Referrer-Policy value is not recognised",
+      "severity": "low",
+      "category": "headers",
+      "control": "referrer-policy",
+      "remediation": "referrer-policy",
+      "why": "An unknown token is ignored and the browser default applies, so the header does nothing.",
+      "references": []
+    },
+    "referrer-policy.ok": {
+      "title": "Referrer-Policy restricts cross-origin referrers",
+      "severity": "pass",
+      "category": "headers",
+      "control": "referrer-policy",
+      "remediation": "referrer-policy",
+      "why": "Third parties receive at most the origin, never the full URL.",
+      "references": []
+    },
+    "permissions-policy.missing": {
+      "title": "No Permissions-Policy header",
+      "severity": "low",
+      "category": "headers",
+      "control": "permissions-policy",
+      "remediation": "permissions-policy",
+      "why": "Powerful features stay available to the document and, in some cases, to embedded third-party frames. Denying what you do not use limits what injected or embedded code can reach.",
+      "references": [
+        "https://www.w3.org/TR/permissions-policy-1/"
+      ]
+    },
+    "permissions-policy.open-features": {
+      "title": "Permissions-Policy leaves powerful features open",
+      "severity": "low",
+      "category": "headers",
+      "control": "permissions-policy",
+      "remediation": "permissions-policy",
+      "why": "Features the policy does not name keep their default allowlist. Camera, microphone, geolocation and payment are worth denying explicitly.",
+      "references": []
+    },
+    "permissions-policy.legacy-feature-policy": {
+      "title": "Legacy Feature-Policy header in use",
+      "severity": "info",
+      "category": "headers",
+      "control": "permissions-policy",
+      "remediation": "permissions-policy",
+      "why": "Feature-Policy was renamed to Permissions-Policy and uses a different syntax. Current browsers only read the new header.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Permissions-Policy"
+      ]
+    },
+    "permissions-policy.ok": {
+      "title": "Permissions-Policy denies the high-risk features",
+      "severity": "pass",
+      "category": "headers",
+      "control": "permissions-policy",
+      "remediation": "permissions-policy",
+      "why": "Camera, microphone, geolocation and payment are switched off for this document.",
+      "references": []
+    },
+    "coop.missing": {
+      "title": "No Cross-Origin-Opener-Policy header",
+      "severity": "low",
+      "category": "headers",
+      "control": "coop",
+      "remediation": "coop",
+      "why": "Without COOP a page you open, or that opens you, keeps a window reference across origins. That reference is the basis of tabnabbing and of several XS-Leaks.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy"
+      ]
+    },
+    "coop.weak": {
+      "title": "Cross-Origin-Opener-Policy is unsafe-none",
+      "severity": "low",
+      "category": "headers",
+      "control": "coop",
+      "remediation": "coop",
+      "why": "unsafe-none is the default and provides no browsing-context isolation.",
+      "references": []
+    },
+    "coop.ok": {
+      "title": "Cross-Origin-Opener-Policy isolates the browsing context",
+      "severity": "pass",
+      "category": "headers",
+      "control": "coop",
+      "remediation": "coop",
+      "why": "Cross-origin documents cannot hold a usable window reference to this page.",
+      "references": []
+    },
+    "coep.missing": {
+      "title": "No Cross-Origin-Embedder-Policy header",
+      "severity": "info",
+      "category": "headers",
+      "control": "coep",
+      "remediation": "coep",
+      "why": "COEP is only needed if you want crossOriginIsolated (SharedArrayBuffer, precise timers). It breaks third-party embeds that do not opt in, so its absence is reported, not penalised.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy"
+      ]
+    },
+    "coep.ok": {
+      "title": "Cross-Origin-Embedder-Policy is set",
+      "severity": "pass",
+      "category": "headers",
+      "control": "coep",
+      "remediation": "coep",
+      "why": "Cross-origin subresources must opt in to being embedded.",
+      "references": []
+    },
+    "isolation.enabled": {
+      "title": "Document is cross-origin isolated",
+      "severity": "pass",
+      "category": "headers",
+      "control": "coep",
+      "remediation": "coep",
+      "why": "COOP same-origin plus COEP require-corp means the strongest browser-side isolation is active.",
+      "references": [
+        "https://web.dev/articles/coop-coep"
+      ]
+    },
+    "corp.missing": {
+      "title": "No Cross-Origin-Resource-Policy header",
+      "severity": "info",
+      "category": "headers",
+      "control": "corp",
+      "remediation": "corp",
+      "why": "CORP tells the browser who may embed this response. It is the cheapest mitigation for Spectre-style cross-origin leaks of resource contents.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy"
+      ]
+    },
+    "corp.ok": {
+      "title": "Cross-Origin-Resource-Policy is set",
+      "severity": "pass",
+      "category": "headers",
+      "control": "corp",
+      "remediation": "corp",
+      "why": "Embedding of this response by other origins is restricted.",
+      "references": []
+    },
+    "info.server-version": {
+      "title": "Server header discloses a software version",
+      "severity": "low",
+      "category": "info",
+      "control": "info-headers",
+      "remediation": "info-headers",
+      "why": "A precise version turns your host into a match for a CVE feed. It does not make you exploitable, but it removes the attacker's need to fingerprint.",
+      "references": [
+        "https://owasp.org/www-project-secure-headers/"
+      ]
+    },
+    "info.server-present": {
+      "title": "Server header present without a version",
+      "severity": "info",
+      "category": "info",
+      "control": "info-headers",
+      "remediation": "info-headers",
+      "why": "The product name alone is low-value information. Suppressing it entirely is cheap but optional.",
+      "references": []
+    },
+    "info.x-powered-by": {
+      "title": "X-Powered-By header discloses the application stack",
+      "severity": "low",
+      "category": "info",
+      "control": "info-headers",
+      "remediation": "info-headers",
+      "why": "X-Powered-By has no function other than advertising your runtime and its version.",
+      "references": []
+    },
+    "info.aspnet-version": {
+      "title": "ASP.NET version headers are exposed",
+      "severity": "low",
+      "category": "info",
+      "control": "info-headers",
+      "remediation": "info-headers",
+      "why": "X-AspNet-Version and X-AspNetMvc-Version pin the exact framework build in use.",
+      "references": []
+    },
+    "info.x-generator": {
+      "title": "X-Generator header discloses the CMS",
+      "severity": "low",
+      "category": "info",
+      "control": "info-headers",
+      "remediation": "info-headers",
+      "why": "Naming the CMS and its version points straight at the matching exploit set.",
+      "references": []
+    },
+    "info.none": {
+      "title": "No version-disclosing headers",
+      "severity": "pass",
+      "category": "info",
+      "control": "info-headers",
+      "remediation": "info-headers",
+      "why": "The response does not advertise software versions.",
+      "references": []
+    },
+    "legacy.x-xss-protection": {
+      "title": "X-XSS-Protection header is present",
+      "severity": "low",
+      "category": "headers",
+      "control": "legacy-headers",
+      "remediation": "legacy-headers",
+      "why": "The XSS auditor was removed from every major browser because its filtering introduced information leaks and could itself be used to disable legitimate scripts. Modern guidance is to send X-XSS-Protection: 0 or nothing at all.",
+      "references": [
+        "https://owasp.org/www-project-secure-headers/#x-xss-protection"
+      ]
+    },
+    "legacy.public-key-pins": {
+      "title": "Public-Key-Pins header is present",
+      "severity": "medium",
+      "category": "headers",
+      "control": "legacy-headers",
+      "remediation": "legacy-headers",
+      "why": "HPKP was withdrawn after repeated incidents where a bad pin bricked a domain for the whole max-age. Browsers ignore it now, but the header is a footgun worth removing.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Public-Key-Pins"
+      ]
+    },
+    "legacy.expect-ct": {
+      "title": "Expect-CT header is present",
+      "severity": "low",
+      "category": "headers",
+      "control": "legacy-headers",
+      "remediation": "legacy-headers",
+      "why": "Certificate Transparency is now mandatory and enforced unconditionally, so Expect-CT is obsolete and ignored.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Expect-CT"
+      ]
+    },
+    "legacy.none": {
+      "title": "No deprecated security headers",
+      "severity": "pass",
+      "category": "headers",
+      "control": "legacy-headers",
+      "remediation": "legacy-headers",
+      "why": "The response carries no withdrawn or counterproductive headers.",
+      "references": []
+    },
+    "cors.wildcard-with-credentials": {
+      "title": "CORS allows any origin together with credentials",
+      "severity": "critical",
+      "category": "headers",
+      "control": "cors",
+      "remediation": "cors",
+      "why": "Access-Control-Allow-Origin: * with Access-Control-Allow-Credentials: true is rejected by browsers, but it is a reliable sign the CORS layer is misconfigured, and any server-side variant that echoes the origin instead makes every authenticated response readable by any website the victim visits.",
+      "references": [
+        "https://portswigger.net/web-security/cors"
+      ]
+    },
+    "cors.reflects-origin-with-credentials": {
+      "title": "CORS reflects the request Origin and allows credentials",
+      "severity": "critical",
+      "category": "headers",
+      "control": "cors",
+      "remediation": "cors",
+      "why": "Any site the victim visits can read authenticated responses from this origin, including CSRF tokens and personal data. This is a full cross-origin read of the user's session.",
+      "references": [
+        "https://portswigger.net/web-security/cors"
+      ]
+    },
+    "cors.reflects-origin": {
+      "title": "CORS reflects an arbitrary request Origin",
+      "severity": "medium",
+      "category": "headers",
+      "control": "cors",
+      "remediation": "cors",
+      "why": "Reflecting any origin defeats the point of an allowlist. Without credentials the impact is limited, but it exposes responses that depend on the client IP or on internal network position.",
+      "references": []
+    },
+    "cors.null-origin-allowed": {
+      "title": "CORS allows the null origin",
+      "severity": "high",
+      "category": "headers",
+      "control": "cors",
+      "remediation": "cors",
+      "why": "Any sandboxed iframe, including one an attacker embeds in their own page, sends Origin: null. Allowing it grants cross-origin read access to anyone.",
+      "references": [
+        "https://portswigger.net/web-security/cors"
+      ]
+    },
+    "cors.wildcard": {
+      "title": "CORS allows any origin without credentials",
+      "severity": "info",
+      "category": "headers",
+      "control": "cors",
+      "remediation": "cors",
+      "why": "A wildcard without credentials is the correct configuration for genuinely public resources. Confirm the endpoint really is public.",
+      "references": []
+    },
+    "cors.missing-vary-origin": {
+      "title": "CORS response does not vary on Origin",
+      "severity": "low",
+      "category": "headers",
+      "control": "cors",
+      "remediation": "cors",
+      "why": "When Access-Control-Allow-Origin depends on the request, a cache without Vary: Origin can hand one origin's allow header to another origin's request.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/HTTP/Headers/Vary"
+      ]
+    },
+    "cors.ok": {
+      "title": "CORS configuration is sound",
+      "severity": "pass",
+      "category": "headers",
+      "control": "cors",
+      "remediation": "cors",
+      "why": "The server does not expose credentialed responses to arbitrary origins.",
+      "references": []
+    },
+    "cookie.no-secure": {
+      "title": "Cookie is missing the Secure flag",
+      "severity": "high",
+      "category": "cookies",
+      "control": "cookies",
+      "remediation": "cookies",
+      "why": "A cookie without Secure is sent over plain HTTP. One downgraded request, to any path on the host, hands the value to an on-path attacker.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc6265bis"
+      ]
+    },
+    "cookie.no-httponly": {
+      "title": "Cookie is missing the HttpOnly flag",
+      "severity": "medium",
+      "category": "cookies",
+      "control": "cookies",
+      "remediation": "cookies",
+      "why": "Without HttpOnly the cookie is readable from JavaScript, so any XSS turns directly into credential theft.",
+      "references": []
+    },
+    "cookie.session-no-httponly": {
+      "title": "Session-like cookie is missing HttpOnly",
+      "severity": "high",
+      "category": "cookies",
+      "control": "cookies",
+      "remediation": "cookies",
+      "why": "The cookie name suggests it carries a session or token. Exposing it to JavaScript means any XSS is a full account takeover.",
+      "references": []
+    },
+    "cookie.no-samesite": {
+      "title": "Cookie has no SameSite attribute",
+      "severity": "medium",
+      "category": "cookies",
+      "control": "cookies",
+      "remediation": "cookies",
+      "why": "Browser defaults differ and some still send the cookie on cross-site top-level POSTs. Setting SameSite explicitly is the only portable behaviour.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc6265bis#section-5.4.7"
+      ]
+    },
+    "cookie.samesite-none-insecure": {
+      "title": "Cookie has SameSite=None without Secure",
+      "severity": "high",
+      "category": "cookies",
+      "control": "cookies",
+      "remediation": "cookies",
+      "why": "SameSite=None requires Secure. Browsers reject the cookie outright, so the combination both breaks the feature and signals the cookie was meant to travel cross-site.",
+      "references": []
+    },
+    "cookie.broad-domain": {
+      "title": "Cookie is scoped to an overly broad domain",
+      "severity": "low",
+      "category": "cookies",
+      "control": "cookies",
+      "remediation": "cookies",
+      "why": "A cookie set on the registrable domain is sent to every subdomain, so any one of them, including a forgotten marketing host, can read or overwrite it.",
+      "references": []
+    },
+    "cookie.long-expiry": {
+      "title": "Cookie has a very long lifetime",
+      "severity": "low",
+      "category": "cookies",
+      "control": "cookies",
+      "remediation": "cookies",
+      "why": "A multi-year persistent cookie is a long-lived bearer credential if it carries any authentication state.",
+      "references": []
+    },
+    "cookie.prefix-violation": {
+      "title": "Cookie name prefix does not match its attributes",
+      "severity": "medium",
+      "category": "cookies",
+      "control": "cookies",
+      "remediation": "cookies",
+      "why": "__Host- and __Secure- prefixes are only honoured when the attributes match. A mismatch means the browser rejects the cookie and the integrity guarantee you thought you had is absent.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc6265bis#section-4.1.3"
+      ]
+    },
+    "cookie.ok": {
+      "title": "Cookies are set with sound attributes",
+      "severity": "pass",
+      "category": "cookies",
+      "control": "cookies",
+      "remediation": "cookies",
+      "why": "Every cookie carries Secure, HttpOnly where appropriate, and an explicit SameSite.",
+      "references": []
+    },
+    "cookie.none": {
+      "title": "No cookies set on this response",
+      "severity": "pass",
+      "category": "cookies",
+      "control": "cookies",
+      "remediation": "cookies",
+      "why": "Nothing to misconfigure.",
+      "references": []
+    },
+    "tls.handshake.failed": {
+      "title": "TLS handshake failed for every protocol version",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.versions",
+      "remediation": "tls.versions",
+      "why": "No TLS version tested could complete a handshake, so the host offers no usable HTTPS or blocked the probe.",
+      "references": []
+    },
+    "tls.version.tls10": {
+      "title": "TLS 1.0 is accepted",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.versions",
+      "remediation": "tls.versions",
+      "why": "TLS 1.0 has been deprecated by RFC 8996 and is disabled in every current browser. It is vulnerable to BEAST and to downgrade attacks, and it fails PCI DSS.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc8996"
+      ]
+    },
+    "tls.version.tls11": {
+      "title": "TLS 1.1 is accepted",
+      "severity": "high",
+      "category": "tls",
+      "control": "tls.versions",
+      "remediation": "tls.versions",
+      "why": "TLS 1.1 is deprecated by RFC 8996 and relies on MD5/SHA-1 in its handshake signatures. No current client needs it.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc8996"
+      ]
+    },
+    "tls.version.no-tls12": {
+      "title": "TLS 1.2 is not supported",
+      "severity": "high",
+      "category": "tls",
+      "control": "tls.versions",
+      "remediation": "tls.versions",
+      "why": "TLS 1.2 is the compatibility floor for the current web. Without it, clients that do not speak 1.3 cannot connect at all.",
+      "references": []
+    },
+    "tls.version.no-tls13": {
+      "title": "TLS 1.3 is not supported",
+      "severity": "low",
+      "category": "tls",
+      "control": "tls.versions",
+      "remediation": "tls.versions",
+      "why": "TLS 1.3 removes every legacy cipher construction, encrypts more of the handshake and cuts a round trip. Not offering it leaves both security and latency on the table.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc8446"
+      ]
+    },
+    "tls.version.ok": {
+      "title": "Only modern TLS versions are accepted",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.versions",
+      "remediation": "tls.versions",
+      "why": "The server speaks TLS 1.2 and/or 1.3 and refuses the deprecated versions.",
+      "references": []
+    },
+    "tls.cipher.insecure": {
+      "title": "Server accepts a broken cipher suite",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "remediation": "tls.ciphers",
+      "why": "RC4, 3DES, NULL, EXPORT and anonymous suites are broken in practice, not just in theory. Accepting one means a determined on-path attacker can read or forge traffic.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc7465"
+      ]
+    },
+    "tls.cipher.no-forward-secrecy": {
+      "title": "Server accepts cipher suites without forward secrecy",
+      "severity": "high",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "remediation": "tls.ciphers",
+      "why": "Static-RSA key exchange means a single future compromise of the private key decrypts every session ever recorded. ECDHE removes that risk.",
+      "references": []
+    },
+    "tls.cipher.cbc": {
+      "title": "Server accepts CBC-mode cipher suites",
+      "severity": "low",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "remediation": "tls.ciphers",
+      "why": "CBC with MAC-then-encrypt has produced a decade of padding-oracle and timing attacks (Lucky13 and successors). AEAD suites have no equivalent history.",
+      "references": []
+    },
+    "tls.cipher.client-preference": {
+      "title": "Server follows the client's cipher suite preference",
+      "severity": "low",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "remediation": "tls.ciphers",
+      "why": "When the client picks, a downgraded or hostile client can steer the connection to the weakest mutually supported suite.",
+      "references": []
+    },
+    "tls.cipher.server-preference": {
+      "title": "Server enforces its own cipher suite order",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "remediation": "tls.ciphers",
+      "why": "The server, not the client, decides which suite is used.",
+      "references": []
+    },
+    "tls.cipher.ok": {
+      "title": "Only strong cipher suites are accepted",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.ciphers",
+      "remediation": "tls.ciphers",
+      "why": "All accepted TLS 1.2 suites are AEAD with forward secrecy.",
+      "references": []
+    },
+    "tls.cert.expired": {
+      "title": "Certificate has expired",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "Every browser shows a full-page interstitial. The site is effectively down, and training users to click through such warnings is its own harm.",
+      "references": []
+    },
+    "tls.cert.not-yet-valid": {
+      "title": "Certificate is not yet valid",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "The notBefore date is in the future, so clients reject the certificate. Usually a clock or issuance-automation problem.",
+      "references": []
+    },
+    "tls.cert.expiring-soon": {
+      "title": "Certificate expires in less than 30 days",
+      "severity": "medium",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "Renewal automation fails quietly more often than it fails loudly. Thirty days is the last point at which a failure is still comfortable to fix.",
+      "references": []
+    },
+    "tls.cert.hostname-mismatch": {
+      "title": "Certificate does not cover the requested hostname",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "No SAN entry matches the host, so clients cannot verify they are talking to the right server. This is indistinguishable from an interception attempt.",
+      "references": []
+    },
+    "tls.cert.self-signed": {
+      "title": "Certificate is self-signed",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "A self-signed certificate chains to no trusted root, so it authenticates nothing to a normal client.",
+      "references": []
+    },
+    "tls.cert.untrusted-chain": {
+      "title": "Certificate chain does not verify against the system roots",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "Clients will refuse the connection. The cause is usually a missing intermediate, an expired cross-sign, or a private CA.",
+      "references": []
+    },
+    "tls.cert.incomplete-chain": {
+      "title": "Server does not send the full certificate chain",
+      "severity": "medium",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "Browsers often paper over a missing intermediate with AIA fetching or a cached copy. Other clients, including most HTTP libraries and mobile apps, simply fail.",
+      "references": []
+    },
+    "tls.cert.weak-signature": {
+      "title": "Certificate uses a weak signature algorithm",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "SHA-1 and MD5 collisions are practical and have been demonstrated against real certificate issuance. Browsers reject such certificates outright.",
+      "references": [
+        "https://shattered.io/"
+      ]
+    },
+    "tls.cert.weak-key": {
+      "title": "Certificate public key is too small",
+      "severity": "high",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "RSA below 2048 bits and ECDSA below 256 bits are below the current floor for public trust and are rejected by modern clients.",
+      "references": []
+    },
+    "tls.cert.long-validity": {
+      "title": "Certificate validity period is unusually long",
+      "severity": "low",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "Long-lived certificates widen the window in which a compromised key stays usable and are no longer issued by public CAs.",
+      "references": []
+    },
+    "tls.cert.no-sct": {
+      "title": "Certificate has no embedded Certificate Transparency SCTs",
+      "severity": "low",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "Chrome requires CT for publicly trusted certificates. No embedded SCTs means either a private CA or a certificate Chrome will reject.",
+      "references": [
+        "https://certificate.transparency.dev/"
+      ]
+    },
+    "tls.cert.revoked": {
+      "title": "Certificate is revoked according to OCSP",
+      "severity": "critical",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "The issuing CA has withdrawn this certificate, which normally means the key was compromised or mis-issued. It must be replaced immediately.",
+      "references": []
+    },
+    "tls.cert.ok": {
+      "title": "Certificate and chain are valid",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.certificate",
+      "remediation": "tls.certificate",
+      "why": "The chain verifies, the hostname matches and the certificate is well within its validity window.",
+      "references": []
+    },
+    "tls.ocsp.no-stapling": {
+      "title": "OCSP stapling is not enabled",
+      "severity": "low",
+      "category": "tls",
+      "control": "tls.ocsp",
+      "remediation": "tls.ocsp",
+      "why": "Without stapling the client either skips revocation checking or leaks which site it is visiting to the CA, and pays a round trip for it.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc6066#section-8"
+      ]
+    },
+    "tls.ocsp.stapled": {
+      "title": "OCSP stapling is enabled",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.ocsp",
+      "remediation": "tls.ocsp",
+      "why": "The server provides a fresh revocation proof in the handshake.",
+      "references": []
+    },
+    "tls.alpn.no-h2": {
+      "title": "Server does not advertise HTTP/2 over ALPN",
+      "severity": "info",
+      "category": "tls",
+      "control": "tls.extras",
+      "remediation": "tls.extras",
+      "why": "HTTP/2 is a performance and connection-management improvement rather than a security control, but its absence usually indicates dated server configuration.",
+      "references": []
+    },
+    "tls.alpn.ok": {
+      "title": "Server advertises modern protocols over ALPN",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.extras",
+      "remediation": "tls.extras",
+      "why": "ALPN negotiation offers HTTP/2.",
+      "references": []
+    },
+    "tls.renegotiation.insecure": {
+      "title": "Server does not support secure renegotiation",
+      "severity": "high",
+      "category": "tls",
+      "control": "tls.extras",
+      "remediation": "tls.extras",
+      "why": "Without RFC 5746 the server is open to the TLS renegotiation prefix-injection attack, where an attacker prepends their own request to the victim's authenticated session.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc5746"
+      ]
+    },
+    "tls.compression.enabled": {
+      "title": "TLS compression is enabled",
+      "severity": "high",
+      "category": "tls",
+      "control": "tls.extras",
+      "remediation": "tls.extras",
+      "why": "TLS-level compression allows the CRIME attack, which recovers secrets such as session cookies from the compressed ciphertext length.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc7525"
+      ]
+    },
+    "tls.resumption.none": {
+      "title": "Session resumption is not offered",
+      "severity": "info",
+      "category": "tls",
+      "control": "tls.extras",
+      "remediation": "tls.extras",
+      "why": "Resumption is a latency optimisation. Disabling it is a defensible trade-off in exchange for simpler forward-secrecy reasoning.",
+      "references": []
+    },
+    "tls.resumption.ok": {
+      "title": "Session resumption is supported",
+      "severity": "pass",
+      "category": "tls",
+      "control": "tls.extras",
+      "remediation": "tls.extras",
+      "why": "Returning clients can resume without a full handshake.",
+      "references": []
+    },
+    "redirect.no-https": {
+      "title": "Plain HTTP is served without redirecting to HTTPS",
+      "severity": "critical",
+      "category": "network",
+      "control": "redirect",
+      "remediation": "redirect",
+      "why": "Anything served over HTTP can be read and rewritten in transit. If the same content is reachable over both schemes, an on-path attacker simply keeps the user on the insecure one.",
+      "references": []
+    },
+    "redirect.not-permanent": {
+      "title": "HTTP to HTTPS redirect is not a permanent redirect",
+      "severity": "low",
+      "category": "network",
+      "control": "redirect",
+      "remediation": "redirect",
+      "why": "A 302 is not cached as a scheme upgrade, so every new visit starts with a plain-HTTP round trip. 301 or 308 is what you want.",
+      "references": []
+    },
+    "redirect.chain-through-http": {
+      "title": "Redirect chain passes through plain HTTP",
+      "severity": "high",
+      "category": "network",
+      "control": "redirect",
+      "remediation": "redirect",
+      "why": "A single insecure hop in the middle of the chain exposes cookies and allows the attacker to take over the rest of the navigation, even if the final URL is HTTPS.",
+      "references": []
+    },
+    "redirect.cross-host": {
+      "title": "HTTP redirect goes to a different host",
+      "severity": "low",
+      "category": "network",
+      "control": "redirect",
+      "remediation": "redirect",
+      "why": "Redirecting to a different host in the same hop prevents the browser from recording an HSTS entry for the original host.",
+      "references": []
+    },
+    "redirect.long-chain": {
+      "title": "Redirect chain is unusually long",
+      "severity": "low",
+      "category": "network",
+      "control": "redirect",
+      "remediation": "redirect",
+      "why": "Each hop is a round trip and another chance to drop out of HTTPS or lose the request. Collapse them into one.",
+      "references": []
+    },
+    "redirect.ok": {
+      "title": "HTTP redirects to HTTPS on the same host",
+      "severity": "pass",
+      "category": "network",
+      "control": "redirect",
+      "remediation": "redirect",
+      "why": "Plain HTTP is upgraded immediately and permanently.",
+      "references": []
+    },
+    "mixed-content.active": {
+      "title": "Page references active content over plain HTTP",
+      "severity": "high",
+      "category": "network",
+      "control": "mixed-content",
+      "remediation": "mixed-content",
+      "why": "A script or iframe loaded over HTTP can be replaced in transit and then runs with full access to the HTTPS origin. Browsers block it, so the feature is also simply broken.",
+      "references": [
+        "https://developer.mozilla.org/docs/Web/Security/Mixed_content"
+      ]
+    },
+    "mixed-content.passive": {
+      "title": "Page references passive content over plain HTTP",
+      "severity": "medium",
+      "category": "network",
+      "control": "mixed-content",
+      "remediation": "mixed-content",
+      "why": "Images and media over HTTP leak the fact of the request and can be swapped by an on-path attacker. Browsers upgrade or block them, which shows up as missing assets.",
+      "references": []
+    },
+    "mixed-content.none": {
+      "title": "No plain-HTTP subresource references found",
+      "severity": "pass",
+      "category": "network",
+      "control": "mixed-content",
+      "remediation": "mixed-content",
+      "why": "The retrieved HTML references no http:// subresources.",
+      "references": []
+    },
+    "security-txt.missing": {
+      "title": "No /.well-known/security.txt",
+      "severity": "low",
+      "category": "network",
+      "control": "security-txt",
+      "remediation": "security-txt",
+      "why": "Without a published contact, someone who finds a vulnerability has to guess where to send it, and often gives up or goes public instead.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc9116"
+      ]
+    },
+    "security-txt.invalid": {
+      "title": "security.txt does not satisfy RFC 9116",
+      "severity": "low",
+      "category": "network",
+      "control": "security-txt",
+      "remediation": "security-txt",
+      "why": "Contact and Expires are mandatory fields. A file missing them will be skipped by tooling that consumes it.",
+      "references": [
+        "https://www.rfc-editor.org/rfc/rfc9116#section-2.5"
+      ]
+    },
+    "security-txt.expired": {
+      "title": "security.txt has expired",
+      "severity": "low",
+      "category": "network",
+      "control": "security-txt",
+      "remediation": "security-txt",
+      "why": "RFC 9116 says an expired file must not be used, so the contact details in it are formally stale.",
+      "references": []
+    },
+    "security-txt.ok": {
+      "title": "Valid security.txt is published",
+      "severity": "pass",
+      "category": "network",
+      "control": "security-txt",
+      "remediation": "security-txt",
+      "why": "A reachable, unexpired disclosure contact is published.",
+      "references": []
+    },
+    "methods.trace-enabled": {
+      "title": "TRACE method is enabled",
+      "severity": "medium",
+      "category": "network",
+      "control": "http-methods",
+      "remediation": "http-methods",
+      "why": "TRACE echoes the request, including headers, back in the body. It has no legitimate production use and historically enabled Cross-Site Tracing.",
+      "references": [
+        "https://owasp.org/www-community/attacks/Cross_Site_Tracing"
+      ]
+    },
+    "methods.dangerous-allowed": {
+      "title": "Server advertises write or debug methods",
+      "severity": "medium",
+      "category": "network",
+      "control": "http-methods",
+      "remediation": "http-methods",
+      "why": "PUT, DELETE, CONNECT, PATCH or WebDAV verbs advertised on a static endpoint usually mean a module is enabled that nobody intended to expose.",
+      "references": []
+    },
+    "methods.ok": {
+      "title": "No unexpected HTTP methods advertised",
+      "severity": "pass",
+      "category": "network",
+      "control": "http-methods",
+      "remediation": "http-methods",
+      "why": "Only safe methods are advertised and TRACE is refused.",
+      "references": []
+    }
+  }
+}

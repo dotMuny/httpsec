@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1283" height="788" viewBox="0 0 1283 788" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">
+<defs><clipPath id="r"><rect width="1283" height="788" rx="9"/></clipPath></defs>
+<g clip-path="url(#r)">
+<rect width="1283" height="788" fill="#12141a"/>
+<rect width="1283" height="34" fill="#1b1e26"/>
+<circle cx="18" cy="17" r="5.5" fill="#ff5f57"/>
+<circle cx="36" cy="17" r="5.5" fill="#febc2e"/>
+<circle cx="54" cy="17" r="5.5" fill="#28c840"/>
+<text x="641.5" y="22" fill="#8b93a1" font-size="12" text-anchor="middle">httpsec scan --explain-score</text>
+</g>
+<text x="18" y="62" fill="#dfe3ea" xml:space="preserve">
+<tspan font-weight="600">SCORE EXPLANATION</tspan>
+<tspan >  </tspan>
+<tspan opacity="0.62">rubric httpsec default rubric v1.0.0</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="81" fill="#dfe3ea" xml:space="preserve">
+<tspan >  control                 weight  earned    lost  why</tspan>
+</text>
+<text x="18" y="100" fill="#dfe3ea" xml:space="preserve">
+<tspan >  csp.present               10.0     2.0     8.0  No Content-Security-Policy header (high)</tspan>
+</text>
+<text x="18" y="119" fill="#dfe3ea" xml:space="preserve">
+<tspan >  csp.script-src            10.0     2.0     8.0  CSP restricts nothing for scripts (high)</tspan>
+</text>
+<text x="18" y="138" fill="#dfe3ea" xml:space="preserve">
+<tspan >  csp.frame-ancestors        4.0     2.0     2.0  CSP does not set frame-ancestors (medium)</tspan>
+</text>
+<text x="18" y="157" fill="#dfe3ea" xml:space="preserve">
+<tspan >  csp.base-uri               3.0     1.5     1.5  CSP does not set base-uri (medium)</tspan>
+</text>
+<text x="18" y="176" fill="#dfe3ea" xml:space="preserve">
+<tspan >  csp.object-src             3.0     2.2     0.8  CSP does not set object-src &#x27;none&#x27; (low)</tspan>
+</text>
+<text x="18" y="195" fill="#dfe3ea" xml:space="preserve">
+<tspan >  csp.default-src            3.0     1.5     1.5  CSP has no default-src fallback (medium)</tspan>
+</text>
+<text x="18" y="214" fill="#dfe3ea" xml:space="preserve">
+<tspan >  csp.style-src              2.0     1.5     0.5  CSP restricts nothing for stylesheets (low)</tspan>
+</text>
+<text x="18" y="233" fill="#dfe3ea" xml:space="preserve">
+<tspan >  hsts                      10.0     2.0     8.0  No Strict-Transport-Security header (high)</tspan>
+</text>
+<text x="18" y="252" fill="#dfe3ea" xml:space="preserve">
+<tspan >  nosniff                    4.0     2.0     2.0  No X-Content-Type-Options: nosniff (medium)</tspan>
+</text>
+<text x="18" y="271" fill="#dfe3ea" xml:space="preserve">
+<tspan >  referrer-policy            4.0     2.0     2.0  No Referrer-Policy header (medium)</tspan>
+</text>
+<text x="18" y="290" fill="#dfe3ea" xml:space="preserve">
+<tspan >  xfo                        3.0     2.2     0.8  No X-Frame-Options header (low)</tspan>
+</text>
+<text x="18" y="309" fill="#dfe3ea" xml:space="preserve">
+<tspan >  permissions-policy         3.0     2.2     0.8  No Permissions-Policy header (low)</tspan>
+</text>
+<text x="18" y="328" fill="#dfe3ea" xml:space="preserve">
+<tspan >  coop                       3.0     2.2     0.8  No Cross-Origin-Opener-Policy header (low)</tspan>
+</text>
+<text x="18" y="347" fill="#dfe3ea" xml:space="preserve">
+<tspan >  coep                       2.0     2.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: coep.missing</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="366" fill="#dfe3ea" xml:space="preserve">
+<tspan >  corp                       2.0     2.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: corp.missing</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="385" fill="#dfe3ea" xml:space="preserve">
+<tspan >  cors                       8.0     8.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: cors.ok</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="404" fill="#dfe3ea" xml:space="preserve">
+<tspan >  legacy-headers             3.0     3.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: legacy.none</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="423" fill="#dfe3ea" xml:space="preserve">
+<tspan >  info-headers               3.0     3.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: info.server-present, info.none</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="442" fill="#dfe3ea" xml:space="preserve">
+<tspan >  cookies                    8.0     8.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: cookie.none</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="461" fill="#dfe3ea" xml:space="preserve">
+<tspan >  tls.versions              12.0     0.0    12.0  TLS 1.0 is accepted (critical); TLS 1.1 is accepted (high)</tspan>
+</text>
+<text x="18" y="480" fill="#dfe3ea" xml:space="preserve">
+<tspan >  tls.certificate           12.0    12.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: tls.cert.ok</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="499" fill="#dfe3ea" xml:space="preserve">
+<tspan >  tls.ciphers                8.0     0.0     8.0  Server accepts cipher suites without forward secrecy (high); Server accepts CBC-mode cipher suites (low)</tspan>
+</text>
+<text x="18" y="518" fill="#dfe3ea" xml:space="preserve">
+<tspan >  tls.extras                 3.0     3.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: tls.resumption.none, tls.alpn.ok</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="537" fill="#dfe3ea" xml:space="preserve">
+<tspan >  tls.ocsp                   2.0     2.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: tls.ocsp.stapled</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="556" fill="#dfe3ea" xml:space="preserve">
+<tspan >  redirect                   8.0     0.0     8.0  Plain HTTP is served without redirecting to HTTPS (critical)</tspan>
+</text>
+<text x="18" y="575" fill="#dfe3ea" xml:space="preserve">
+<tspan >  mixed-content              5.0     5.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: mixed-content.none</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="594" fill="#dfe3ea" xml:space="preserve">
+<tspan >  http-methods               3.0     3.0     0.0  </tspan>
+<tspan fill="#5dd39e">no points lost: methods.ok</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="613" fill="#dfe3ea" xml:space="preserve">
+<tspan >  security-txt               1.0     0.8     0.2  No /.well-known/security.txt (low)</tspan>
+</text>
+<text x="18" y="632" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan font-weight="600">total</tspan>
+<tspan >            142.0    77.2    64.8</tspan>
+</text>
+<text x="18" y="651" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+<text x="18" y="670" fill="#dfe3ea" xml:space="preserve">
+<tspan >  77.2 / 142.0 = 54%  -&gt;  grade </tspan>
+<tspan fill="#ff6b6b" font-weight="600">F</tspan>
+<tspan ></tspan>
+</text>
+<text x="18" y="689" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff6b6b">cap</tspan>
+<tspan > redirect.no-https caps the grade at D: Content served over plain HTTP can be read and rewritten in transit.</tspan>
+</text>
+<text x="18" y="708" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff6b6b">cap</tspan>
+<tspan > tls.version.tls10 caps the grade at C: TLS 1.0 is deprecated by RFC 8996.</tspan>
+</text>
+<text x="18" y="727" fill="#dfe3ea" xml:space="preserve">
+<tspan >  </tspan>
+<tspan fill="#ff6b6b">cap</tspan>
+<tspan > tls.version.tls11 caps the grade at B: TLS 1.1 is deprecated by RFC 8996.</tspan>
+</text>
+<text x="18" y="746" fill="#dfe3ea" xml:space="preserve">
+<tspan ></tspan>
+</text>
+<text x="18" y="765" fill="#dfe3ea" xml:space="preserve">
+<tspan opacity="0.62">10 passing controls hidden; run with --verbose to see them.</tspan>
+<tspan ></tspan>
+</text>
+</svg>

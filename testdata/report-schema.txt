@@ -1,0 +1,286 @@
+schema_version 1
+report.Report
+  cookies: []report.CookieSummary (omitempty)
+    report.CookieSummary
+        domain: string (omitempty)
+        http_only: bool
+        name: string
+        path: string (omitempty)
+        same_site: string (omitempty)
+        secure: bool
+  csp: report.CSPSummary? (omitempty)
+    report.CSPSummary
+        directives: []csp.Directive (omitempty)
+          csp.Directive
+                name: string
+                values: []string
+        present: bool
+        raw: string
+        report_only: bool
+  errors: []string (omitempty)
+  findings: []finding.Finding
+    finding.Finding
+        category: string
+        control: string
+        detail: string (omitempty)
+        evidence: string (omitempty)
+        id: string
+        references: []string (omitempty)
+        remediation_key: string
+        severity: string
+        subject: string (omitempty)
+        title: string
+        why: string
+  generated_at: time.Time
+  notes: []string (omitempty)
+  observation: probe.Observation? (omitempty)
+    probe.Observation
+        cors: probe.CORSProbe? (omitempty)
+          probe.CORSProbe
+                allow_credentials: string
+                allow_headers: string
+                allow_methods: string
+                allow_origin: string
+                error: string (omitempty)
+                expose_headers: string
+                null_allow_credentials: string
+                null_allow_origin: string
+                sent_null_origin: bool
+                sent_origin: string
+                vary: string
+        duration_ms: int64
+        errors: []string (omitempty)
+        host: string
+        https: probe.HTTPResponse? (omitempty)
+          probe.HTTPResponse
+                body: string (omitempty)
+                body_bytes: int
+                body_truncated: bool (omitempty)
+                duration_ms: int64
+                error: string (omitempty)
+                final_url: string
+                headers: map[string][]string
+                  map[string]string
+                method: string
+                proto: string
+                redirects: []probe.Hop (omitempty)
+                  probe.Hop
+                          host: string
+                          location: string
+                          scheme: string
+                          status_code: int
+                          url: string
+                request_url: string
+                status_code: int
+                tls_version: string (omitempty)
+        options: probe.HTTPResponse? (omitempty)
+          probe.HTTPResponse
+                body: string (omitempty)
+                body_bytes: int
+                body_truncated: bool (omitempty)
+                duration_ms: int64
+                error: string (omitempty)
+                final_url: string
+                headers: map[string][]string
+                  map[string]string
+                method: string
+                proto: string
+                redirects: []probe.Hop (omitempty)
+                  probe.Hop
+                          host: string
+                          location: string
+                          scheme: string
+                          status_code: int
+                          url: string
+                request_url: string
+                status_code: int
+                tls_version: string (omitempty)
+        plain_http: probe.HTTPResponse? (omitempty)
+          probe.HTTPResponse
+                body: string (omitempty)
+                body_bytes: int
+                body_truncated: bool (omitempty)
+                duration_ms: int64
+                error: string (omitempty)
+                final_url: string
+                headers: map[string][]string
+                  map[string]string
+                method: string
+                proto: string
+                redirects: []probe.Hop (omitempty)
+                  probe.Hop
+                          host: string
+                          location: string
+                          scheme: string
+                          status_code: int
+                          url: string
+                request_url: string
+                status_code: int
+                tls_version: string (omitempty)
+        port: string
+        schema_version: int
+        security_txt: probe.HTTPResponse? (omitempty)
+          probe.HTTPResponse
+                body: string (omitempty)
+                body_bytes: int
+                body_truncated: bool (omitempty)
+                duration_ms: int64
+                error: string (omitempty)
+                final_url: string
+                headers: map[string][]string
+                  map[string]string
+                method: string
+                proto: string
+                redirects: []probe.Hop (omitempty)
+                  probe.Hop
+                          host: string
+                          location: string
+                          scheme: string
+                          status_code: int
+                          url: string
+                request_url: string
+                status_code: int
+                tls_version: string (omitempty)
+        skipped: []string (omitempty)
+        started_at: time.Time
+        target: string
+        tls: probe.TLSInfo? (omitempty)
+          probe.TLSInfo
+                alpn: []string (omitempty)
+                chain: []probe.CertInfo (omitempty)
+                  probe.CertInfo
+                          dns_names: []string (omitempty)
+                          ip_addresses: []string (omitempty)
+                          is_ca: bool
+                          issuer: string
+                          key_bits: int
+                          not_after: time.Time
+                          not_before: time.Time
+                          ocsp_servers: []string (omitempty)
+                          public_key_algorithm: string
+                          sct_count: int
+                          self_signed: bool
+                          serial_number: string
+                          sha256_fingerprint: string
+                          signature_algorithm: string
+                          subject: string
+                chain_complete: bool
+                chain_length: int
+                compression: bool
+                errors: []string (omitempty)
+                hostname_match: bool
+                negotiated_alpn: string (omitempty)
+                ocsp_checked: bool
+                ocsp_stapled: bool
+                ocsp_status: string (omitempty)
+                preference: string
+                resumption: string
+                sct_count: int
+                secure_renegotiation: bool
+                self_signed: bool
+                server_name: string
+                suites: []probe.SuiteResult (omitempty)
+                  probe.SuiteResult
+                          aead: bool
+                          bits: int
+                          cipher: string
+                          forward_secrecy: bool
+                          id: uint16
+                          insecure: bool
+                          insecure_reason: string (omitempty)
+                          key_exchange: string
+                          name: string
+                tls13_suite: string (omitempty)
+                verified_chain_length: int
+                verify_error: string (omitempty)
+                versions: []probe.VersionResult
+                  probe.VersionResult
+                          error: string (omitempty)
+                          suite: string (omitempty)
+                          supported: bool
+                          version: string
+        tool: string
+        trace: probe.HTTPResponse? (omitempty)
+          probe.HTTPResponse
+                body: string (omitempty)
+                body_bytes: int
+                body_truncated: bool (omitempty)
+                duration_ms: int64
+                error: string (omitempty)
+                final_url: string
+                headers: map[string][]string
+                  map[string]string
+                method: string
+                proto: string
+                redirects: []probe.Hop (omitempty)
+                  probe.Hop
+                          host: string
+                          location: string
+                          scheme: string
+                          status_code: int
+                          url: string
+                request_url: string
+                status_code: int
+                tls_version: string (omitempty)
+  schema_version: int
+  score: score.Score
+    score.Score
+        caps_applied: []score.CapApplied (omitempty)
+          score.CapApplied
+                finding: string
+                max_grade: string
+                reason: string
+                title: string
+        controls: []score.ControlScore
+          score.ControlScore
+                applicable: bool
+                category: string
+                earned: float64
+                findings: []string (omitempty)
+                id: string
+                lost: float64
+                reasons: []string (omitempty)
+                title: string
+                weight: float64
+        controls_not_evaluated: []string (omitempty)
+        earned_weight: float64
+        grade: string
+        rubric_name: string
+        rubric_version: string
+        score: int
+        total_weight: float64
+        uncapped_grade: string
+  summary: report.Summary
+    report.Summary
+        critical: int
+        high: int
+        info: int
+        low: int
+        medium: int
+        pass: int
+        problems: int
+  target: report.Target
+    report.Target
+        duration_ms: int64
+        final_url: string (omitempty)
+        host: string
+        input: string
+        port: string
+        status_code: int (omitempty)
+  tls: report.TLSSummary? (omitempty)
+    report.TLSSummary
+        alpn: []string (omitempty)
+        certificate_issuer: string (omitempty)
+        certificate_key: string (omitempty)
+        certificate_not_after: time.Time? (omitempty)
+        certificate_sans: []string (omitempty)
+        certificate_signature: string (omitempty)
+        certificate_subject: string (omitempty)
+        chain_length: int
+        cipher_preference: string
+        ocsp_stapled: bool
+        tls12_suites: []string (omitempty)
+        tls13_suite: string (omitempty)
+        versions: map[string]bool
+          map[string]bool
+  tool: string

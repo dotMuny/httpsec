@@ -1,0 +1,6 @@
+/bin/
+/httpsec
+coverage.out
+coverage.html
+*.test
+.DS_Store

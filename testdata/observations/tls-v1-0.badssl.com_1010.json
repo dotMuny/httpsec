@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "tool": "httpsec 0.1.0-dev (commit none, built unknown)",
+  "target": "tls-v1-0.badssl.com:1010",
+  "host": "tls-v1-0.badssl.com",
+  "port": "1010",
+  "started_at": "2026-09-24T10:37:21.878400751Z",
+  "duration_ms": 0,
+  "https": {
+    "request_url": "https://tls-v1-0.badssl.com:1010/",
+    "final_url": "https://tls-v1-0.badssl.com:1010/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Cache-Control": [
+        "no-store"
+      ],
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Length": [
+        "496"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Etag": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Server": [
+        "nginx/1.10.3 (Ubuntu)"
+      ]
+    },
+    "body": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <link rel=\"shortcut icon\" href=\"/icons/favicon-red.ico\"/>\n  <link rel=\"apple-touch-icon\" href=\"/icons/icon-red.png\"/>\n  <title>tls-v1-0.badssl.com</title>\n  <link rel=\"stylesheet\" href=\"/style.css\">\n  <style>body { background: red; }</style>\n</head>\n<body>\n<div id=\"content\">\n  <h1 style=\"font-size: 12vw;\">\n    tls-v1-0.<br>badssl.com\n  </h1>\n</div>\n\n</body>\n</html>\n",
+    "body_bytes": 496,
+    "tls_version": "TLS 1.0",
+    "duration_ms": 0
+  },
+  "plain_http": {
+    "request_url": "http://tls-v1-0.badssl.com/",
+    "final_url": "https://tls-v1-0.badssl.com:1010/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Cache-Control": [
+        "no-store"
+      ],
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Length": [
+        "496"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Etag": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Server": [
+        "nginx/1.10.3 (Ubuntu)"
+      ]
+    },
+    "body_bytes": 496,
+    "redirects": [
+      {
+        "url": "http://tls-v1-0.badssl.com/",
+        "scheme": "http",
+        "host": "tls-v1-0.badssl.com",
+        "status_code": 301,
+        "location": "https://tls-v1-0.badssl.com:1010/"
+      }
+    ],
+    "tls_version": "TLS 1.0",
+    "duration_ms": 0
+  },
+  "cors": {
+    "sent_origin": "https://httpsec-probe.invalid",
+    "sent_null_origin": true,
+    "allow_origin": "",
+    "allow_credentials": "",
+    "allow_methods": "",
+    "allow_headers": "",
+    "expose_headers": "",
+    "vary": "",
+    "null_allow_origin": "",
+    "null_allow_credentials": ""
+  },
+  "options": {
+    "request_url": "https://tls-v1-0.badssl.com:1010/",
+    "final_url": "https://tls-v1-0.badssl.com:1010/",
+    "method": "OPTIONS",
+    "status_code": 405,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Length": [
+        "182"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Server": [
+        "nginx/1.10.3 (Ubuntu)"
+      ]
+    },
+    "body_bytes": 182,
+    "tls_version": "TLS 1.0",
+    "duration_ms": 0
+  },
+  "trace": {
+    "request_url": "https://tls-v1-0.badssl.com:1010/",
+    "final_url": "https://tls-v1-0.badssl.com:1010/",
+    "method": "TRACE",
+    "status_code": 405,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Content-Length": [
+        "182"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Server": [
+        "nginx/1.10.3 (Ubuntu)"
+      ]
+    },
+    "body_bytes": 182,
+    "tls_version": "TLS 1.0",
+    "duration_ms": 0
+  },
+  "security_txt": {
+    "request_url": "https://tls-v1-0.badssl.com:1010/.well-known/security.txt",
+    "final_url": "https://tls-v1-0.badssl.com:1010/.well-known/security.txt",
+    "method": "GET",
+    "status_code": 404,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Length": [
+        "178"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Server": [
+        "nginx/1.10.3 (Ubuntu)"
+      ]
+    },
+    "body": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body bgcolor=\"white\">\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx/1.10.3 (Ubuntu)</center>\r\n</body>\r\n</html>\r\n",
+    "body_bytes": 178,
+    "tls_version": "TLS 1.0",
+    "duration_ms": 0
+  },
+  "tls": {
+    "server_name": "tls-v1-0.badssl.com",
+    "versions": [
+      {
+        "version": "TLS 1.0",
+        "supported": true,
+        "suite": "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
+      },
+      {
+        "version": "TLS 1.1",
+        "supported": false,
+        "error": "tls: server selected unsupported protocol version 301"
+      },
+      {
+        "version": "TLS 1.2",
+        "supported": false,
+        "error": "tls: server selected unsupported protocol version 301"
+      },
+      {
+        "version": "TLS 1.3",
+        "supported": false,
+        "error": "remote error: tls: handshake failure"
+      }
+    ],
+    "preference": "unknown",
+    "chain": [
+      {
+        "subject": "CN=*.badssl.com",
+        "issuer": "CN=YR2,O=Let's Encrypt,C=US",
+        "serial_number": "553939127019353777130095224212727712045181",
+        "not_before": "2026-07-28T20:03:02Z",
+        "not_after": "2026-10-26T20:03:01Z",
+        "dns_names": [
+          "*.badssl.com",
+          "badssl.com"
+        ],
+        "signature_algorithm": "SHA256-RSA",
+        "public_key_algorithm": "RSA",
+        "key_bits": 2048,
+        "is_ca": false,
+        "self_signed": false,
+        "sct_count": 2,
+        "sha256_fingerprint": "688f99185e12a494d3910ce060532826a35fe02476e17e9bad2f68e923847ca3"
+      },
+      {
+        "subject": "CN=YR2,O=Let's Encrypt,C=US",
+        "issuer": "CN=Root YR,O=ISRG,C=US",
+        "serial_number": "104661869709039935805224238423219745561",
+        "not_before": "2025-09-03T00:00:00Z",
+        "not_after": "2028-09-02T23:59:59Z",
+        "signature_algorithm": "SHA256-RSA",
+        "public_key_algorithm": "RSA",
+        "key_bits": 2048,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "sha256_fingerprint": "238b85a0099c65b970477d5724f1a1d475ce5058cffe4efa8733899bdb863c47"
+      },
+      {
+        "subject": "CN=Root YR,O=ISRG,C=US",
+        "issuer": "CN=ISRG Root X1,O=Internet Security Research Group,C=US",
+        "serial_number": "322064809926559212792997219556942571935",
+        "not_before": "2026-05-13T00:00:00Z",
+        "not_after": "2032-09-02T23:59:59Z",
+        "signature_algorithm": "SHA256-RSA",
+        "public_key_algorithm": "RSA",
+        "key_bits": 4096,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "sha256_fingerprint": "072639d0b140d5bffae16ad9c3f6cc6086040621f51ee61a6d46a8915c07cf76"
+      }
+    ],
+    "chain_length": 3,
+    "chain_complete": true,
+    "verified_chain_length": 4,
+    "hostname_match": true,
+    "self_signed": false,
+    "ocsp_stapled": false,
+    "ocsp_checked": false,
+    "alpn": [
+      "http/1.1"
+    ],
+    "negotiated_alpn": "http/1.1",
+    "sct_count": 2,
+    "resumption": "ticket",
+    "compression": false,
+    "secure_renegotiation": true
+  }
+}

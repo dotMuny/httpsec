@@ -1,0 +1,79 @@
+version: "2"
+
+run:
+  timeout: 5m
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - gosec
+    - bodyclose
+    - misspell
+    - nilerr
+    - revive
+    - unconvert
+    - unparam
+    - whitespace
+
+  settings:
+    errcheck:
+      # Writing to an io.Writer that is stdout or a bytes.Buffer cannot
+      # usefully fail, and checking every Fprintf would bury the code that
+      # does need error handling.
+      exclude-functions:
+        - fmt.Fprint
+        - fmt.Fprintf
+        - fmt.Fprintln
+    gosec:
+      excludes:
+        # G402 (TLS InsecureSkipVerify) is inherent to this tool: httpsec has
+        # to complete a handshake with a host whose certificate is broken in
+        # order to report on it. Verification is performed explicitly in
+        # internal/probe/tls.go and every finding it produces is in the
+        # report. Both call sites carry a comment explaining this.
+        - G402
+    revive:
+      rules:
+        - name: exported
+          disabled: false
+        - name: package-comments
+          disabled: false
+
+  exclusions:
+    generated: lax
+    rules:
+      # Test helpers legitimately ignore errors and read files by name.
+      - path: _test\.go
+        linters:
+          - gosec
+          - errcheck
+          - unparam
+      # The embedded data files are parsed at init; a failure there is a build
+      # problem, not a runtime one, and panicking is the honest response.
+      - path: internal/(finding|score|remediate)/
+        text: "init"
+        linters:
+          - gochecknoinits
+      # buildClientHello assembles a TLS record by hand. Every length it
+      # converts is bounded by construction: the cipher and extension lists
+      # are fixed literals, and the only variable part is a hostname, which
+      # DNS caps at 253 bytes. The byte() conversions in appendUint16 are the
+      # point of the function, not an accident.
+      - path: internal/probe/tls\.go
+        linters:
+          - gosec
+        text: "G115"
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/dotMuny/httpsec

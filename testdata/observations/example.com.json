@@ -1,0 +1,489 @@
+{
+  "schema_version": 1,
+  "tool": "httpsec 0.1.0-dev (commit none, built unknown)",
+  "target": "example.com",
+  "host": "example.com",
+  "port": "443",
+  "started_at": "2026-09-24T10:19:58.165455578Z",
+  "duration_ms": 0,
+  "https": {
+    "request_url": "https://example.com/",
+    "final_url": "https://example.com/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Age": [
+        "REDACTED"
+      ],
+      "Allow": [
+        "GET, HEAD"
+      ],
+      "Cf-Cache-Status": [
+        "HIT"
+      ],
+      "Cf-Ray": [
+        "REDACTED"
+      ],
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Server": [
+        "cloudflare"
+      ]
+    },
+    "body": "<!doctype html><html lang=\"en\"><head><title>Example Domain</title><link rel=\"icon\" href=\"data:,\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style></head><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href=\"https://iana.org/domains/example\">Learn more</a></p></div></body></html>\n",
+    "body_bytes": 559,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "plain_http": {
+    "request_url": "http://example.com/",
+    "final_url": "http://example.com/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Age": [
+        "REDACTED"
+      ],
+      "Allow": [
+        "GET, HEAD"
+      ],
+      "Cf-Cache-Status": [
+        "HIT"
+      ],
+      "Cf-Ray": [
+        "REDACTED"
+      ],
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Server": [
+        "cloudflare"
+      ]
+    },
+    "body_bytes": 559,
+    "duration_ms": 0
+  },
+  "cors": {
+    "sent_origin": "https://httpsec-probe.invalid",
+    "sent_null_origin": true,
+    "allow_origin": "",
+    "allow_credentials": "",
+    "allow_methods": "",
+    "allow_headers": "",
+    "expose_headers": "",
+    "vary": "",
+    "null_allow_origin": "",
+    "null_allow_credentials": ""
+  },
+  "options": {
+    "request_url": "https://example.com/",
+    "final_url": "https://example.com/",
+    "method": "OPTIONS",
+    "status_code": 405,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Cache-Control": [
+        "private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
+      ],
+      "Cf-Ray": [
+        "REDACTED"
+      ],
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Expires": [
+        "REDACTED"
+      ],
+      "Referrer-Policy": [
+        "same-origin"
+      ],
+      "Server": [
+        "cloudflare"
+      ],
+      "X-Frame-Options": [
+        "SAMEORIGIN"
+      ]
+    },
+    "body_bytes": 558,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "trace": {
+    "request_url": "https://example.com/",
+    "final_url": "https://example.com/",
+    "method": "TRACE",
+    "status_code": 405,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Cf-Ray": [
+        "REDACTED"
+      ],
+      "Content-Length": [
+        "155"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Server": [
+        "cloudflare"
+      ]
+    },
+    "body_bytes": 155,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "security_txt": {
+    "request_url": "https://example.com/.well-known/security.txt",
+    "final_url": "https://example.com/.well-known/security.txt",
+    "method": "GET",
+    "status_code": 404,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Age": [
+        "REDACTED"
+      ],
+      "Cf-Cache-Status": [
+        "HIT"
+      ],
+      "Cf-Ray": [
+        "REDACTED"
+      ],
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Server": [
+        "cloudflare"
+      ]
+    },
+    "body": "<!doctype html><html lang=\"en\"><head><title>Example Domain</title><link rel=\"icon\" href=\"data:,\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style></head><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href=\"https://iana.org/domains/example\">Learn more</a></p></div></body></html>\n",
+    "body_bytes": 559,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "tls": {
+    "server_name": "example.com",
+    "versions": [
+      {
+        "version": "TLS 1.0",
+        "supported": true,
+        "suite": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+      },
+      {
+        "version": "TLS 1.1",
+        "supported": true,
+        "suite": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+      },
+      {
+        "version": "TLS 1.2",
+        "supported": true,
+        "suite": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+      },
+      {
+        "version": "TLS 1.3",
+        "supported": true,
+        "suite": "TLS_AES_128_GCM_SHA256"
+      }
+    ],
+    "suites": [
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+        "id": 49161,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 128,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+        "id": 49187,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "id": 49195,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+        "id": 49162,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "id": 49196,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+        "id": 52393,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "ChaCha20-Poly1305",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "id": 49171,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 128,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+        "id": 49191,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "id": 49199,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "id": 49172,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "id": 49200,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "id": 52392,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "ChaCha20-Poly1305",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_128_CBC_SHA",
+        "id": 47,
+        "forward_secrecy": false,
+        "aead": false,
+        "key_exchange": "RSA",
+        "cipher": "AES-CBC",
+        "bits": 128,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_128_CBC_SHA256",
+        "id": 60,
+        "forward_secrecy": false,
+        "aead": false,
+        "key_exchange": "RSA",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_128_GCM_SHA256",
+        "id": 156,
+        "forward_secrecy": false,
+        "aead": true,
+        "key_exchange": "RSA",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_256_CBC_SHA",
+        "id": 53,
+        "forward_secrecy": false,
+        "aead": false,
+        "key_exchange": "RSA",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_256_GCM_SHA384",
+        "id": 157,
+        "forward_secrecy": false,
+        "aead": true,
+        "key_exchange": "RSA",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      }
+    ],
+    "tls13_suite": "TLS_AES_128_GCM_SHA256",
+    "preference": "server",
+    "chain": [
+      {
+        "subject": "CN=example.com",
+        "issuer": "CN=Cloudflare TLS Issuing ECC CA 3,O=SSL Corporation,C=US",
+        "serial_number": "8166522966020669224845354859099265073",
+        "not_before": "2026-07-29T22:10:08Z",
+        "not_after": "2026-10-27T22:17:21Z",
+        "dns_names": [
+          "example.com",
+          "*.example.com"
+        ],
+        "signature_algorithm": "ECDSA-SHA256",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 256,
+        "is_ca": false,
+        "self_signed": false,
+        "sct_count": 2,
+        "ocsp_servers": [
+          "http://o.cf-i.ssl.com"
+        ],
+        "sha256_fingerprint": "6153a96fd1a6ab7f4d438fc34932484299d0729d9140b3a126bb2f9c07b02200"
+      },
+      {
+        "subject": "CN=Cloudflare TLS Issuing ECC CA 3,O=SSL Corporation,C=US",
+        "issuer": "CN=SSL.com TLS Transit ECC CA R2,O=SSL Corporation,C=US",
+        "serial_number": "66372654976151554372298637577872710439",
+        "not_before": "2025-05-29T19:49:45Z",
+        "not_after": "2035-05-27T19:49:44Z",
+        "signature_algorithm": "ECDSA-SHA384",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 256,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "sha256_fingerprint": "f15f29abef73aa4dd9ab754baeae3685bdd3874b46b525071177628685718026"
+      },
+      {
+        "subject": "CN=SSL.com TLS Transit ECC CA R2,O=SSL Corporation,C=US",
+        "issuer": "CN=SSL.com TLS ECC Root CA 2022,O=SSL Corporation,C=US",
+        "serial_number": "128008513138955688728541566246916480814",
+        "not_before": "2022-10-21T17:02:23Z",
+        "not_after": "2037-10-17T17:02:22Z",
+        "signature_algorithm": "ECDSA-SHA384",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 384,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "sha256_fingerprint": "5d1bc399274e649e1c72697de91a54ad725088c5221cb61e17ee9c290bc42a92"
+      },
+      {
+        "subject": "CN=SSL.com TLS ECC Root CA 2022,O=SSL Corporation,C=US",
+        "issuer": "CN=AAA Certificate Services,O=Comodo CA Limited,L=Salford,ST=Greater Manchester,C=GB",
+        "serial_number": "30893078736679610946431741896244126862",
+        "not_before": "2025-08-01T00:00:00Z",
+        "not_after": "2028-12-31T23:59:59Z",
+        "signature_algorithm": "SHA256-RSA",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 384,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "ocsp_servers": [
+          "http://ocsp.comodoca.com"
+        ],
+        "sha256_fingerprint": "ba06d3d3e348fce7478cc84b422d0e638e9e221ef1a0b53adc14cc70e04b8ab8"
+      }
+    ],
+    "chain_length": 4,
+    "chain_complete": true,
+    "verified_chain_length": 4,
+    "hostname_match": true,
+    "self_signed": false,
+    "ocsp_stapled": true,
+    "ocsp_status": "good",
+    "ocsp_checked": true,
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "negotiated_alpn": "h2",
+    "sct_count": 4,
+    "resumption": "none",
+    "compression": false,
+    "secure_renegotiation": true
+  }
+}

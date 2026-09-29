@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>httpsec report — github.com</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #f7f7f8;
+  --card: #ffffff;
+  --ink: #16181d;
+  --muted: #5b616e;
+  --line: #e1e3e8;
+  --code-bg: #f2f3f5;
+  --critical: #b3261e;
+  --high: #c2410c;
+  --medium: #a16207;
+  --low: #1d4ed8;
+  --info: #64748b;
+  --pass: #15803d;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --card: #171a21;
+    --ink: #e6e8ee;
+    --muted: #9aa1ae;
+    --line: #272b34;
+    --code-bg: #0b0d11;
+    --critical: #ff6b6b;
+    --high: #ff9f5a;
+    --medium: #e8c34a;
+    --low: #7aa7ff;
+    --info: #97a1b0;
+    --pass: #5dd39e;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 2rem 1rem 4rem;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+main { max-width: 62rem; margin: 0 auto; }
+h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
+h2 { font-size: 1.15rem; margin: 2.5rem 0 .75rem; }
+h3 { font-size: 1rem; margin: 0 0 .35rem; }
+a { color: var(--low); }
+code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+.sub { color: var(--muted); font-size: .9rem; margin: 0 0 1.5rem; }
+
+.hero {
+  display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+}
+.grade {
+  font-size: 3.4rem; font-weight: 700; line-height: 1;
+  min-width: 5rem; text-align: center; padding: .5rem .75rem; border-radius: var(--radius);
+  border: 2px solid currentColor;
+}
+.grade.a { color: var(--pass); }
+.grade.b { color: var(--pass); }
+.grade.c { color: var(--medium); }
+.grade.d { color: var(--high); }
+.grade.f { color: var(--critical); }
+.hero-meta { flex: 1 1 18rem; }
+.hero-meta .score { font-size: 1.1rem; font-weight: 600; }
+.bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; margin: .5rem 0; }
+.bar > span { display: block; height: 100%; background: currentColor; }
+
+.tally { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: .5rem 0 0; }
+.tally li {
+  border: 1px solid var(--line); border-radius: 999px; padding: .1rem .7rem;
+  font-size: .82rem; background: var(--card);
+}
+.tally .n { font-weight: 700; }
+
+.cap { border: 1px solid var(--critical); border-left-width: 4px; border-radius: var(--radius);
+       background: var(--card); padding: .9rem 1.1rem; margin-bottom: 1.25rem; }
+.cap h2 { margin: 0 0 .4rem; font-size: 1rem; color: var(--critical); }
+.cap ul { margin: 0; padding-left: 1.2rem; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: 1rem 1.25rem; margin-bottom: 1rem; }
+.finding { border-top: 1px solid var(--line); padding: 1rem 0; }
+.finding:first-of-type { border-top: 0; padding-top: .25rem; }
+.badge {
+  display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: .1rem .5rem; border-radius: 4px;
+  border: 1px solid currentColor; margin-right: .5rem; vertical-align: .1em;
+}
+.badge.critical { color: var(--critical); }
+.badge.high     { color: var(--high); }
+.badge.medium   { color: var(--medium); }
+.badge.low      { color: var(--low); }
+.badge.info     { color: var(--info); }
+.badge.pass     { color: var(--pass); }
+.subject { color: var(--muted); font-weight: 400; }
+.detail { margin: .35rem 0; }
+.why { color: var(--muted); font-size: .92rem; margin: .35rem 0; }
+.fid { color: var(--muted); font-size: .76rem; font-family: ui-monospace, monospace; }
+
+details { margin: .5rem 0 0; }
+summary { cursor: pointer; font-size: .88rem; color: var(--muted); }
+pre {
+  background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px;
+  padding: .7rem .9rem; overflow-x: auto; font-size: .82rem; margin: .5rem 0;
+  white-space: pre-wrap; word-break: break-word;
+}
+table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+th, td { text-align: left; padding: .35rem .6rem; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr.skipped td { color: var(--muted); }
+footer { color: var(--muted); font-size: .82rem; margin-top: 3rem; }
+
+@media print {
+  body { background: #fff; color: #000; padding: 0; }
+  .card, .hero, .cap { border: 1px solid #ccc; break-inside: avoid; }
+  details { display: block; }
+  details > summary { display: none; }
+  details > *:not(summary) { display: block !important; }
+  a { color: #000; text-decoration: none; }
+  pre { background: #f6f6f6; }
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>httpsec report — github.com</h1>
+  <p class="sub">
+    https://github.com/ · generated 2026-09-29 18:04 UTC · evidence gathered by httpsec 0.1.0-dev (commit none, built unknown)
+  </p>
+
+  <section class="hero">
+    <div class="grade a">A</div>
+    <div class="hero-meta">
+      <div class="score">90 / 100</div>
+      <div class="bar a" style="color: currentColor">
+        <span style="width: 89.8%"></span>
+      </div>
+      <div class="sub" style="margin:0">
+        127.5 of 142.0 weighted points ·
+        rubric httpsec default rubric v1.0.0
+      </div>
+      <ul class="tally">
+        <li><span class="n" style="color:var(--critical)">0</span> critical</li>
+        <li><span class="n" style="color:var(--high)">1</span> high</li>
+        <li><span class="n" style="color:var(--medium)">1</span> medium</li>
+        <li><span class="n" style="color:var(--low)">5</span> low</li>
+        <li><span class="n" style="color:var(--info)">5</span> info</li>
+        <li><span class="n" style="color:var(--pass)">21</span> pass</li>
+      </ul>
+    </div>
+  </section>
+
+  
+
+  
+  <h2 id="tls">TLS and certificates</h2>
+  <section class="card">
+    
+    <article class="finding">
+      <h3>
+        <span class="badge high">high</span>Server accepts cipher suites without forward secrecy
+        
+      </h3>
+      <p class="detail">3 accepted suites use static RSA key exchange: TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_GCM_SHA384.</p>
+      <p class="why"><strong>Why it matters.</strong> Static-RSA key exchange means a single future compromise of the private key decrypts every session ever recorded. ECDHE removes that risk.</p>
+      <details><summary>Evidence</summary><pre>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+TLS_RSA_WITH_AES_128_CBC_SHA256
+TLS_RSA_WITH_AES_128_GCM_SHA256
+TLS_RSA_WITH_AES_256_GCM_SHA384</pre></details>
+      
+      <details>
+        <summary>How to fix it — Restrict TLS 1.2 to AEAD suites with forward secrecy and let the server pick the order.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>ssl_protocols TLSv1.2 TLSv1.3;
+ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305;
+ssl_prefer_server_ciphers on;
+ssl_ecdh_curve X25519:prime256v1:secp384r1;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>SSLCipherSuite ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305
+SSLHonorCipherOrder on
+SSLOpenSSLConfCmd Curves X25519:prime256v1:secp384r1</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>tls {
+    ciphers TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+    curves x25519 secp256r1 secp384r1
+}</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare manages cipher selection at the edge; set Minimum TLS Version to 1.2 and leave the rest to the platform.</pre>
+        
+        <p class="why">The list above is the Mozilla &#34;intermediate&#34; profile minus the CBC suites.</p>
+      </details>
+      
+      
+      <p class="fid">tls.cipher.no-forward-secrecy</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>Server accepts CBC-mode cipher suites
+        
+      </h3>
+      <p class="detail">3 accepted suites use CBC mode: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA256.</p>
+      <p class="why"><strong>Why it matters.</strong> CBC with MAC-then-encrypt has produced a decade of padding-oracle and timing attacks (Lucky13 and successors). AEAD suites have no equivalent history.</p>
+      <details><summary>Evidence</summary><pre>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+TLS_RSA_WITH_AES_128_CBC_SHA256
+TLS_RSA_WITH_AES_128_GCM_SHA256
+TLS_RSA_WITH_AES_256_GCM_SHA384</pre></details>
+      
+      <details>
+        <summary>How to fix it — Restrict TLS 1.2 to AEAD suites with forward secrecy and let the server pick the order.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>ssl_protocols TLSv1.2 TLSv1.3;
+ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305;
+ssl_prefer_server_ciphers on;
+ssl_ecdh_curve X25519:prime256v1:secp384r1;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>SSLCipherSuite ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305
+SSLHonorCipherOrder on
+SSLOpenSSLConfCmd Curves X25519:prime256v1:secp384r1</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>tls {
+    ciphers TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+    curves x25519 secp256r1 secp384r1
+}</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare manages cipher selection at the edge; set Minimum TLS Version to 1.2 and leave the rest to the platform.</pre>
+        
+        <p class="why">The list above is the Mozilla &#34;intermediate&#34; profile minus the CBC suites.</p>
+      </details>
+      
+      
+      <p class="fid">tls.cipher.cbc</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>OCSP stapling is not enabled
+        
+      </h3>
+      <p class="detail">No stapled OCSP response was returned in the handshake. A direct OCSP query returned status good.</p>
+      <p class="why"><strong>Why it matters.</strong> Without stapling the client either skips revocation checking or leaks which site it is visiting to the CA, and pays a round trip for it.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Enable OCSP stapling so the handshake carries a fresh revocation proof.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>ssl_stapling on;
+ssl_stapling_verify on;
+ssl_trusted_certificate /etc/letsencrypt/live/example.com/chain.pem;
+resolver 1.1.1.1 9.9.9.9 valid=300s;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>SSLUseStapling On
+SSLStaplingCache &#34;shmcb:/var/run/ocsp(128000)&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre># Caddy staples OCSP responses automatically for the certificates it manages.</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare staples OCSP at the edge automatically; no configuration is required.</pre>
+        
+        <p class="why">Let&#39;s Encrypt has wound down its OCSP service; with a CA that no longer publishes OCSP this control is not applicable.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://www.rfc-editor.org/rfc/rfc6066#section-8">https://www.rfc-editor.org/rfc/rfc6066#section-8</a> </p>
+      
+      <p class="fid">tls.ocsp.no-stapling</p>
+    </article>
+    
+  </section>
+  
+  <h2 id="headers">Security headers</h2>
+  <section class="card">
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>No Cross-Origin-Opener-Policy header
+        
+      </h3>
+      <p class="detail">No Cross-Origin-Opener-Policy header, so cross-origin documents can retain a window reference to this page.</p>
+      <p class="why"><strong>Why it matters.</strong> Without COOP a page you open, or that opens you, keeps a window reference across origins. That reference is the basis of tabnabbing and of several XS-Leaks.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Send Cross-Origin-Opener-Policy: same-origin to isolate the browsing context group.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header Cross-Origin-Opener-Policy &#34;same-origin&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Cross-Origin-Opener-Policy &#34;same-origin&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Cross-Origin-Opener-Policy &#34;same-origin&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Transform Rule -&gt; Set static -&gt; Cross-Origin-Opener-Policy: same-origin</pre>
+        
+        <p class="why">Use same-origin-allow-popups if the site opens OAuth popups that need window.opener.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy">https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy</a> </p>
+      
+      <p class="fid">coop.missing</p>
+    </article>
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>No Permissions-Policy header
+        
+      </h3>
+      <p class="detail">No Permissions-Policy header, so camera, microphone, geolocation and payment keep their default availability.</p>
+      <p class="why"><strong>Why it matters.</strong> Powerful features stay available to the document and, in some cases, to embedded third-party frames. Denying what you do not use limits what injected or embedded code can reach.</p>
+      
+      
+      <details>
+        <summary>How to fix it — Send Permissions-Policy denying the features the site does not use.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre>add_header Permissions-Policy &#34;accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Permissions-Policy &#34;accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()&#34; </pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Permissions-Policy &#34;accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Transform Rule -&gt; Set static -&gt; Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=()</pre>
+        
+        <p class="why">An empty allowlist `()` denies the feature to the document and to every frame it embeds.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a> </p>
+      
+      <p class="fid">permissions-policy.missing</p>
+    </article>
+    
+  </section>
+  
+  <h2 id="csp">Content Security Policy</h2>
+  <section class="card">
+    
+    <article class="finding">
+      <h3>
+        <span class="badge low">low</span>style-src allows &#39;unsafe-inline&#39;
+        
+      </h3>
+      <p class="detail">&#39;unsafe-inline&#39; is allowed for stylesheets.</p>
+      <p class="why"><strong>Why it matters.</strong> Inline styles enable CSS-based data exfiltration and UI redressing. It is much less severe than inline script and is often impractical to remove, but it is not free.</p>
+      <details><summary>Evidence</summary><pre>style-src &#39;unsafe-inline&#39; github.githubassets.com</pre></details>
+      
+      <details>
+        <summary>How to fix it — Remove &#39;unsafe-inline&#39; from script-src and adopt per-request nonces with &#39;strict-dynamic&#39;.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre># 1. Generate a nonce per request and place it on every &lt;script&gt; tag.
+# 2. Then drop &#39;unsafe-inline&#39; (keep it only as the CSP1 fallback shown here):
+add_header Content-Security-Policy &#34;script-src &#39;nonce-$csp_nonce&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;&#34; always;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always set Content-Security-Policy &#34;script-src &#39;nonce-%{CSP_NONCE}e&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre>header Content-Security-Policy &#34;script-src &#39;nonce-{http.vars.csp_nonce}&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;&#34;</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Nonces cannot be produced by a static header rule. Use a Cloudflare Worker:
+#   const nonce = crypto.randomUUID().replace(/-/g,&#39;&#39;);
+#   res.headers.set(&#39;Content-Security-Policy&#39;, `script-src &#39;nonce-${nonce}&#39; &#39;strict-dynamic&#39; https: &#39;unsafe-inline&#39;`)
+# and inject the same nonce into the HTML with HTMLRewriter.</pre>
+        
+        <p class="why">&#39;unsafe-inline&#39; is ignored by CSP3 browsers when a nonce is present, so keeping it is safe and helps old clients.</p>
+      </details>
+      
+      
+      <p class="why"><a href="https://www.w3.org/TR/CSP3/#directive-style-src">https://www.w3.org/TR/CSP3/#directive-style-src</a> </p>
+      
+      <p class="fid">csp.style-src.unsafe-inline</p>
+    </article>
+    
+  </section>
+  
+  <h2 id="cookies">Cookies</h2>
+  <section class="card">
+    
+    <article class="finding">
+      <h3>
+        <span class="badge medium">medium</span>Cookie is missing the HttpOnly flag
+        <span class="subject">— _octo</span>
+      </h3>
+      <p class="detail">Cookie _octo is readable from JavaScript.</p>
+      <p class="why"><strong>Why it matters.</strong> Without HttpOnly the cookie is readable from JavaScript, so any XSS turns directly into credential theft.</p>
+      <details><summary>Evidence</summary><pre>_octo=REDACTED; expires=Fri, 24 Sep 2027 10:18:42 GMT; domain=.github.com; path=/; secure; SameSite=Lax</pre></details>
+      
+      <details>
+        <summary>How to fix it — Set Secure, HttpOnly and an explicit SameSite on every cookie, and use the __Host- prefix for session cookies.</summary>
+        
+        <p class="why" style="margin-bottom:0"><strong>Nginx</strong></p>
+        <pre># nginx can only rewrite cookies it proxies:
+proxy_cookie_flags ~ secure httponly samesite=lax;
+# Preferably set the attributes in the application, e.g.:
+#   Set-Cookie: __Host-session=...; Path=/; Secure; HttpOnly; SameSite=Lax</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Apache httpd</strong></p>
+        <pre>Header always edit Set-Cookie ^(.*)$ &#34;$1; Secure; HttpOnly; SameSite=Lax&#34;
+# Or, for the session cookie of a specific module:
+#   php_value session.cookie_secure 1
+#   php_value session.cookie_httponly 1
+#   php_value session.cookie_samesite Lax</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Caddy</strong></p>
+        <pre># Caddy does not rewrite cookies; set the attributes in the upstream application:
+#   Set-Cookie: __Host-session=...; Path=/; Secure; HttpOnly; SameSite=Lax</pre>
+        
+        <p class="why" style="margin-bottom:0"><strong>Cloudflare / generic CDN</strong></p>
+        <pre># Cloudflare Transform Rule cannot safely rewrite Set-Cookie. Fix it in the origin application:
+#   Set-Cookie: __Host-session=...; Path=/; Secure; HttpOnly; SameSite=Lax</pre>
+        
+        <p class="why">__Host- requires Secure, Path=/ and no Domain attribute, which pins the cookie to exactly one origin.</p>
+      </details>
+      
+      
+      <p class="fid">cookie.no-httponly</p>
+    </article>
+    
+  </section>
+  
+
+  
+  <h2>TLS summary</h2>
+  <section class="card">
+    <table>
+      <tbody>
+        <tr><th>Protocol versions</th><td>
+          TLS 1.0: refused · TLS 1.1: refused · TLS 1.2: accepted · TLS 1.3: accepted · 
+        </td></tr>
+        <tr><th>TLS 1.3 suite</th><td><code>TLS_AES_128_GCM_SHA256</code></td></tr>
+        <tr><th>TLS 1.2 suites</th><td><code>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256</code><br><code>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</code><br><code>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</code><br><code>TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256</code><br><code>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256</code><br><code>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</code><br><code>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code><br><code>TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256</code><br><code>TLS_RSA_WITH_AES_128_CBC_SHA256</code><br><code>TLS_RSA_WITH_AES_128_GCM_SHA256</code><br><code>TLS_RSA_WITH_AES_256_GCM_SHA384</code><br></td></tr>
+        <tr><th>Suite preference</th><td>server</td></tr>
+        <tr><th>ALPN</th><td>h2 http/1.1 </td></tr>
+        <tr><th>OCSP stapling</th><td>not enabled</td></tr>
+        <tr><th>Certificate</th><td>CN=github.com</td></tr>
+        <tr><th>Issuer</th><td>CN=Sectigo Public Server Authentication CA DV E36,O=Sectigo Limited,C=GB</td></tr>
+        <tr><th>Expires</th><td>2026-11-29</td></tr>
+        <tr><th>Key</th><td>ECDSA 256 bits</td></tr>
+        <tr><th>Signature</th><td>ECDSA-SHA256</td></tr>
+        <tr><th>SANs</th><td>github.com www.github.com </td></tr>
+      </tbody>
+    </table>
+  </section>
+  
+
+  
+  <h2>Cookies</h2>
+  <section class="card">
+    <table>
+      <thead><tr><th>Name</th><th>Secure</th><th>HttpOnly</th><th>SameSite</th><th>Domain</th><th>Path</th></tr></thead>
+      <tbody>
+        
+        <tr>
+          <td><code>_gh_sess</code></td>
+          <td>yes</td>
+          <td>yes</td>
+          <td>Lax</td>
+          <td>—</td>
+          <td>/</td>
+        </tr>
+        
+        <tr>
+          <td><code>_octo</code></td>
+          <td>yes</td>
+          <td>no</td>
+          <td>Lax</td>
+          <td>.github.com</td>
+          <td>/</td>
+        </tr>
+        
+        <tr>
+          <td><code>logged_in</code></td>
+          <td>yes</td>
+          <td>yes</td>
+          <td>Lax</td>
+          <td>.github.com</td>
+          <td>/</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </section>
+  
+
+  
+  <h2>Content Security Policy</h2>
+  <section class="card">
+    <p class="sub" style="margin:0 0 .5rem">
+      Enforced policy.
+    </p>
+    <table>
+      <thead><tr><th>Directive</th><th>Sources</th></tr></thead>
+      <tbody>
+        
+        <tr><td><code>default-src</code></td><td><code>&#39;none&#39; </code></td></tr>
+        
+        <tr><td><code>base-uri</code></td><td><code>&#39;self&#39; </code></td></tr>
+        
+        <tr><td><code>child-src</code></td><td><code>github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/ </code></td></tr>
+        
+        <tr><td><code>connect-src</code></td><td><code>&#39;self&#39; uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com wss://production-copilot-host.webpubsub.azure.com api.github.com/cmc_internal/api/ edge.fullstory.com rs.fullstory.com </code></td></tr>
+        
+        <tr><td><code>font-src</code></td><td><code>github.githubassets.com </code></td></tr>
+        
+        <tr><td><code>form-action</code></td><td><code>&#39;self&#39; github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com </code></td></tr>
+        
+        <tr><td><code>frame-ancestors</code></td><td><code>&#39;none&#39; </code></td></tr>
+        
+        <tr><td><code>frame-src</code></td><td><code>viewscreen.githubusercontent.com notebooks.githubusercontent.com www.youtube-nocookie.com </code></td></tr>
+        
+        <tr><td><code>img-src</code></td><td><code>&#39;self&#39; data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com repository-images.githubusercontent.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com *.googleusercontent.com objects-origin.githubusercontent.com *.githubusercontent.com images.ctfassets.net/8aevphvgewt8/ </code></td></tr>
+        
+        <tr><td><code>manifest-src</code></td><td><code>&#39;self&#39; </code></td></tr>
+        
+        <tr><td><code>media-src</code></td><td><code>github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com assets.ctfassets.net/8aevphvgewt8/ videos.ctfassets.net/8aevphvgewt8/ </code></td></tr>
+        
+        <tr><td><code>script-src</code></td><td><code>github.githubassets.com &#39;sha256-tSjmyPUky1KbRZ0fw9VUil3wFEbeM82rtbJDygGJAXw=&#39; </code></td></tr>
+        
+        <tr><td><code>style-src</code></td><td><code>&#39;unsafe-inline&#39; github.githubassets.com </code></td></tr>
+        
+        <tr><td><code>upgrade-insecure-requests</code></td><td><code></code></td></tr>
+        
+        <tr><td><code>worker-src</code></td><td><code>github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/ </code></td></tr>
+        
+      </tbody>
+    </table>
+  </section>
+  
+
+  <h2>How the grade was calculated</h2>
+  <section class="card">
+    <table>
+      <thead><tr><th>Control</th><th class="num">Weight</th><th class="num">Earned</th><th class="num">Lost</th><th>Why</th></tr></thead>
+      <tbody>
+        
+        <tr >
+          <td><code>csp.present</code></td>
+          <td class="num">10.0</td>
+          <td class="num">10.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>csp.present</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.script-src</code></td>
+          <td class="num">10.0</td>
+          <td class="num">10.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>csp.script-src.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.frame-ancestors</code></td>
+          <td class="num">4.0</td>
+          <td class="num">4.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>csp.frame-ancestors.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.base-uri</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>csp.base-uri.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.object-src</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>csp.object-src.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.default-src</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>csp.default-src.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>csp.style-src</code></td>
+          <td class="num">2.0</td>
+          <td class="num">1.5</td>
+          <td class="num">0.5</td>
+          <td>style-src allows &#39;unsafe-inline&#39; (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>hsts</code></td>
+          <td class="num">10.0</td>
+          <td class="num">10.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>hsts.ok</code> <code>hsts.preloaded</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>nosniff</code></td>
+          <td class="num">4.0</td>
+          <td class="num">4.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>nosniff.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>referrer-policy</code></td>
+          <td class="num">4.0</td>
+          <td class="num">4.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>referrer-policy.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>xfo</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>xfo.redundant</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>permissions-policy</code></td>
+          <td class="num">3.0</td>
+          <td class="num">2.2</td>
+          <td class="num">0.8</td>
+          <td>No Permissions-Policy header (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>coop</code></td>
+          <td class="num">3.0</td>
+          <td class="num">2.2</td>
+          <td class="num">0.8</td>
+          <td>No Cross-Origin-Opener-Policy header (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>coep</code></td>
+          <td class="num">2.0</td>
+          <td class="num">2.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>coep.missing</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>corp</code></td>
+          <td class="num">2.0</td>
+          <td class="num">2.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>corp.missing</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>cors</code></td>
+          <td class="num">8.0</td>
+          <td class="num">8.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>cors.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>legacy-headers</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>legacy.none</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>info-headers</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>info.server-present</code> <code>info.none</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>cookies</code></td>
+          <td class="num">8.0</td>
+          <td class="num">4.0</td>
+          <td class="num">4.0</td>
+          <td>Cookie is missing the HttpOnly flag (medium); </td>
+        </tr>
+        
+        <tr >
+          <td><code>tls.versions</code></td>
+          <td class="num">12.0</td>
+          <td class="num">12.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>tls.version.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>tls.certificate</code></td>
+          <td class="num">12.0</td>
+          <td class="num">12.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>tls.cert.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>tls.ciphers</code></td>
+          <td class="num">8.0</td>
+          <td class="num">0.0</td>
+          <td class="num">8.0</td>
+          <td>Server accepts cipher suites without forward secrecy (high); Server accepts CBC-mode cipher suites (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>tls.extras</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>tls.resumption.none</code> <code>tls.alpn.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>tls.ocsp</code></td>
+          <td class="num">2.0</td>
+          <td class="num">1.5</td>
+          <td class="num">0.5</td>
+          <td>OCSP stapling is not enabled (low); </td>
+        </tr>
+        
+        <tr >
+          <td><code>redirect</code></td>
+          <td class="num">8.0</td>
+          <td class="num">8.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>redirect.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>mixed-content</code></td>
+          <td class="num">5.0</td>
+          <td class="num">5.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>mixed-content.none</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>http-methods</code></td>
+          <td class="num">3.0</td>
+          <td class="num">3.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>methods.ok</code> </td>
+        </tr>
+        
+        <tr >
+          <td><code>security-txt</code></td>
+          <td class="num">1.0</td>
+          <td class="num">1.0</td>
+          <td class="num">0.0</td>
+          <td>no points lost: <code>security-txt.ok</code> </td>
+        </tr>
+        
+        <tr>
+          <td><strong>total</strong></td>
+          <td class="num"><strong>142.0</strong></td>
+          <td class="num"><strong>127.5</strong></td>
+          <td class="num"></td>
+          <td>127.5 / 142.0 = 90% → grade A</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <footer>
+    <p>
+      Evidence gathered by httpsec 0.1.0-dev (commit none, built unknown). This report describes what the server revealed in a normal
+      HTTP and TLS interaction. It is not a vulnerability scan, and it should only be run against
+      hosts you own or have permission to test.
+    </p>
+  </footer>
+</main>
+</body>
+</html>

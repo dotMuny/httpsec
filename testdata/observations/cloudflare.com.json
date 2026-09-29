@@ -1,0 +1,721 @@
+{
+  "schema_version": 1,
+  "tool": "httpsec 0.1.0-dev (commit none, built unknown)",
+  "target": "cloudflare.com",
+  "host": "cloudflare.com",
+  "port": "443",
+  "started_at": "2026-09-24T10:19:08.523864412Z",
+  "duration_ms": 0,
+  "https": {
+    "request_url": "https://cloudflare.com/",
+    "final_url": "https://www.cloudflare.com/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Age": [
+        "REDACTED"
+      ],
+      "Alt-Svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "Cache-Control": [
+        "max-age=10"
+      ],
+      "Cf-Cache-Status": [
+        "HIT"
+      ],
+      "Cf-Ray": [
+        "REDACTED"
+      ],
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Security-Policy": [
+        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://static-staging.cloudflareinsights.com https://challenges.cloudflare.com https://*.onetrust.com https://cdn.cookielaw.org https://ot.www.cloudflare.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://adservice.google.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://platform.twitter.com https://static.ads-twitter.com https://scripts.demandbase.com https://tag.demandbase.com https://*.6sc.co https://*.qualified.com https://snap.licdn.com https://bat.bing.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://translate.googleapis.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://ads-twitter.com https://analytics.twitter.com https://*.twimg.com https://api.demandbase.com https://scripts.demandbase.com https://tag.demandbase.com https://tag-logger.demandbase.com https://api.company-target.com https://*.6sc.co https://epsilon.6sense.com https://*.qualified.com https://*.ads.linkedin.com https://www.linkedin.com https://bat.bing.com https: wss://*.qualified.com wss://*.registrar.cloudflare.com; frame-src https://*.adsrvr.org https://*.cloudflare.com https://*.videodelivery.net https://*.cloudflarestream.com https://www.googletagmanager.com https://*.qualified.com https://td.doubleclick.net https://bid.g.doubleclick.net https://9309168.fls.doubleclick.net https://9973066.fls.doubleclick.net https://s.company-target.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'self' blob:; child-src 'self' blob:; upgrade-insecure-requests"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Cross-Origin-Opener-Policy": [
+        "unsafe-none"
+      ],
+      "Cross-Origin-Resource-Policy": [
+        "cross-origin"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Link": [
+        "<https://www.cloudflare.com/.well-known/agents.json>; rel=\"api-catalog\", <https://www.cloudflare.com/.well-known/webmcp.json>; rel=\"service-desc\", <https://www.cloudflare.com/openapi.json>; rel=\"service-desc\", <https://www.cloudflare.com/llms.txt>; rel=\"service-doc\", <https://www.cloudflare.com/sitemap.xml>; rel=\"sitemap\", </fonts/Kunst%20Grotesk%20Regular.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin, </fonts/Kunst%20Grotesk%20Medium.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin, <https://ot.www.cloudflare.com>; rel=preconnect; crossorigin, <https://imagedelivery.net>; rel=preconnect; crossorigin, </static/hero-poster.avif>; rel=preload; as=image; type=\"image/avif\"; fetchpriority=high"
+      ],
+      "Nel": [
+        "REDACTED"
+      ],
+      "Permissions-Policy": [
+        "geolocation=(), camera=(), microphone=()"
+      ],
+      "Referrer-Policy": [
+        "strict-origin-when-cross-origin"
+      ],
+      "Report-To": [
+        "REDACTED"
+      ],
+      "Server": [
+        "cloudflare"
+      ],
+      "Server-Timing": [
+        "cfCacheStatus;desc=\"HIT\"",
+        "cfEdge;dur=10,cfOrigin;dur=0,cfWorker;dur=4"
+      ],
+      "Set-Cookie": [
+        "__cf_bm=REDACTED; HttpOnly; SameSite=None; Secure; Path=/; Domain=www.cloudflare.com; Expires=Thu, 24 Sep 2026 10:49:08 GMT"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubDomains"
+      ],
+      "Vary": [
+        "accept-encoding"
+      ],
+      "X-Content-Type-Options": [
+        "nosniff"
+      ],
+      "X-Frame-Options": [
+        "SAMEORIGIN"
+      ],
+      "X-Rm": [
+        "GW"
+      ],
+      "X-Served-By": [
+        "REDACTED"
+      ],
+      "X-Xss-Protection": [
+        "1; mode=block"
+      ]
+    },
+    "body": "<!DOCTYPE html><html lang=\"en\"> <head><script>(function(w,i,g){w[g]=w[g]||[];if(typeof w[g].push=='function')w[g].push(i)})\n(window,'GTM-NDGPDFZ','google_tags_first_party');</script><script>(function(w,d,s,l){w[l]=w[l]||[];(function(){w[l].push(arguments);})('set', 'developer_id.dY2E1Nz', true);\n\t\tvar f=d.getElementsByTagName(s)[0],\n\t\tj=d.createElement(s);j.async=true;j.src='/go9u/';\n\t\tf.parentNode.insertBefore(j,f);\n\t\t})(window,document,'script','dataLayer');</script><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, viewport-fit=cover\"><meta name=\"theme-color\" content=\"#ff4801\" media=\"(max-width: 767px)\"><link rel=\"preconnect\" href=\"https://imagedelivery.net\" crossorigin><link rel=\"preconnect\" href=\"https://ot.www.cloudflare.com\" crossorigin><link rel=\"preload\" href=\"/icons.svg\" as=\"image\" type=\"image/svg+xml\"><link rel=\"preload\" href=\"/fonts/Kunst%20Grotesk%20Regular.woff2\" as=\"font\" type=\"font/woff2\" crossorigin><link rel=\"preload\" href=\"/fonts/Kunst%20Grotesk%20Medium.woff2\" as=\"font\" type=\"font/woff2\" crossorigin><link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\"><link rel=\"shortcut icon\" type=\"image/x-icon\" href=\"/favicon.ico\"><script>\n      (function () {\n        var d = document.documentElement;\n        d.classList.add('js');\n        try {\n          var p = new URLSearchParams(window.location.search);\n          var t = p.get('theme');\n          window.__themeOverride = t;\n          if (t === 'dark') d.classList.add('dark');\n          else if (t === 'light') d.classList.remove('dark');\n          else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)\n            d.classList.add('dark');\n          else d.classList.remove('dark');\n        } catch (e) {}\n        try {\n          var K = 'cf-font-override',\n            q = new URLSearchParams(window.location.search).get('cfFont');\n          if (q === 'stk') {\n            localStorage.setItem(K, 'stk');\n            d.classList.add('font-stk-bureau-sans');\n          } else if (q === 'kunst') {\n            localStorage.setItem(K, 'kunst');\n            d.classList.remove('font-stk-bureau-sans');\n          } else {\n            var s = localStorage.getItem(K);\n            if (s === 'stk') d.classList.add('font-stk-bureau-sans');\n            else if (s === 'kunst') d.classList.remove('font-stk-bureau-sans');\n          }\n        } catch (e) {}\n        try {\n          if (\n            document.cookie.split(';').some(function (cookie) {\n              return cookie.trim() === '__cf_logged_in=1';\n            })\n          )\n            d.classList.add('logged-in');\n        } catch (e) {}\n      })();\n    </script><title>Cloudflare: Build for the agent era</title><meta name=\"title\" content=\"Cloudflare: Build for the agent era\"><meta name=\"description\" content=\"Welcome to Cloudflare - Powering the next generation of applications\"><meta name=\"priority\" content=\"100\"><meta name=\"generator\" content=\"Astro v6.3.7\"><link rel=\"canonical\" href=\"https://www.cloudflare.com/\"><link rel=\"alternate\" hreflang=\"x-default\" href=\"https://www.cloudflare.com/\"><link rel=\"alternate\" hreflang=\"es-es\" href=\"https://www.cloudflare.com/es-es/\"><link rel=\"alternate\" hreflang=\"fr-fr\" href=\"https://www.cloudflare.com/fr-fr/\"><link rel=\"alternate\" hreflang=\"de-de\" href=\"https://www.cloudflare.com/de-de/\"><link rel=\"alternate\" hreflang=\"it-it\" href=\"https://www.cloudflare.com/it-it/\"><link rel=\"alternate\" hreflang=\"pt-br\" href=\"https://www.cloudflare.com/pt-br/\"><link rel=\"alternate\" hreflang=\"zh-cn\" href=\"https://www.cloudflare.com/zh-cn/\"><link rel=\"alternate\" hreflang=\"ja-jp\" href=\"https://www.cloudflare.com/ja-jp/\"><link rel=\"alternate\" hreflang=\"ko-kr\" href=\"https://www.cloudflare.com/ko-kr/\"><link rel=\"alternate\" hreflang=\"zh-tw\" href=\"https://www.cloudflare.com/zh-tw/\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:url\" content=\"https://www.cloudflare.com/\"><meta property=\"og:title\" content=\"Cloudflare: Build for the agent era\"><meta property=\"og:description\" content=\"Welcome to Cloudflare - Powering the next generation of applications\"><meta property=\"og:image\" content=\"https://www.cloudflare.com/preview.png\"><meta name=\"twitter:card\" content=\"summary_large_image\"><meta name=\"twitter:url\" content=\"https://www.cloudflare.com/\"><meta name=\"twitter:title\" content=\"Cloudflare: Build for the agent era\"><meta name=\"twitter:description\" content=\"Welcome to Cloudflare - Powering the next generation of applications\"><meta name=\"twitter:image\" content=\"https://www.cloudflare.com/preview.png\"><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Cloudflare\",\"url\":\"https://www.cloudflare.com\",\"logo\":\"https://www.cloudflare.com/logo.svg\",\"sameAs\":[\"https://github.com/cloudflare\",\"https://www.linkedin.com/company/cloudflare\",\"https://x.com/cloudflare\"]}</script><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"Cloudflare\",\"url\":\"https://www.cloudflare.com\",\"inLanguage\":\"en\",\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":\"https://www.cloudflare.com/search?q={search_term_string}\",\"query-input\":\"required name=search_term_string\"}}</script><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"WebPage\",\"name\":\"Cloudflare: Build for the agent era\",\"description\":\"Welcome to Cloudflare - Powering the next generation of applications\",\"url\":\"https://www.cloudflare.com/\",\"inLanguage\":\"en\"}</script><link rel=\"llms-txt\" href=\"/llms.txt\"><link rel=\"alternate\" type=\"text/markdown\" href=\"/.md\"><script id=\"webmcp\" type=\"application/json\">{\"tools\":[{\"name\":\"read_llms_txt\",\"description\":\"Read concise site context for assistants\",\"parameters\":[]},{\"name\":\"read_markdown_page\",\"description\":\"Read markdown version of a Cloudflare page\",\"parameters\":[{\"name\":\"path\",\"type\":\"string\",\"required\":true}]}]}</script><script async type=\"text/javascript\" src=\"https://ot.www.cloudflare.com/ot/scripttemplates/otSDKStub.js\" data-domain-script=\"b1e05d49-f072-4bae-9116-bdb78af15448\" data-document-language=\"true\" charset=\"UTF-8\"></script><script type=\"text/javascript\">(function(){const zarazScriptSrc = \"/static/z/i.js\";\nconst gtmContainerSrc = \"https://www.googletagmanager.com/gtm.js?id=GTM-NDGPDFZ\";\n\n      // \u2500\u2500 dataLayer + Zaraz bridge \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n      window.dataLayer = window.dataLayer || [];\n      window.GTM = {\n        trackInZaraz: function (event) {\n          if (!window.zaraz || typeof event !== 'object' || event === null) return;\n          for (var k in event) {\n            if (Object.prototype.hasOwnProperty.call(event, k) && k.indexOf('gtm.') !== 0) {\n              window.zaraz.set(k, event[k], { scope: 'page' });\n            }\n          }\n          if (typeof event.event !== 'string' || event.event.indexOf('gtm.') === 0) return;\n          var idx = window.dataLayer.indexOf(event);\n          var data = {};\n          for (var i = 0; i <= idx; i++) {\n            var obj = window.dataLayer[i];\n            if (!obj || typeof obj !== 'object') continue;\n            if (typeof obj.event === 'string' && obj.event.indexOf('gtm.') === 0) continue;\n            for (var key in obj) {\n              if (Object.prototype.hasOwnProperty.call(obj, key)) data[key] = obj[key];\n            }\n          }\n          delete data.event;\n          window.zaraz.track(event.event, data);\n        },\n        push: function () {\n          window.dataLayer.push.apply(window.dataLayer, arguments);\n        },\n      };\n\n      var __cfDlPreBridgeLength = window.dataLayer.length;\n      var __cfDlPush = window.dataLayer.push;\n\n      // GTM's Form Submission auto-listener pushes the raw <form> node as\n      // `gtm.element`. React's fiber bookkeeping makes DOM nodes circular,\n      // so Zaraz's own dataLayer processor throws \"Converting circular\n      // structure to JSON\" on the next tracked event. Strip DOM nodes to a\n      // placeholder before they ever land in the array",
+    "body_truncated": true,
+    "body_bytes": 524289,
+    "redirects": [
+      {
+        "url": "https://cloudflare.com/",
+        "scheme": "https",
+        "host": "cloudflare.com",
+        "status_code": 301,
+        "location": "https://www.cloudflare.com/"
+      }
+    ],
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "plain_http": {
+    "request_url": "http://cloudflare.com/",
+    "final_url": "https://www.cloudflare.com/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Age": [
+        "REDACTED"
+      ],
+      "Alt-Svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "Cache-Control": [
+        "max-age=10"
+      ],
+      "Cf-Cache-Status": [
+        "HIT"
+      ],
+      "Cf-Ray": [
+        "REDACTED"
+      ],
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Security-Policy": [
+        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://static-staging.cloudflareinsights.com https://challenges.cloudflare.com https://*.onetrust.com https://cdn.cookielaw.org https://ot.www.cloudflare.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://adservice.google.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://platform.twitter.com https://static.ads-twitter.com https://scripts.demandbase.com https://tag.demandbase.com https://*.6sc.co https://*.qualified.com https://snap.licdn.com https://bat.bing.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://translate.googleapis.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://ads-twitter.com https://analytics.twitter.com https://*.twimg.com https://api.demandbase.com https://scripts.demandbase.com https://tag.demandbase.com https://tag-logger.demandbase.com https://api.company-target.com https://*.6sc.co https://epsilon.6sense.com https://*.qualified.com https://*.ads.linkedin.com https://www.linkedin.com https://bat.bing.com https: wss://*.qualified.com wss://*.registrar.cloudflare.com; frame-src https://*.adsrvr.org https://*.cloudflare.com https://*.videodelivery.net https://*.cloudflarestream.com https://www.googletagmanager.com https://*.qualified.com https://td.doubleclick.net https://bid.g.doubleclick.net https://9309168.fls.doubleclick.net https://9973066.fls.doubleclick.net https://s.company-target.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'self' blob:; child-src 'self' blob:; upgrade-insecure-requests"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Cross-Origin-Opener-Policy": [
+        "unsafe-none"
+      ],
+      "Cross-Origin-Resource-Policy": [
+        "cross-origin"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Link": [
+        "<https://www.cloudflare.com/.well-known/agents.json>; rel=\"api-catalog\", <https://www.cloudflare.com/.well-known/webmcp.json>; rel=\"service-desc\", <https://www.cloudflare.com/openapi.json>; rel=\"service-desc\", <https://www.cloudflare.com/llms.txt>; rel=\"service-doc\", <https://www.cloudflare.com/sitemap.xml>; rel=\"sitemap\", </fonts/Kunst%20Grotesk%20Regular.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin, </fonts/Kunst%20Grotesk%20Medium.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin, <https://ot.www.cloudflare.com>; rel=preconnect; crossorigin, <https://imagedelivery.net>; rel=preconnect; crossorigin, </static/hero-poster.avif>; rel=preload; as=image; type=\"image/avif\"; fetchpriority=high"
+      ],
+      "Nel": [
+        "REDACTED"
+      ],
+      "Permissions-Policy": [
+        "geolocation=(), camera=(), microphone=()"
+      ],
+      "Referrer-Policy": [
+        "strict-origin-when-cross-origin"
+      ],
+      "Report-To": [
+        "REDACTED"
+      ],
+      "Server": [
+        "cloudflare"
+      ],
+      "Server-Timing": [
+        "cfCacheStatus;desc=\"HIT\"",
+        "cfEdge;dur=10,cfOrigin;dur=0,cfWorker;dur=4"
+      ],
+      "Set-Cookie": [
+        "__cf_bm=REDACTED; HttpOnly; SameSite=None; Secure; Path=/; Domain=www.cloudflare.com; Expires=Thu, 24 Sep 2026 10:49:08 GMT"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubDomains"
+      ],
+      "Vary": [
+        "accept-encoding"
+      ],
+      "X-Content-Type-Options": [
+        "nosniff"
+      ],
+      "X-Frame-Options": [
+        "SAMEORIGIN"
+      ],
+      "X-Rm": [
+        "GW"
+      ],
+      "X-Served-By": [
+        "REDACTED"
+      ],
+      "X-Xss-Protection": [
+        "1; mode=block"
+      ]
+    },
+    "body_truncated": true,
+    "body_bytes": 4097,
+    "redirects": [
+      {
+        "url": "http://cloudflare.com/",
+        "scheme": "http",
+        "host": "cloudflare.com",
+        "status_code": 301,
+        "location": "https://www.cloudflare.com/"
+      }
+    ],
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "cors": {
+    "sent_origin": "https://httpsec-probe.invalid",
+    "sent_null_origin": true,
+    "allow_origin": "",
+    "allow_credentials": "",
+    "allow_methods": "",
+    "allow_headers": "",
+    "expose_headers": "",
+    "vary": "accept-encoding",
+    "null_allow_origin": "",
+    "null_allow_credentials": ""
+  },
+  "options": {
+    "request_url": "https://cloudflare.com/",
+    "final_url": "https://www.cloudflare.com/",
+    "method": "OPTIONS",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Age": [
+        "REDACTED"
+      ],
+      "Alt-Svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "Cache-Control": [
+        "max-age=10"
+      ],
+      "Cf-Cache-Status": [
+        "HIT"
+      ],
+      "Cf-Ray": [
+        "REDACTED"
+      ],
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Security-Policy": [
+        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://static-staging.cloudflareinsights.com https://challenges.cloudflare.com https://*.onetrust.com https://cdn.cookielaw.org https://ot.www.cloudflare.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://adservice.google.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://platform.twitter.com https://static.ads-twitter.com https://scripts.demandbase.com https://tag.demandbase.com https://*.6sc.co https://*.qualified.com https://snap.licdn.com https://bat.bing.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://translate.googleapis.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://ads-twitter.com https://analytics.twitter.com https://*.twimg.com https://api.demandbase.com https://scripts.demandbase.com https://tag.demandbase.com https://tag-logger.demandbase.com https://api.company-target.com https://*.6sc.co https://epsilon.6sense.com https://*.qualified.com https://*.ads.linkedin.com https://www.linkedin.com https://bat.bing.com https: wss://*.qualified.com wss://*.registrar.cloudflare.com; frame-src https://*.adsrvr.org https://*.cloudflare.com https://*.videodelivery.net https://*.cloudflarestream.com https://www.googletagmanager.com https://*.qualified.com https://td.doubleclick.net https://bid.g.doubleclick.net https://9309168.fls.doubleclick.net https://9973066.fls.doubleclick.net https://s.company-target.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'self' blob:; child-src 'self' blob:; upgrade-insecure-requests"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Cross-Origin-Opener-Policy": [
+        "unsafe-none"
+      ],
+      "Cross-Origin-Resource-Policy": [
+        "cross-origin"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Link": [
+        "<https://www.cloudflare.com/.well-known/agents.json>; rel=\"api-catalog\", <https://www.cloudflare.com/.well-known/webmcp.json>; rel=\"service-desc\", <https://www.cloudflare.com/openapi.json>; rel=\"service-desc\", <https://www.cloudflare.com/llms.txt>; rel=\"service-doc\", <https://www.cloudflare.com/sitemap.xml>; rel=\"sitemap\", </fonts/Kunst%20Grotesk%20Regular.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin, </fonts/Kunst%20Grotesk%20Medium.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin, <https://ot.www.cloudflare.com>; rel=preconnect; crossorigin, <https://imagedelivery.net>; rel=preconnect; crossorigin, </static/hero-poster.avif>; rel=preload; as=image; type=\"image/avif\"; fetchpriority=high"
+      ],
+      "Nel": [
+        "REDACTED"
+      ],
+      "Permissions-Policy": [
+        "geolocation=(), camera=(), microphone=()"
+      ],
+      "Referrer-Policy": [
+        "strict-origin-when-cross-origin"
+      ],
+      "Report-To": [
+        "REDACTED"
+      ],
+      "Server": [
+        "cloudflare"
+      ],
+      "Server-Timing": [
+        "cfCacheStatus;desc=\"HIT\"",
+        "cfEdge;dur=8,cfOrigin;dur=0,cfWorker;dur=4"
+      ],
+      "Set-Cookie": [
+        "__cf_bm=REDACTED; HttpOnly; SameSite=None; Secure; Path=/; Domain=www.cloudflare.com; Expires=Thu, 24 Sep 2026 10:49:09 GMT"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubDomains"
+      ],
+      "Vary": [
+        "accept-encoding"
+      ],
+      "X-Content-Type-Options": [
+        "nosniff"
+      ],
+      "X-Frame-Options": [
+        "SAMEORIGIN"
+      ],
+      "X-Rm": [
+        "GW"
+      ],
+      "X-Served-By": [
+        "REDACTED"
+      ],
+      "X-Xss-Protection": [
+        "1; mode=block"
+      ]
+    },
+    "body_truncated": true,
+    "body_bytes": 4097,
+    "redirects": [
+      {
+        "url": "https://cloudflare.com/",
+        "scheme": "https",
+        "host": "cloudflare.com",
+        "status_code": 301,
+        "location": "https://www.cloudflare.com/"
+      }
+    ],
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "trace": {
+    "request_url": "https://cloudflare.com/",
+    "final_url": "https://cloudflare.com/",
+    "method": "TRACE",
+    "status_code": 405,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Cf-Ray": [
+        "REDACTED"
+      ],
+      "Content-Length": [
+        "155"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Server": [
+        "cloudflare"
+      ]
+    },
+    "body_bytes": 155,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "security_txt": {
+    "request_url": "https://cloudflare.com/.well-known/security.txt",
+    "final_url": "https://www.cloudflare.com/.well-known/security.txt",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Alt-Svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "Cache-Control": [
+        "public, max-age=0, must-revalidate"
+      ],
+      "Cf-Ray": [
+        "REDACTED"
+      ],
+      "Connection": [
+        "keep-alive"
+      ],
+      "Content-Type": [
+        "text/plain; charset=utf-8"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Etag": [
+        "REDACTED"
+      ],
+      "Nel": [
+        "REDACTED"
+      ],
+      "Permissions-Policy": [
+        "geolocation=(), camera=(), microphone=()"
+      ],
+      "Referrer-Policy": [
+        "strict-origin-when-cross-origin"
+      ],
+      "Report-To": [
+        "REDACTED"
+      ],
+      "Server": [
+        "cloudflare"
+      ],
+      "Server-Timing": [
+        "cfEdge;dur=10,cfOrigin;dur=0,cfWorker;dur=130"
+      ],
+      "Set-Cookie": [
+        "__cf_bm=REDACTED; HttpOnly; SameSite=None; Secure; Path=/; Domain=www.cloudflare.com; Expires=Thu, 24 Sep 2026 10:49:11 GMT"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubDomains"
+      ],
+      "Vary": [
+        "accept-encoding"
+      ],
+      "X-Content-Type-Options": [
+        "nosniff"
+      ],
+      "X-Frame-Options": [
+        "SAMEORIGIN"
+      ],
+      "X-Gww-Loc": [
+        "EN-US"
+      ],
+      "X-Pgs-Loc": [
+        "EN-US"
+      ],
+      "X-Xss-Protection": [
+        "1; mode=block"
+      ]
+    },
+    "body": "Contact: https://hackerone.com/cloudflare\n# All abuse reports should be submitted to our Trust & Safety team through\n# our dedicated page.\nContact: https://www.cloudflare.com/abuse/\n\nPolicy: https://www.cloudflare.com/disclosure/ \nHiring: https://www.cloudflare.com/careers/jobs/\n\nPreferred-Languages: en\nCanonical: https://www.cloudflare.com/.well-known/security.txt\n",
+    "body_bytes": 368,
+    "redirects": [
+      {
+        "url": "https://cloudflare.com/.well-known/security.txt",
+        "scheme": "https",
+        "host": "cloudflare.com",
+        "status_code": 301,
+        "location": "https://www.cloudflare.com/.well-known/security.txt"
+      }
+    ],
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "tls": {
+    "server_name": "cloudflare.com",
+    "versions": [
+      {
+        "version": "TLS 1.0",
+        "supported": true,
+        "suite": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+      },
+      {
+        "version": "TLS 1.1",
+        "supported": true,
+        "suite": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+      },
+      {
+        "version": "TLS 1.2",
+        "supported": true,
+        "suite": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+      },
+      {
+        "version": "TLS 1.3",
+        "supported": true,
+        "suite": "TLS_AES_128_GCM_SHA256"
+      }
+    ],
+    "suites": [
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+        "id": 49161,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 128,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+        "id": 49187,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "id": 49195,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+        "id": 49162,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "id": 49196,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+        "id": 52393,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "ChaCha20-Poly1305",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "id": 49171,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 128,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+        "id": 49191,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "id": 49199,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "id": 49172,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "id": 49200,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "id": 52392,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "ChaCha20-Poly1305",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_128_CBC_SHA",
+        "id": 47,
+        "forward_secrecy": false,
+        "aead": false,
+        "key_exchange": "RSA",
+        "cipher": "AES-CBC",
+        "bits": 128,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_128_CBC_SHA256",
+        "id": 60,
+        "forward_secrecy": false,
+        "aead": false,
+        "key_exchange": "RSA",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_128_GCM_SHA256",
+        "id": 156,
+        "forward_secrecy": false,
+        "aead": true,
+        "key_exchange": "RSA",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_256_CBC_SHA",
+        "id": 53,
+        "forward_secrecy": false,
+        "aead": false,
+        "key_exchange": "RSA",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_256_GCM_SHA384",
+        "id": 157,
+        "forward_secrecy": false,
+        "aead": true,
+        "key_exchange": "RSA",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      }
+    ],
+    "tls13_suite": "TLS_AES_128_GCM_SHA256",
+    "preference": "server",
+    "chain": [
+      {
+        "subject": "CN=cloudflare.com",
+        "issuer": "CN=WE1,O=Google Trust Services,C=US",
+        "serial_number": "283175262338558411663964591884949194155",
+        "not_before": "2026-09-05T22:29:39Z",
+        "not_after": "2026-12-04T23:29:33Z",
+        "dns_names": [
+          "cloudflare.com",
+          "ns.cloudflare.com",
+          "*.ns.cloudflare.com",
+          "*.secondary.cloudflare.com",
+          "secondary.cloudflare.com"
+        ],
+        "signature_algorithm": "ECDSA-SHA256",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 256,
+        "is_ca": false,
+        "self_signed": false,
+        "sct_count": 2,
+        "sha256_fingerprint": "961034ebe73c0aab92ee5c127a4265b99abc36cdf0b53b82b10788e087a72a14"
+      },
+      {
+        "subject": "CN=WE1,O=Google Trust Services,C=US",
+        "issuer": "CN=GTS Root R4,O=Google Trust Services LLC,C=US",
+        "serial_number": "170074200136485300614847617070429275619",
+        "not_before": "2023-12-13T09:00:00Z",
+        "not_after": "2029-02-20T14:00:00Z",
+        "signature_algorithm": "ECDSA-SHA384",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 256,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "sha256_fingerprint": "1dfc1605fbad358d8bc844f76d15203fac9ca5c1a79fd4857ffaf2864fbebf96"
+      },
+      {
+        "subject": "CN=GTS Root R4,O=Google Trust Services LLC,C=US",
+        "issuer": "CN=GlobalSign Root CA,OU=Root CA,O=GlobalSign nv-sa,C=BE",
+        "serial_number": "170001980149335831901244157168837298715",
+        "not_before": "2023-11-15T03:43:21Z",
+        "not_after": "2028-01-28T00:00:42Z",
+        "signature_algorithm": "SHA256-RSA",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 384,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "sha256_fingerprint": "76b27b80a58027dc3cf1da68dac17010ed93997d0b603e2fadbe85012493b5a7"
+      }
+    ],
+    "chain_length": 3,
+    "chain_complete": true,
+    "verified_chain_length": 3,
+    "hostname_match": true,
+    "self_signed": false,
+    "ocsp_stapled": false,
+    "ocsp_checked": false,
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "negotiated_alpn": "h2",
+    "sct_count": 2,
+    "resumption": "none",
+    "compression": false,
+    "secure_renegotiation": true
+  }
+}

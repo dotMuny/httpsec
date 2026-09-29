@@ -1,0 +1,530 @@
+{
+  "schema_version": 1,
+  "tool": "httpsec 0.1.0-dev (commit none, built unknown)",
+  "target": "github.com",
+  "host": "github.com",
+  "port": "443",
+  "started_at": "2026-09-24T10:18:42.854160864Z",
+  "duration_ms": 0,
+  "https": {
+    "request_url": "https://github.com/",
+    "final_url": "https://github.com/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Cache-Control": [
+        "max-age=0, private, must-revalidate"
+      ],
+      "Content-Language": [
+        "en-US"
+      ],
+      "Content-Security-Policy": [
+        "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com wss://production-copilot-host.webpubsub.azure.com api.github.com/cmc_internal/api/ edge.fullstory.com rs.fullstory.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com www.youtube-nocookie.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com repository-images.githubusercontent.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com *.googleusercontent.com objects-origin.githubusercontent.com *.githubusercontent.com images.ctfassets.net/8aevphvgewt8/; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com assets.ctfassets.net/8aevphvgewt8/ videos.ctfassets.net/8aevphvgewt8/; script-src github.githubassets.com 'sha256-tSjmyPUky1KbRZ0fw9VUil3wFEbeM82rtbJDygGJAXw='; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Etag": [
+        "REDACTED"
+      ],
+      "Referrer-Policy": [
+        "origin-when-cross-origin, strict-origin-when-cross-origin"
+      ],
+      "Server": [
+        "github.com"
+      ],
+      "Set-Cookie": [
+        "_gh_sess=REDACTED; path=/; HttpOnly; secure; SameSite=Lax",
+        "_octo=REDACTED; expires=Fri, 24 Sep 2027 10:18:42 GMT; domain=.github.com; path=/; secure; SameSite=Lax",
+        "logged_in=REDACTED; expires=Fri, 24 Sep 2027 10:18:42 GMT; domain=.github.com; path=/; HttpOnly; secure; SameSite=Lax"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubdomains; preload"
+      ],
+      "Vary": [
+        "X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, X-GitHub-Client-Version, Accept-Language, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With"
+      ],
+      "X-Content-Type-Options": [
+        "nosniff"
+      ],
+      "X-Frame-Options": [
+        "deny"
+      ],
+      "X-Github-Edge-Region": [
+        "fra"
+      ],
+      "X-Github-Request-Id": [
+        "REDACTED"
+      ],
+      "X-Xss-Protection": [
+        "0"
+      ]
+    },
+    "body": "\n\n\n\n\n\n\n\n<!DOCTYPE html>\n<html\n  lang=\"en\"\n  data-color-mode=\"dark\" data-dark-theme=\"dark\"\n  data-color-mode=\"light\" data-light-theme=\"light\" data-dark-theme=\"dark\"\n  data-a11y-animated-images=\"system\" data-a11y-link-underlines=\"true\"\n  \n  >\n\n\n\n\n  <head>\n    <meta charset=\"utf-8\">\n  <link rel=\"dns-prefetch\" href=\"https://github.githubassets.com\">\n  <link rel=\"dns-prefetch\" href=\"https://avatars.githubusercontent.com\">\n  <link rel=\"dns-prefetch\" href=\"https://github-cloud.s3.amazonaws.com\">\n  <link rel=\"dns-prefetch\" href=\"https://user-images.githubusercontent.com/\">\n  <link rel=\"preconnect\" href=\"https://github.githubassets.com\" crossorigin>\n  <link rel=\"preconnect\" href=\"https://avatars.githubusercontent.com\">\n\n<script type=\"importmap\">{\"imports\":{\"react\":\"https://github.githubassets.com/assets/react-e27d1b3e03961e68.js\",\"react-dom\":\"https://github.githubassets.com/assets/react-dom-e5fd46a22d5c4058.js\",\"react-dom/client\":\"https://github.githubassets.com/assets/react-dom-client-1b4a3ee065998cea.js\",\"react-is\":\"https://github.githubassets.com/assets/react-is-e0b593954b4706d8.js\",\"react-reconciler\":\"https://github.githubassets.com/assets/react-reconciler-8e99e505c4429605.js\",\"react/compiler-runtime\":\"https://github.githubassets.com/assets/react-compiler-runtime-4610bd6d3de9c049.js\",\"react/jsx-dev-runtime\":\"https://github.githubassets.com/assets/react-jsx-dev-runtime-ea55d68667d559e5.js\",\"react/jsx-runtime\":\"https://github.githubassets.com/assets/react-jsx-runtime-4915cb0f5b3aff04.js\",\"scheduler\":\"https://github.githubassets.com/assets/scheduler-58b860b049ca307c.js\"}}</script>\n<meta name=\"react-profiling\" content=\"0\" data-turbo-transient=\"true\" />\n<meta name=\"react-import-map\" content=\"react,react-dom,react-dom/client,react-dom/profiling,react-is,react-reconciler,react/compiler-runtime,react/jsx-dev-runtime,react/jsx-runtime,scheduler@777f63f87cd0\" data-turbo-track=\"reload\" />\n<link crossorigin=\"anonymous\" rel=\"modulepreload\" href=\"https://github.githubassets.com/assets/react-e27d1b3e03961e68.js\" />\n<link crossorigin=\"anonymous\" rel=\"modulepreload\" href=\"https://github.githubassets.com/assets/react-compiler-runtime-4610bd6d3de9c049.js\" />\n<link crossorigin=\"anonymous\" rel=\"modulepreload\" href=\"https://github.githubassets.com/assets/scheduler-58b860b049ca307c.js\" />\n<link crossorigin=\"anonymous\" rel=\"modulepreload\" href=\"https://github.githubassets.com/assets/react-dom-e5fd46a22d5c4058.js\" />\n<link crossorigin=\"anonymous\" rel=\"modulepreload\" href=\"https://github.githubassets.com/assets/react-dom-client-1b4a3ee065998cea.js\" />\n<link crossorigin=\"anonymous\" rel=\"modulepreload\" href=\"https://github.githubassets.com/assets/react-is-e0b593954b4706d8.js\" />\n<link crossorigin=\"anonymous\" rel=\"modulepreload\" href=\"https://github.githubassets.com/assets/react-jsx-runtime-4915cb0f5b3aff04.js\" />\n<link crossorigin=\"anonymous\" rel=\"modulepreload\" href=\"https://github.githubassets.com/assets/react-reconciler-8e99e505c4429605.js\" />\n\n  \n    <link crossorigin=\"anonymous\" rel=\"preload\" as=\"script\" href=\"https://github.githubassets.com/assets/global-banner-disable-5554a5e94272b68a.js\" />\n\n    <link rel=\"preload\" href=\"https://github.githubassets.com/assets/MonaSansVF-wdth-wght-opsz-7a868ff47c93bd97.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>\n\n\n  <link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/light-99f877e9ddfc0e51.css\" /><link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/light_high_contrast-48fdd0811afbab3c.css\" /><link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/dark-79ad2ace604703b3.css\" /><link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/dark_high_contrast-24484a076f02295f.css\" /><link data-color-theme=\"light\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light-99f877e9ddfc0e51.css\" /><link data-color-theme=\"light_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light_high_contrast-48fdd0811afbab3c.css\" /><link data-color-theme=\"light_colorblind\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light_colorblind-f4bf1142976e4bbf.css\" /><link data-color-theme=\"light_colorblind_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light_colorblind_high_contrast-f661b49995ba0bd8.css\" /><link data-color-theme=\"light_tritanopia\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light_tritanopia-0b38d22346321c92.css\" /><link data-color-theme=\"light_tritanopia_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/light_tritanopia_high_contrast-f1c62c9e70259b9f.css\" /><link data-color-theme=\"dark\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark-79ad2ace604703b3.css\" /><link data-color-theme=\"dark_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_high_contrast-24484a076f02295f.css\" /><link data-color-theme=\"dark_colorblind\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_colorblind-f50cacf0a86b9929.css\" /><link data-color-theme=\"dark_colorblind_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_colorblind_high_contrast-e61d4f4ca17852c2.css\" /><link data-color-theme=\"dark_tritanopia\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_tritanopia-39c10993d5603fac.css\" /><link data-color-theme=\"dark_tritanopia_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_tritanopia_high_contrast-73236c840c0c7d90.css\" /><link data-color-theme=\"dark_dimmed\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_dimmed-0de76f07cc035b10.css\" /><link data-color-theme=\"dark_dimmed_high_contrast\" crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" data-href=\"https://github.githubassets.com/assets/dark_dimmed_high_contrast-fd1500c8744e40d6.css\" />\n\n  <style type=\"text/css\">\n    :root {\n      --tab-size-preference: 4;\n    }\n\n    pre, code {\n      tab-size: var(--tab-size-preference);\n    }\n  </style>\n\n    <link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/primer-primitives-ed9ca172356fd545.css\" />\n    <link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/primer-1d2c7f7b52a6068b.css\" />\n    <link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/global-54ba76e934a49d7c.css\" />\n    <link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/github-456bd5deb85c7ecd.css\" />\n  <link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/marketing-c6c574a5b2679474.css\" />\n<link crossorigin=\"anonymous\" media=\"all\" rel=\"stylesheet\" href=\"https://github.githubassets.com/assets/home-4589777a4968936a.css\" />\n\n  \n\n  <script type=\"application/json\" id=\"client-env\">{\"locale\":\"en\",\"featureFlags\":[\"actions_enable_background_steps\",\"actions_new_hosted_runner_image_select_sizes_and_versions\",\"activity_diff_file_tree\",\"activity_repos_file_tree\",\"activity_repos_overview_header\",\"activity_repos_overview_sidebar\",\"agent_author_search_expansion\",\"agent_author_search_expansion_ui_pulls\",\"alternate_user_config_repo\",\"async_conversion_coverage_enabled\",\"billing_billable_licenses_co",
+    "body_truncated": true,
+    "body_bytes": 524289,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "plain_http": {
+    "request_url": "http://github.com/",
+    "final_url": "https://github.com/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Cache-Control": [
+        "max-age=0, private, must-revalidate"
+      ],
+      "Content-Language": [
+        "en-US"
+      ],
+      "Content-Security-Policy": [
+        "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com wss://production-copilot-host.webpubsub.azure.com api.github.com/cmc_internal/api/ edge.fullstory.com rs.fullstory.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com www.youtube-nocookie.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com repository-images.githubusercontent.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com *.googleusercontent.com objects-origin.githubusercontent.com *.githubusercontent.com images.ctfassets.net/8aevphvgewt8/; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com assets.ctfassets.net/8aevphvgewt8/ videos.ctfassets.net/8aevphvgewt8/; script-src github.githubassets.com 'sha256-tSjmyPUky1KbRZ0fw9VUil3wFEbeM82rtbJDygGJAXw='; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Etag": [
+        "REDACTED"
+      ],
+      "Referrer-Policy": [
+        "origin-when-cross-origin, strict-origin-when-cross-origin"
+      ],
+      "Server": [
+        "github.com"
+      ],
+      "Set-Cookie": [
+        "_gh_sess=REDACTED; path=/; HttpOnly; secure; SameSite=Lax",
+        "_octo=REDACTED; expires=Fri, 24 Sep 2027 10:18:43 GMT; domain=.github.com; path=/; secure; SameSite=Lax",
+        "logged_in=REDACTED; expires=Fri, 24 Sep 2027 10:18:43 GMT; domain=.github.com; path=/; HttpOnly; secure; SameSite=Lax"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubdomains; preload"
+      ],
+      "Vary": [
+        "X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, X-GitHub-Client-Version, Accept-Language, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With"
+      ],
+      "X-Content-Type-Options": [
+        "nosniff"
+      ],
+      "X-Frame-Options": [
+        "deny"
+      ],
+      "X-Github-Edge-Region": [
+        "fra"
+      ],
+      "X-Github-Request-Id": [
+        "REDACTED"
+      ],
+      "X-Xss-Protection": [
+        "0"
+      ]
+    },
+    "body_truncated": true,
+    "body_bytes": 4097,
+    "redirects": [
+      {
+        "url": "http://github.com/",
+        "scheme": "http",
+        "host": "github.com",
+        "status_code": 301,
+        "location": "https://github.com/"
+      }
+    ],
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "cors": {
+    "sent_origin": "https://httpsec-probe.invalid",
+    "sent_null_origin": true,
+    "allow_origin": "",
+    "allow_credentials": "",
+    "allow_methods": "",
+    "allow_headers": "",
+    "expose_headers": "",
+    "vary": "X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, X-GitHub-Client-Version, Accept-Language, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With",
+    "null_allow_origin": "",
+    "null_allow_credentials": ""
+  },
+  "options": {
+    "request_url": "https://github.com/",
+    "final_url": "https://github.com/",
+    "method": "OPTIONS",
+    "status_code": 404,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Content-Length": [
+        "128668"
+      ],
+      "Content-Security-Policy": [
+        "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com repository-images.githubusercontent.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com *.googleusercontent.com objects-origin.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Referrer-Policy": [
+        "origin-when-cross-origin, strict-origin-when-cross-origin"
+      ],
+      "Server": [
+        "github.com"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubdomains; preload"
+      ],
+      "Vary": [
+        "Accept-Encoding, Accept, X-Requested-With"
+      ],
+      "X-Content-Type-Options": [
+        "nosniff"
+      ],
+      "X-Frame-Options": [
+        "deny"
+      ],
+      "X-Github-Edge-Region": [
+        "fra"
+      ],
+      "X-Github-Request-Id": [
+        "REDACTED"
+      ],
+      "X-Xss-Protection": [
+        "0"
+      ]
+    },
+    "body_truncated": true,
+    "body_bytes": 4097,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "trace": {
+    "request_url": "https://github.com/",
+    "final_url": "https://github.com/",
+    "method": "TRACE",
+    "status_code": 405,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Content-Length": [
+        "150"
+      ],
+      "Content-Type": [
+        "text/html"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Server": [
+        "github.com"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "X-Frame-Options": [
+        "DENY"
+      ],
+      "X-Github-Edge-Region": [
+        "fra"
+      ],
+      "X-Github-Request-Id": [
+        "REDACTED"
+      ]
+    },
+    "body_bytes": 150,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "security_txt": {
+    "request_url": "https://github.com/.well-known/security.txt",
+    "final_url": "https://github.com/.well-known/security.txt",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Cache-Control": [
+        "max-age=0, private, must-revalidate"
+      ],
+      "Content-Length": [
+        "269"
+      ],
+      "Content-Security-Policy": [
+        "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com wss://production-copilot-host.webpubsub.azure.com api.github.com/cmc_internal/api/; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com repository-images.githubusercontent.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com *.googleusercontent.com objects-origin.githubusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/"
+      ],
+      "Content-Type": [
+        "text/plain; charset=utf-8"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Etag": [
+        "REDACTED"
+      ],
+      "Referrer-Policy": [
+        "origin-when-cross-origin, strict-origin-when-cross-origin"
+      ],
+      "Server": [
+        "github.com"
+      ],
+      "Set-Cookie": [
+        "_gh_sess=REDACTED; path=/; HttpOnly; secure; SameSite=Lax",
+        "_octo=REDACTED; expires=Fri, 24 Sep 2027 10:18:45 GMT; domain=.github.com; path=/; secure; SameSite=Lax",
+        "logged_in=REDACTED; expires=Fri, 24 Sep 2027 10:18:45 GMT; domain=.github.com; path=/; HttpOnly; secure; SameSite=Lax"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubdomains; preload"
+      ],
+      "Vary": [
+        "X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, X-GitHub-Client-Version, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With"
+      ],
+      "X-Content-Type-Options": [
+        "nosniff"
+      ],
+      "X-Frame-Options": [
+        "deny"
+      ],
+      "X-Github-Edge-Region": [
+        "fra"
+      ],
+      "X-Github-Request-Id": [
+        "REDACTED"
+      ],
+      "X-Xss-Protection": [
+        "0"
+      ]
+    },
+    "body": "Contact: https://hackerone.com/github\nAcknowledgments: https://hackerone.com/github/hacktivity\nPreferred-Languages: en\nCanonical: https://github.com/.well-known/security.txt\nPolicy: https://bounty.github.com\nHiring: https://github.careers\nExpires: 2026-10-24T10:18:45z\n",
+    "body_bytes": 269,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "tls": {
+    "server_name": "github.com",
+    "versions": [
+      {
+        "version": "TLS 1.0",
+        "supported": false,
+        "error": "remote error: tls: protocol version not supported"
+      },
+      {
+        "version": "TLS 1.1",
+        "supported": false,
+        "error": "remote error: tls: protocol version not supported"
+      },
+      {
+        "version": "TLS 1.2",
+        "supported": true,
+        "suite": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+      },
+      {
+        "version": "TLS 1.3",
+        "supported": true,
+        "suite": "TLS_AES_128_GCM_SHA256"
+      }
+    ],
+    "suites": [
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+        "id": 49187,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "id": 49195,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "id": 49196,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+        "id": 52393,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "ChaCha20-Poly1305",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+        "id": 49191,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "id": 49199,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "id": 49200,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "id": 52392,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "ChaCha20-Poly1305",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_128_CBC_SHA256",
+        "id": 60,
+        "forward_secrecy": false,
+        "aead": false,
+        "key_exchange": "RSA",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_128_GCM_SHA256",
+        "id": 156,
+        "forward_secrecy": false,
+        "aead": true,
+        "key_exchange": "RSA",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_256_GCM_SHA384",
+        "id": 157,
+        "forward_secrecy": false,
+        "aead": true,
+        "key_exchange": "RSA",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      }
+    ],
+    "tls13_suite": "TLS_AES_128_GCM_SHA256",
+    "preference": "server",
+    "chain": [
+      {
+        "subject": "CN=github.com",
+        "issuer": "CN=Sectigo Public Server Authentication CA DV E36,O=Sectigo Limited,C=GB",
+        "serial_number": "220146849970436463178178372053574587708",
+        "not_before": "2026-09-01T00:00:00Z",
+        "not_after": "2026-11-29T23:59:59Z",
+        "dns_names": [
+          "github.com",
+          "www.github.com"
+        ],
+        "signature_algorithm": "ECDSA-SHA256",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 256,
+        "is_ca": false,
+        "self_signed": false,
+        "sct_count": 2,
+        "ocsp_servers": [
+          "http://ocsp.sectigo.com"
+        ],
+        "sha256_fingerprint": "46b601ee08b418cf8a3a1ebfe670ba5ce43bb05a917fa8b2dd087a30471cfc63"
+      },
+      {
+        "subject": "CN=Sectigo Public Server Authentication CA DV E36,O=Sectigo Limited,C=GB",
+        "issuer": "CN=Sectigo Public Server Authentication Root E46,O=Sectigo Limited,C=GB",
+        "serial_number": "72943210222487927412882101581299817434",
+        "not_before": "2021-03-22T00:00:00Z",
+        "not_after": "2036-03-21T23:59:59Z",
+        "signature_algorithm": "ECDSA-SHA384",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 256,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "ocsp_servers": [
+          "http://ocsp.sectigo.com"
+        ],
+        "sha256_fingerprint": "873f0ba80e3ac222656dfd04158cc15c2927d42d5d05f01dee4a47eb43a916df"
+      },
+      {
+        "subject": "CN=Sectigo Public Server Authentication Root E46,O=Sectigo Limited,C=GB",
+        "issuer": "CN=USERTrust ECC Certification Authority,O=The USERTRUST Network,L=Jersey City,ST=New Jersey,C=US",
+        "serial_number": "35383878947598710128532238071552119005",
+        "not_before": "2021-03-22T00:00:00Z",
+        "not_after": "2038-01-18T23:59:59Z",
+        "signature_algorithm": "ECDSA-SHA384",
+        "public_key_algorithm": "ECDSA",
+        "key_bits": 384,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "ocsp_servers": [
+          "http://ocsp.usertrust.com"
+        ],
+        "sha256_fingerprint": "ea6b89ed6907a209ff9188676fb164e7aced894b8996dfbe5ce5bbcc22de4ddd"
+      }
+    ],
+    "chain_length": 3,
+    "chain_complete": true,
+    "verified_chain_length": 3,
+    "hostname_match": true,
+    "self_signed": false,
+    "ocsp_stapled": false,
+    "ocsp_status": "good",
+    "ocsp_checked": true,
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "negotiated_alpn": "h2",
+    "sct_count": 2,
+    "resumption": "none",
+    "compression": false,
+    "secure_renegotiation": true
+  }
+}

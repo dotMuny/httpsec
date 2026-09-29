@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "tool": "httpsec 0.1.0-dev (commit none, built unknown)",
+  "target": "hstspreload.org",
+  "host": "hstspreload.org",
+  "port": "443",
+  "started_at": "2026-09-24T10:19:45.092853814Z",
+  "duration_ms": 0,
+  "https": {
+    "request_url": "https://hstspreload.org/",
+    "final_url": "https://hstspreload.org/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Content-Length": [
+        "15809"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "Vary": [
+        "Accept-Encoding"
+      ],
+      "Via": [
+        "1.1 google"
+      ]
+    },
+    "body": "<!doctype html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=0.5\">\n  <title>HSTS Preload List Submission</title>\n  <link rel=\"shortcut icon\" href=\"/favicon.ico\">\n  <link rel=\"apple-touch-icon\" href=\"/static/app-icon.png\">\n  <link rel=\"search\" href=\"/search.xml\" type=\"application/opensearchdescription+xml\">\n\n  <link rel=\"stylesheet\" href=\"/static/css/style.css\">\n  <link rel=\"stylesheet\" href=\"/static/css/form.css\">\n  <link rel=\"stylesheet\" href=\"/static/css/github.css\">\n  <script src=\"/static/js/base.js\"></script>\n  <script src=\"/static/js/view.js\"></script>\n  <script src=\"/static/js/form.js\"></script>\n  <script>\n    window.addEventListener('load', function() {\n      new Form(PreloadController);\n    });\n  </script>\n</head>\n<body class=\"theme-green\">\n<a class=\"github-fork-ribbon\" href=\"https://github.com/chromium/hstspreload.org\" data-ribbon=\"On GitHub\" title=\"On GitHub\">On GitHub</a>\n\n<div class=\"content\">\n  <section id=\"hsts\">\n    <h2><a class=\"hash-link\" href=\"#hsts\">HTTP Strict Transport Security (HSTS)</a></h2>\n    <p>\n      <a href=\"https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security\">HTTP Strict Transport Security (HSTS)</a> is a mechanism for websites to instruct web browsers that the site should only be accessed over HTTPS. This mechanism works by sites sending a <code>Strict-Transport-Security</code> HTTP response header containing the site's policy.\n    </p>\n\n    <p>\n      HSTS is supported by <a href=\"https://caniuse.com/stricttransportsecurity\">most major browsers</a>.  For more details on HSTS, see <a href=\"https://tools.ietf.org/html/rfc6797\">RFC 6797</a>.\n    </p>\n  </section>\n\n  <section id=\"benefits\">\n    <h2><a class=\"hash-link\" href=\"#benefits\">Benefits of HSTS</a></h2>\n    <p>\n      When a web browser enforces a domain's HSTS policy, it will upgrade all <code>http://</code> URLs for that domain to HTTPS. If the policy also sets <code>includeSubDomains</code>, it will do this for all subdomains as well.\n    </p>\n    <p>\n      A site that enables HSTS helps protect its users from the following attacks done by an on-path attacker:\n    </p>\n    <ul>\n      <li><strong>Browsing history leaks</strong>: If a user clicks on an HTTP link to a site, an on-path network observer can see that URL. If the site has an HSTS policy that is enforced, the browser upgrades that URL to HTTPS and the path is not visible to the network observer.</li>\n      <li><strong>Protocol downgrades</strong>: If a site redirects from HTTP to HTTPS, an on-path network attacker can intercept and re-write the redirect to keep the browser using plaintext HTTP.</li>\n      <li><strong>Cookie hijacking</strong>: On HTTP requests, an on-path network attacker can see and modify cookies. Even if the site redirects to HTTPS, the on-path attacker can inject cookies into the redirect response.</li>\n    </ul>\n  </section>\n\n  <section id=\"deployment-recommendations\">\n    <h2><a class=\"hash-link\" href=\"#deployment-recommendations\">Deployment Recommendations</a></h2>\n\n    <p>\n      If your site is committed to HTTPS and you want browsers to enforce that your page is loaded only over HTTPS, we suggest the following steps to enable HSTS:\n    </p>\n\n    <ol>\n      <li>Examine all subdomains (and nested subdomains) of your site and make sure that they work properly over HTTPS.\n        <ul>\n          <li><strong>Note:</strong> This also includes internal subdomains that are not publicly accessible.</li>\n        </ul>\n      </li>\n      <li>Add the <code>Strict-Transport-Security</code> header to all HTTPS responses and ramp up the <code>max-age</code> in stages, using the following header values:\n        <ul>\n          <li>\n            5 minutes:<br>\n            <code class=\"header-example\">max-age=300; includeSubDomains</code>\n          </li>\n          <li>\n            1 week:<br>\n            <code class=\"header-example\">max-age=604800; includeSubDomains</code>\n          </li>\n          <li>\n            1 month:<br>\n            <code class=\"header-example\">max-age=2592000; includeSubDomains</code>\n          </li>\n        </ul>\n        During each stage, check for broken pages and monitor your site's metrics (e.g. traffic, revenue). Fix any problems that come up and then wait the full <code>max-age</code> of the stage before you move on. For example, wait a month in the last stage.\n    </ol>\n\n    <p>\n      If you have a group of employees or users who can beta test the deployment, consider trying the first few ramp-up stages on those users. Then make sure to go through all stages for all users, starting over from the beginning.\n    </p>\n\n    <p>\n      Consult the <a href=\"https://wiki.mozilla.org/Security/Guidelines/Web_Security\">Mozilla Web Security guidelines</a> and the <a href=\"https://web.dev/explore/secure?hl=en\">Google Web Fundamentals pages on security</a> for more concrete advice about HTTPS deployment.\n    </p>\n  </section>\n</div>\n\n<div class=\"content\">\n  <section id=\"preloading\">\n    <h2><a class=\"hash-link\" href=\"#preloading\">Preloading HSTS</a></h2>\n    <p>\n      Since sites tell the browser that they support HSTS when the browser visits, the browser cannot know a site's HSTS policy before the user has visited the site for the first time. As a result, the browser can not require HTTPS until after the first time it has connected to the site, possibly leaving the user unprotected. After this first load, the web browser has the site's HSTS policy and is able to require HTTPS for all subsequent loads.\n    </p>\n    <p>\n      To account for this first-load problem, Chrome maintains a list of domains that have a strong HSTS policy and are HTTPS only. This HSTS preload list is built into Chrome. Requests to these domains will only be made over HTTPS; any HTTP requests will be upgraded to HTTPS and fail to connect if HTTPS is unavailable.\n      Other major browsers (<a href=\"https://blog.mozilla.org/security/2012/11/01/preloading-hsts/\">Firefox</a>, Safari, <a href=\"https://blogs.windows.com/msedgedev/2015/06/09/http-strict-transport-security-comes-to-internet-explorer-11-on-windows-8-1-and-windows-7/\">IE 11 and Edge</a>) also have HSTS preload lists based on the Chrome list.\n    </p>\n    <p>\n      Many browsers (<a href=\"https://blog.chromium.org/2023/08/towards-https-by-default.html\">Chrome</a>, <a href=\"https://developer.apple.com/documentation/safari-release-notes/safari-18_2-release-notes#Security\">Safari</a>) will automatically upgrade all HTTP navigations to HTTPS, regardless of the domain's HSTS policy. HSTS preloading only provides value when these upgrades fail in the presence of an active attacker.\n      The benefits provided by HSTS preloading are minimal compared to the benefits provided by HSTS. While HSTS is recommended, <strong>HSTS <em>preloading</em> is not recommended</strong>.\n    </p>\n  </section>\n\n  <section id=\"submission-requirements\">\n    <h2><a class=\"hash-link\" href=\"#submission-requirements\">Submission Requirements</a></h2>\n    <p>If a site sends the <code>preload</code> directive in an HSTS header, it is considered to be requesting inclusion in the preload list and may be submitted via the form on this site.</p>\n    <p>In order to be accepted to the HSTS preload list through this form, your site must satisfy the following set of requirements:</p>\n    <ol>\n      <li>Serve a valid <strong>certificate</strong>.</li>\n      <li><strong>Redirect</strong> from HTTP to HTTPS on the same host, if you are listening on port 80.</li>\n      <li>Serve all <strong>subdomains</strong> over HTTPS.\n        <ul>\n          <li>In particular, you must support HTTPS for the <code>www</code> subdomain if a DNS record for that subdomain exists.</li>\n          <li><strong>Note:</strong> HSTS preloading applies to <em>all</em> subdomains, including internal subdomains that are not publicly accessible.</li>\n        </ul>\n      </li>\n      <li>Serve an <strong>HSTS header</strong> on the base domain for H",
+    "body_bytes": 15809,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0,
+    "body_truncated": true
+  },
+  "plain_http": {
+    "request_url": "http://hstspreload.org/",
+    "final_url": "https://hstspreload.org/",
+    "method": "GET",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Content-Length": [
+        "15809"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "Vary": [
+        "Accept-Encoding"
+      ],
+      "Via": [
+        "1.1 google"
+      ]
+    },
+    "body_truncated": true,
+    "body_bytes": 4097,
+    "redirects": [
+      {
+        "url": "http://hstspreload.org/",
+        "scheme": "http",
+        "host": "hstspreload.org",
+        "status_code": 301,
+        "location": "https://hstspreload.org/"
+      }
+    ],
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "cors": {
+    "sent_origin": "https://httpsec-probe.invalid",
+    "sent_null_origin": true,
+    "allow_origin": "",
+    "allow_credentials": "",
+    "allow_methods": "",
+    "allow_headers": "",
+    "expose_headers": "",
+    "vary": "Accept-Encoding",
+    "null_allow_origin": "",
+    "null_allow_credentials": ""
+  },
+  "options": {
+    "request_url": "https://hstspreload.org/",
+    "final_url": "https://hstspreload.org/",
+    "method": "OPTIONS",
+    "status_code": 200,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Accept-Ranges": [
+        "bytes"
+      ],
+      "Content-Length": [
+        "15809"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Last-Modified": [
+        "REDACTED"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "Vary": [
+        "Accept-Encoding"
+      ],
+      "Via": [
+        "1.1 google"
+      ]
+    },
+    "body_truncated": true,
+    "body_bytes": 4097,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "trace": {
+    "request_url": "https://hstspreload.org/",
+    "final_url": "https://hstspreload.org/",
+    "method": "TRACE",
+    "status_code": 405,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Content-Length": [
+        "1590"
+      ],
+      "Content-Type": [
+        "text/html; charset=UTF-8"
+      ],
+      "Referrer-Policy": [
+        "no-referrer"
+      ]
+    },
+    "body_bytes": 1590,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "security_txt": {
+    "request_url": "https://hstspreload.org/.well-known/security.txt",
+    "final_url": "https://hstspreload.org/.well-known/security.txt",
+    "method": "GET",
+    "status_code": 404,
+    "proto": "HTTP/1.1",
+    "headers": {
+      "Content-Length": [
+        "19"
+      ],
+      "Content-Type": [
+        "text/plain; charset=utf-8"
+      ],
+      "Date": [
+        "REDACTED"
+      ],
+      "Strict-Transport-Security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "Via": [
+        "1.1 google"
+      ],
+      "X-Content-Type-Options": [
+        "nosniff"
+      ]
+    },
+    "body": "404 page not found\n",
+    "body_bytes": 19,
+    "tls_version": "TLS 1.3",
+    "duration_ms": 0
+  },
+  "tls": {
+    "server_name": "hstspreload.org",
+    "versions": [
+      {
+        "version": "TLS 1.0",
+        "supported": true,
+        "suite": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+      },
+      {
+        "version": "TLS 1.1",
+        "supported": true,
+        "suite": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+      },
+      {
+        "version": "TLS 1.2",
+        "supported": true,
+        "suite": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+      },
+      {
+        "version": "TLS 1.3",
+        "supported": true,
+        "suite": "TLS_AES_128_GCM_SHA256"
+      }
+    ],
+    "suites": [
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "id": 49171,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 128,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "id": 49199,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "id": 49172,
+        "forward_secrecy": true,
+        "aead": false,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "id": 49200,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "id": 52392,
+        "forward_secrecy": true,
+        "aead": true,
+        "key_exchange": "ECDHE",
+        "cipher": "ChaCha20-Poly1305",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_3DES_EDE_CBC_SHA",
+        "id": 10,
+        "forward_secrecy": false,
+        "aead": false,
+        "key_exchange": "RSA",
+        "cipher": "AES-CBC",
+        "bits": 112,
+        "insecure": true,
+        "insecure_reason": "64-bit block size allows the Sweet32 birthday attack"
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_128_CBC_SHA",
+        "id": 47,
+        "forward_secrecy": false,
+        "aead": false,
+        "key_exchange": "RSA",
+        "cipher": "AES-CBC",
+        "bits": 128,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_128_GCM_SHA256",
+        "id": 156,
+        "forward_secrecy": false,
+        "aead": true,
+        "key_exchange": "RSA",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_256_CBC_SHA",
+        "id": 53,
+        "forward_secrecy": false,
+        "aead": false,
+        "key_exchange": "RSA",
+        "cipher": "AES-CBC",
+        "bits": 256,
+        "insecure": false
+      },
+      {
+        "name": "TLS_RSA_WITH_AES_256_GCM_SHA384",
+        "id": 157,
+        "forward_secrecy": false,
+        "aead": true,
+        "key_exchange": "RSA",
+        "cipher": "AES-GCM",
+        "bits": 256,
+        "insecure": false
+      }
+    ],
+    "tls13_suite": "TLS_AES_128_GCM_SHA256",
+    "preference": "server",
+    "chain": [
+      {
+        "subject": "CN=hstspreload.org",
+        "issuer": "CN=WR3,O=Google Trust Services,C=US",
+        "serial_number": "50776697806850120082561938656147547988",
+        "not_before": "2026-09-04T16:37:21Z",
+        "not_after": "2026-12-03T17:25:31Z",
+        "dns_names": [
+          "hstspreload.org"
+        ],
+        "signature_algorithm": "SHA256-RSA",
+        "public_key_algorithm": "RSA",
+        "key_bits": 2048,
+        "is_ca": false,
+        "self_signed": false,
+        "sct_count": 2,
+        "sha256_fingerprint": "1374807c63f64fd98e20a210fe4095dd4b2ede25cb6d25d579302028e21150f7"
+      },
+      {
+        "subject": "CN=WR3,O=Google Trust Services,C=US",
+        "issuer": "CN=GTS Root R1,O=Google Trust Services LLC,C=US",
+        "serial_number": "170058221518966082820039192336031959898",
+        "not_before": "2023-12-13T09:00:00Z",
+        "not_after": "2029-02-20T14:00:00Z",
+        "signature_algorithm": "SHA256-RSA",
+        "public_key_algorithm": "RSA",
+        "key_bits": 2048,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "sha256_fingerprint": "2fe357db13751ff9160e87354975b3407498f41c9bd16a48657866e6e5a9b4c7"
+      },
+      {
+        "subject": "CN=GTS Root R1,O=Google Trust Services LLC,C=US",
+        "issuer": "CN=GlobalSign Root CA,OU=Root CA,O=GlobalSign nv-sa,C=BE",
+        "serial_number": "159159747900478145820483398898491642637",
+        "not_before": "2020-06-19T00:00:42Z",
+        "not_after": "2028-01-28T00:00:42Z",
+        "signature_algorithm": "SHA256-RSA",
+        "public_key_algorithm": "RSA",
+        "key_bits": 4096,
+        "is_ca": true,
+        "self_signed": false,
+        "sct_count": 0,
+        "ocsp_servers": [
+          "http://ocsp.pki.goog/gsr1"
+        ],
+        "sha256_fingerprint": "3ee0278df71fa3c125c4cd487f01d774694e6fc57e0cd94c24efd769133918e5"
+      }
+    ],
+    "chain_length": 3,
+    "chain_complete": true,
+    "verified_chain_length": 3,
+    "hostname_match": true,
+    "self_signed": false,
+    "ocsp_stapled": false,
+    "ocsp_checked": false,
+    "alpn": [
+      "h2",
+      "http/1.1"
+    ],
+    "negotiated_alpn": "h2",
+    "sct_count": 2,
+    "resumption": "none",
+    "compression": false,
+    "secure_renegotiation": true
+  }
+}
